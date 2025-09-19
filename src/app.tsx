@@ -2,8 +2,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { createTheme, MantineColorsTuple, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
-import '@gfazioli/mantine-marquee/styles.css';
-import '@gfazioli/mantine-reflection/styles.css';
 
 import LandingPage from '@/pages/landing-page';
 
