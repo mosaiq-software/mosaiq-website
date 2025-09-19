@@ -3,22 +3,26 @@
   "version": "1.0.0",
   "main": "src/index.tsx",
   "scripts": {
-    "test": "test",
+    "lint": "eslint .",
+    "types": "tsc --noemit",
     "start": "webpack serve --open",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "build:prod": "npm ci && npm run build && rm -rf /www/* && cp -r ./public/* /www"
   },
   "license": "UNLICENSED",
   "dependencies": {
+    "@gfazioli/mantine-marquee": "^2.0.8",
+    "@gfazioli/mantine-reflection": "^0.1.10",
     "@mantine/charts": "^7.14.2",
     "@mantine/core": "^7.14.2",
     "@mantine/hooks": "^7.14.2",
     "@mantine/notifications": "^7.14.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.0.1",
-    "typescript": "^5.7.2"
-  },
-  "devDependencies": {
+    "react-router-dom": "^7.0.1"
+},
+"devDependencies": {
+    "typescript": "^5.7.2",
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
@@ -28,13 +32,19 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "babel-loader": "^9.2.1",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "css-loader": "^7.1.2",
+    "dotenv-webpack": "^8.1.0",
     "html-webpack-plugin": "^5.6.3",
     "postcss": "^8.4.49",
     "postcss-loader": "^8.1.1",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
     "style-loader": "^4.0.0",
+    "typescript-eslint": "^8.24.1",
+    "prettier": "^3.5.3",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
