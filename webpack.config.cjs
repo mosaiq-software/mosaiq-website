@@ -3,13 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 
-module.exports= (env) => {
-    const envFile = '.env';
-    const envPath = path.resolve(__dirname, envFile);
-    const envVars = require('dotenv').config({ path: envPath }).parsed || {};
-
+module.exports = () => {
     return {
-        mode: "development", 
+        mode: "development",
         entry: path.resolve(__dirname, "src/index.tsx"),
         output: {
             path: path.resolve(__dirname, "public"),
@@ -22,19 +18,20 @@ module.exports= (env) => {
             static: path.resolve(__dirname, "public"),
             liveReload: true
         },
+        devtool: 'source-map',
         resolve: {
-            extensions: ['.ts','.tsx','.js'],
+            extensions: ['.ts', '.tsx', '.js'],
             modules: ['node_modules'],
             alias: {
-                '@msq': path.resolve(__dirname, 'src/'),
+                '@': path.resolve(__dirname, 'src/'),
             }
         },
-        module:{
+        module: {
             rules: [
                 {
                     test: /\.(ts|tsx)$/,
                     exclude: /node_modules/,
-                    use:  'babel-loader'
+                    use: 'babel-loader'
                 },
                 {
                     test: /\.css$/i,
@@ -50,9 +47,19 @@ module.exports= (env) => {
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, 'src/index.html')
             }),
-            new Dotenv({
-                path: envFile,
-            })
-        ]
+            new Dotenv(
+                process.env.PRODUCTION === "true" ?
+                    {
+                        systemvars: true,
+                    }
+                    :
+                    {
+                        path: '../.env'
+                    }
+            )
+        ],
+        optimization: {
+            moduleIds: 'deterministic',
+        },
     }
 }
