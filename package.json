@@ -4,12 +4,16 @@
     "main": "src/index.tsx",
     "scripts": {
         "lint": "eslint .",
-        "types": "tsc --noemit"
+        "types": "tsc --noemit",
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview"
     },
     "license": "UNLICENSED",
-    "dependencies": {},
+    "dependencies": {
+        "astro": "^5.13.11"
+    },
     "devDependencies": {
-        "typescript": "^5.7.2",
         "@babel/core": "^7.26.0",
         "@babel/preset-env": "^7.26.0",
         "@babel/preset-typescript": "^7.26.0",
@@ -17,7 +21,8 @@
         "@types/node": "^22.10.0",
         "babel-loader": "^9.2.1",
         "eslint": "^9.21.0",
-        "typescript-eslint": "^8.24.1",
-        "prettier": "^3.5.3"
+        "prettier": "^3.5.3",
+        "typescript": "^5.7.2",
+        "typescript-eslint": "^8.24.1"
     }
 }
