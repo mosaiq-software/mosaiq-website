@@ -1,0 +1,118 @@
+---
+interface Props {}
+const props = Astro.props;
+const colors = {
+    s: '#2384ca',
+    i: '#21286c',
+    p: '#482362',
+    m: '#932e76',
+    k: '#d31757',
+    t: 'transparent',
+};
+
+const logo = `ppptiiiitsss
+ppptiiiitsss
+ppptiiiitsss
+tttttiiitttt
+mmmmtttttiii
+mmmmtpptiiii
+mmmmtpptiiii
+mmmtttttiiii
+ttttmmmttttt
+kkktmmmmtppp
+kkktmmmmtppp
+kkktmmmmtppp`;
+---
+
+<div class="mosaiq-logo">
+    {
+        logo.split('\n').map((row, y) => (
+            <div class="row">
+                {row.split('').map((char, x) => {
+                    const color = colors[char as keyof typeof colors] || colors.t;
+                    return (
+                        <div
+                            class="cell"
+                            style={`background-color: ${color};`}
+                        />
+                    );
+                })}
+            </div>
+        ))
+    }
+</div>
+<script>
+    import { gsap } from 'gsap';
+
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    import { ScrollSmoother } from 'gsap/ScrollSmoother';
+
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    const content = document.querySelector('.mosaiq-logo');
+    if (!content) throw new Error('No content element found');
+
+    gsap.to(content, {
+        rotateX: '15deg',
+        rotateY: '215deg',
+        rotateZ: '45deg',
+    });
+
+    const cells = content.querySelectorAll('.cell');
+
+    cells.forEach((cell, index) => {
+        gsap.fromTo(
+            cell,
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                delay: index * 0.01,
+                duration: 0.5,
+                ease: 'power2.out',
+            }
+        );
+
+        gsap.fromTo(
+            cell,
+            { rotateX: '0deg', rotateY: '0deg' },
+            {
+                rotateX: `${Math.random() * 45}deg`,
+                rotateY: `${Math.random() * 45}deg`,
+                duration: Math.random() * 2 + 1,
+                ease: 'none',
+                repeat: -1,
+                yoyo: true,
+            }
+        );
+
+        cell.addEventListener('mouseenter', () => {
+            gsap.to(cell, {
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+        });
+        cell.addEventListener('mouseleave', () => {
+            gsap.to(cell, {
+                duration: 3.3,
+                ease: 'power2.out',
+            });
+        });
+    });
+</script>
+<style>
+    .mosaiq-logo {
+        display: flex;
+        gap: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .row {
+        display: flex;
+        gap: 0;
+    }
+    .cell {
+        width: 100px;
+        height: 100px;
+    }
+</style>
