@@ -44,6 +44,7 @@
 /* variables */
 :root {
     --color-background: #f9f9f9;
+    --color-background-transparent: #f9f9f980;
     --color-text: #000000;
     --color-text-secondary: #555555;
     --color-surface: #d3d3d3;
