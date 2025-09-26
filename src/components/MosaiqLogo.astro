@@ -24,22 +24,26 @@ kkktmmmmtppp
 kkktmmmmtppp`;
 ---
 
-<div class="mosaiq-logo">
-    {
-        logo.split('\n').map((row, y) => (
-            <div class="row">
-                {row.split('').map((char, x) => {
-                    const color = colors[char as keyof typeof colors] || colors.t;
-                    return (
-                        <div
-                            class={color === "transparent" ? "cell-spacer" : "cell"}
-                            style={`background-color: ${color};`}
-                        />
-                    );
-                })}
-            </div>
-        ))
-    }
+<div class="logo-container">
+    <div class="mosaiq-logo">
+        {
+            logo.split('\n').map((row, y) => (
+                <div class="row">
+                    {row.split('').map((char, x) => {
+                        const color = colors[char as keyof typeof colors] || colors.t;
+                        return (
+                            <div
+                                data-x={x}
+                                data-y={y}
+                                class={color === "transparent" ? "cell-spacer" : "cell"}
+                                style={`background-color: ${color};`}
+                            />
+                        );
+                    })}
+                </div>
+            ))
+        }
+    </div>
 </div>
 <script>
     import { gsap } from 'gsap';
@@ -49,6 +53,7 @@ kkktmmmmtppp`;
 
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
     const content = document.querySelector('.mosaiq-logo');
+    const container = document.querySelector('.logo-container');
     if (!content) throw new Error('No content element found');
 
     const cells = content.querySelectorAll('.cell');
@@ -96,6 +101,8 @@ kkktmmmmtppp`;
     function calculateTimeline(cell: Element, paths: Array<{ start: { x: number; y: number }; end: { x: number; y: number } }>) {
         const duration = 0.8 + Math.random() * 0.4;
         const rotation = Math.random() * 180 - 90;
+
+        console.log(paths);
 
         // Create a timeline for the animation
         const tl = gsap.timeline({ paused: true});
@@ -159,13 +166,75 @@ kkktmmmmtppp`;
         ScrollTrigger.refresh();
     }, 1000);
 
-    // gsap.to(content, {
-    //     rotateX: '15deg',
-    //     rotateY: '215deg',
-    //     rotateZ: '45deg',
-    // });
+    gsap.to(container, {
+        rotateX: '20deg',
+        rotateY: '-20deg',
+        ease: 'power2.out',
+    });
+    
+    gsap.to(content, {
+        rotateZ: '15deg',
+        ease: 'power2.out',
+    });
+
+    ScrollTrigger.create({
+        trigger: document.body,
+        start: "100px top",
+        end: "500px top",
+        scrub: 1,
+        onUpdate: (self) => {
+            const progress = self.progress;
+            gsap.to(container, {
+                rotateX: `${20 * (1 - progress)}deg`,
+                rotateY: `${-20 * (1 - progress)}deg`,
+                duration: 0.1,
+                ease: 'power2.out',
+            });
+            gsap.to(content, {
+                rotateZ: `${15 * (1 - progress)}deg`,
+                duration: 0.1,
+                ease: 'power2.out',
+            });
+        }
+    });
 
     cells.forEach((cell, index) => {
+        const x = cell.getAttribute('data-x');
+        const y = cell.getAttribute('data-y');
+
+        if (x !== null && y !== null) {
+            const tl = gsap.timeline({
+                repeat: -1,
+                delay: (parseInt(x) + parseInt(y)) * 0.15
+            });
+
+            tl.fromTo(cell,
+                {
+scale: 1.05,
+                },
+                {
+                    scale: 0.8,
+                    duration: 1,
+                    ease: 'power1.inOut',
+                }
+            );
+
+            tl.to(cell,
+                {
+                    scale: 1.05,
+                    duration: 1,
+                    ease: 'power1.inOut',
+                }
+            );
+
+            tl.to(cell,
+                {
+                    scale: 1.05,
+                    duration: 3,
+                }
+            );
+        }
+
         gsap.fromTo(
             cell,
             { opacity: 0, y: 50 },
@@ -177,32 +246,6 @@ kkktmmmmtppp`;
                 ease: 'power2.out',
             }
         );
-
-        // gsap.fromTo(
-        //     cell,
-        //     { rotateX: '0deg', rotateY: '0deg' },
-        //     {
-        //         rotateX: `${Math.random() * 45}deg`,
-        //         rotateY: `${Math.random() * 45}deg`,
-        //         duration: Math.random() * 2 + 1,
-        //         ease: 'none',
-        //         repeat: -1,
-        //         yoyo: true,
-        //     }
-        // );
-
-        // cell.addEventListener('mouseenter', () => {
-        //     gsap.to(cell, {
-        //         duration: 0.3,
-        //         ease: 'power2.out',
-        //     });
-        // });
-        // cell.addEventListener('mouseleave', () => {
-        //     gsap.to(cell, {
-        //         duration: 3.3,
-        //         ease: 'power2.out',
-        //     });
-        // });
     });
 </script>
 <style>
@@ -219,8 +262,8 @@ kkktmmmmtppp`;
         gap: 0;
     }
     .cell, .cell-spacer {
-        width: 50px;
-        height: 50px;
+        width: 3.5vw;
+        height: 3.5vw;
         z-index: 2;
     }
 </style>

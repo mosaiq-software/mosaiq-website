@@ -65,7 +65,9 @@ const projects = [
                     See Our Work
                 </button>
             </div>
-            <MosaiqLogo />
+            <div id="hero-logo">
+                <MosaiqLogo />
+            </div>
         </section>
         <section id="projects">
             <h1>Projects</h1>
@@ -98,6 +100,7 @@ const projects = [
     #hero {
         height: 100vh;
         display: flex;
+        position: relative;
     }
 
     #hero-text {
@@ -106,6 +109,15 @@ const projects = [
         align-items: flex-start;
         gap: var(--spacing-xl);
         margin: var(--spacing-lg);
+    }
+
+    #hero-logo {
+        position: absolute;
+        inset: 0;
+        left: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     #hero-text h1 {
