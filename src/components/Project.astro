@@ -1,0 +1,54 @@
+---
+interface Props {
+    title: string;
+    url: string;
+    description: string;
+    contributors: string[];
+    startDate: string;
+    endDate?: string;
+    technologies: string[];
+    x: number;
+}
+const props = Astro.props as Props;
+const x = `${props.x}px`;
+---
+
+<div class="project-wrapper">
+    <div class="project">
+        <h2>{props.title}</h2>
+        <p>{props.description}</p>
+        <ul>
+            {props.contributors.map((contributor) => <li>{contributor}</li>)}
+        </ul>
+        <p>
+            {props.startDate} - {props.endDate ? props.endDate : 'Present'}
+        </p>
+        <p>Technologies: {props.technologies.join(', ')}</p>
+    </div>
+</div>
+<style scoped define:vars={{ x }}>
+    .project-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        height: 600px;
+    }
+    .project {
+        position: absolute;
+        top: 0;
+        left: var(--x);
+        display: flex;
+        flex-direction: column;
+        width: 700px;
+        align-items: flex-start;
+        border: 1px solid #000;
+        border-radius: 12px;
+        padding: 16px;
+        backdrop-filter: blur(10px);
+
+        h2 {
+            margin-top: 0;
+        }
+    }
+</style>

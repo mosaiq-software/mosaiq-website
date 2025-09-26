@@ -1,5 +1,7 @@
 ---
+import '../styles/global.css';
 import MosaiqLogo from '../components/MosaiqLogo.astro';
+import Project from '../components/Project.astro';
 ---
 
 <html lang="en">
@@ -20,7 +22,85 @@ import MosaiqLogo from '../components/MosaiqLogo.astro';
         />
         <title>Astro</title>
     </head>
-    <body style="margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 200vh;">
-        <MosaiqLogo />
+    <body>
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Mosaiq Software</h1>
+                <p>A non-profit software development group making stupidly cool things on the web</p>
+                <button>See Our Work ↓</button>
+            </div>
+            <div class="hero-logo">
+                <MosaiqLogo />
+            </div>
+        </div>
+        <div class="projects-list">
+            <Project
+                title="Card Domain"
+                url="carddomain.mosaiq.dev"
+                description="A simple, extremely powerful platform for playing real-time card games online with player-enforced rules."
+                contributors={['Alex Santagata', 'Sam Randa']}
+                startDate="July 2025"
+                endDate="August 2025"
+                technologies={['React', 'Express', 'Websocket']}
+                x={50}
+            />
+            <Project
+                title="Minefolio"
+                url="minefol.io"
+                description="A portfolio creation and showcase platform for Minecraft builds and building communities."
+                contributors={['Matt Hagger', 'Javier Moncada', 'Thinh Pham']}
+                startDate="July 2025"
+                technologies={['React', 'Express', 'Three.js']}
+                x={300}
+            />
+            <Project
+                title="Timelier"
+                url="timelier.app"
+                description="A tool for students, friends, and coworkers to find compatible times to meet."
+                contributors={['Sam Randa', 'Zach Szeto', 'Zoe Fisk']}
+                startDate="August 2025"
+                technologies={['React Native', 'Expo', 'Websocket']}
+                x={550}
+            />
+            <style>
+                body {
+                    min-height: 200vh;
+                }
+                .hero {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 100vh;
+                    padding: 0 5%;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+
+                    .hero-content {
+                        max-width: 50%;
+
+                        h1 {
+                            font-size: 4rem;
+                            margin-bottom: 1rem;
+                        }
+
+                        p {
+                            font-size: 1.5rem;
+                            margin-bottom: 2rem;
+                        }
+
+                        button {
+                            padding: 0.75rem 1.5rem;
+                            font-size: 1rem;
+                            color: #764ba2;
+                            background: white;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            </style>
+        </div>
     </body>
 </html>

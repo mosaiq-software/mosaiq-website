@@ -24,6 +24,149 @@ kkktmmmmtppp
 kkktmmmmtppp`;
 ---
 
+<script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+
+    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+    const content = document.querySelector('.mosaiq-logo');
+    if (!content) throw new Error('No content element found');
+    const cells = content.querySelectorAll('.cell');
+    const tl = gsap.timeline({});
+
+    //wait until DOM is loaded
+    const projects = document.querySelectorAll('.project');
+    // tl.fromTo(
+    //     '.mosaiq-logo',
+    //     {
+    //         scale: 0,
+    //         rotateZ: -45,
+    //     },
+    //     {
+    //         scale: 1,
+    //         rotate: '-34deg',
+    //         rotateX: '43deg',
+    //         skew: '8deg, -16deg',
+    //     }
+    // );
+    tl.fromTo(
+        '.mosaiq-logo',
+        {
+            scale: 1,
+            rotate: '-34deg',
+            rotateX: '43deg',
+            skew: '8deg, -16deg',
+        },
+        {
+            scrollTrigger: {
+                trigger: document.body,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 2,
+                markers: true,
+            },
+            rotate: '-45deg',
+            rotateX: '0deg',
+            skew: '0deg, 0deg',
+        }
+    );
+    tl.to('.mosaiq-logo', {
+        scrollTrigger: {
+            trigger: document.body,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 2,
+            markers: true,
+        },
+        motionPath: {
+            path: [
+                { x: 0, y: 0 },
+                ...Array.from(projects).map((project) => {
+                    const projectCoord = { x: 0, y: 0 };
+                    const point = MotionPathPlugin.convertCoordinates(content, project, projectCoord);
+                    console.log(point);
+                    return { x: -point.x, y: -point.y };
+                }),
+            ],
+        },
+        ease: 'none',
+    });
+
+    cells.forEach((cell, index) => {
+        // gsap.fromTo(
+        //     cell,
+        //     { opacity: 0, y: 50 },
+        //     {
+        //         opacity: 1,
+        //         y: 0,
+        //         delay: index * 0.01,
+        //         duration: 0.5,
+        //         ease: 'power2.out',
+        //     }
+        // );
+
+        gsap.fromTo(
+            cell,
+            { rotateX: '0deg', rotateY: '0deg' },
+            {
+                rotateX: `${Math.random() * 60}deg`,
+                rotateY: `${Math.random() * 60}deg`,
+                duration: Math.random() * 2 + 3,
+                ease: 'sine',
+                repeat: -1,
+                yoyo: true,
+            }
+        );
+
+        gsap.fromTo(
+            cell.parentElement,
+            { x: 0, y: 0 },
+            {
+                x: gsap.utils.random(-10, 10),
+                y: gsap.utils.random(-10, 10),
+                duration: gsap.utils.random(8, 16),
+                ease: 'sine',
+                repeat: -1,
+                yoyo: true,
+            }
+        );
+
+        gsap.fromTo(
+            cell,
+            {
+                x: 0,
+                y: 0,
+            },
+            {
+                x: () => (Math.random() - 0.5) * 200,
+                y: () => (Math.random() - 0.5) * 200,
+                scrollTrigger: {
+                    trigger: document.body,
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 2,
+                },
+            }
+        );
+
+        cell.addEventListener('mouseenter', () => {
+            gsap.to(cell, {
+                opacity: 0.1,
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+        });
+        cell.addEventListener('mouseleave', () => {
+            gsap.to(cell, {
+                opacity: 1,
+                duration: 3.3,
+                ease: 'power2.out',
+            });
+        });
+    });
+</script>
 <div class="mosaiq-logo">
     {
         logo.split('\n').map((row, y) => (
@@ -31,74 +174,18 @@ kkktmmmmtppp`;
                 {row.split('').map((char, x) => {
                     const color = colors[char as keyof typeof colors] || colors.t;
                     return (
-                        <div
-                            class="cell"
-                            style={`background-color: ${color};`}
-                        />
+                        <div class="cell-container">
+                            <div
+                                class="cell"
+                                style={`background-color: ${color};`}
+                            />
+                        </div>
                     );
                 })}
             </div>
         ))
     }
 </div>
-<script>
-    import { gsap } from 'gsap';
-
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    import { ScrollSmoother } from 'gsap/ScrollSmoother';
-
-    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-    const content = document.querySelector('.mosaiq-logo');
-    if (!content) throw new Error('No content element found');
-
-    gsap.to(content, {
-        rotateX: '15deg',
-        rotateY: '215deg',
-        rotateZ: '45deg',
-    });
-
-    const cells = content.querySelectorAll('.cell');
-
-    cells.forEach((cell, index) => {
-        gsap.fromTo(
-            cell,
-            { opacity: 0, y: 50 },
-            {
-                opacity: 1,
-                y: 0,
-                delay: index * 0.01,
-                duration: 0.5,
-                ease: 'power2.out',
-            }
-        );
-
-        gsap.fromTo(
-            cell,
-            { rotateX: '0deg', rotateY: '0deg' },
-            {
-                rotateX: `${Math.random() * 45}deg`,
-                rotateY: `${Math.random() * 45}deg`,
-                duration: Math.random() * 2 + 1,
-                ease: 'none',
-                repeat: -1,
-                yoyo: true,
-            }
-        );
-
-        cell.addEventListener('mouseenter', () => {
-            gsap.to(cell, {
-                duration: 0.3,
-                ease: 'power2.out',
-            });
-        });
-        cell.addEventListener('mouseleave', () => {
-            gsap.to(cell, {
-                duration: 3.3,
-                ease: 'power2.out',
-            });
-        });
-    });
-</script>
 <style>
     .mosaiq-logo {
         display: flex;
@@ -112,7 +199,7 @@ kkktmmmmtppp`;
         gap: 0;
     }
     .cell {
-        width: 100px;
-        height: 100px;
+        width: 30px;
+        height: 30px;
     }
 </style>
