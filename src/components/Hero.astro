@@ -1,0 +1,130 @@
+---
+import MosaiqLogo from './MosaiqLogo.astro';
+---
+
+<script>
+    import { gsap } from 'gsap';
+    // import { Flip } from 'gsap/Flip';
+    // gsap.registerPlugin(Flip);
+
+    // const raiseTitle = () => {
+    //     const heroTitle = document.getElementById('hero-title');
+    //     const navbarTitle = document.getElementById('navbar-title');
+
+    //     const state = Flip.getState(heroTitle);
+    //     navbarTitle!.style.display = 'block';
+    //     heroTitle!.style.display = 'none';
+    //     Flip.from(state, {
+    //         targets: navbarTitle,
+    //         duration: 1,
+    //         ease: 'none',
+    //         scale: true,
+    //         absolute: true,
+    //         nested: true,
+    //     });
+    //     // gsap.to(heroTitle, { fontSize: '2rem', duration: 2, ease: 'none' });
+    // };
+    // document.getElementById('see-work-button')?.addEventListener('click', () => {
+    //     raiseTitle();
+    // });
+
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    gsap.registerPlugin(ScrollTrigger);
+    const navbarTitle = document.getElementById('navbar-title');
+    const heroTitle = document.getElementById('hero-title');
+    gsap.fromTo(
+        heroTitle,
+        {
+            y: 0,
+            opacity: 1,
+        },
+        {
+            y: -200,
+            opacity: 0,
+            scrollTrigger: {
+                trigger: heroTitle,
+                start: 'top 100px',
+                end: 'bottom center',
+                scrub: 1,
+            },
+        }
+    );
+    gsap.fromTo(
+        navbarTitle,
+        {
+            y: -200,
+            opacity: 0,
+        },
+        {
+            y: 0,
+            opacity: 1,
+            scrollTrigger: {
+                trigger: heroTitle,
+                start: 'top 100px',
+                end: 'bottom center',
+                scrub: 1,
+                markers: true,
+            },
+        }
+    );
+</script>
+<div class="hero">
+    <div class="hero-content">
+        <div id="hero-title">
+            <h1>Mosaiq Software</h1>
+        </div>
+        <p>A non-profit software development group making stupidly cool things on the web</p>
+        <button id="see-work-button">See Our Work ↓</button>
+    </div>
+    <div class="hero-logo">
+        <MosaiqLogo />
+    </div>
+</div>
+<style>
+    .hero {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        min-height: 100vh;
+        padding: 5rem 0;
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+
+            h1 {
+                font-size: 9rem;
+                margin: 0;
+                max-width: 600px;
+                font-family: 'Comfortaa', sans-serif;
+            }
+
+            p {
+                font-size: 1.25rem;
+                margin: 0;
+                max-width: 500px;
+                font-family: sans-serif;
+            }
+
+            button {
+                padding: 0.75rem 1.5rem;
+                font-size: 1.25rem;
+                border-radius: 100px;
+                cursor: pointer;
+                border: 1px solid black;
+                background: white;
+                transition: all 0.2s ease-in-out;
+                font-family: 'Comfortaa', sans-serif;
+                font-weight: 800;
+                width: fit-content;
+
+                &:hover {
+                    background: black;
+                    color: white;
+                }
+            }
+        }
+    }
+</style>

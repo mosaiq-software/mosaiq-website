@@ -1,0 +1,60 @@
+---
+
+---
+
+<script></script>
+<nav class="nav">
+    <div
+        class="nav-logo"
+        id="nav-logo"
+    >
+        <h1 id="navbar-title">Mosaiq Software</h1>
+    </div>
+    <div class="nav-links">
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+        <a href="/join">Join</a>
+        <a href="/contact">Contact</a>
+    </div>
+</nav>
+<style>
+    .nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        margin: 0 auto;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 0;
+
+        .nav-logo {
+            h1 {
+                font-size: 1rem;
+                margin: 0;
+                max-width: 600px;
+                font-family: 'Comfortaa', sans-serif;
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+
+            a {
+                text-decoration: none;
+                color: black;
+                font-family: sans-serif;
+                transition: color 0.2s ease-in-out;
+
+                &:hover {
+                    color: gray;
+                }
+            }
+        }
+    }
+</style>
