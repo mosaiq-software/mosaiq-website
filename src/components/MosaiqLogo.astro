@@ -53,80 +53,57 @@ kkktmmmmtppp`;
 
     const cells = content.querySelectorAll('.cell');
 
-    // Store paths globally so they don't get recalculated
-    let globalPaths: Map<Element, Array<{ start: { x: number; y: number }; end: { x: number; y: number } }>> | null = null;
-
-    function calculatePaths() {
-        if (globalPaths) return globalPaths;
-
+    function calculatePath(cell: Element) {
         const projectCards = document.querySelectorAll('.project-card');
+
+        const cellRect = cell.getBoundingClientRect();
+        const cellCenter = {
+            x: cellRect.left + cellRect.width / 2,
+            y: cellRect.top + cellRect.height / 2
+        };
         
-        const paths = new Map<Element, Array<{ start: { x: number; y: number }; end: { x: number; y: number } }>>();
+        const cellPaths: Array<{ start: { x: number; y: number }; end: { x: number; y: number } }> = [];
         
-        cells.forEach((cell, index) => {
-            const cellRect = cell.getBoundingClientRect();
-            const cellCenter = {
-                x: cellRect.left + cellRect.width / 2,
-                y: cellRect.top + cellRect.height / 2
+        projectCards.forEach((card) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = {
+                x: cardRect.left + cardRect.width / 2,
+                y: cardRect.top + cardRect.height / 2
+            };
+
+            // calculate normal-distributed random offset for path
+            const u1 = Math.random();
+            const u2 = Math.random();
+            const z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+            const z1 = Math.sqrt(-2.0 * Math.log(u1)) * Math.sin(2.0 * Math.PI * u2);
+            const offsetX = z0 * 50;
+            const offsetY = z1 * 50;
+
+            const offsetCardCenter = {
+                x: cardCenter.x + offsetX,
+                y: cardCenter.y + offsetY
             };
             
-            const cellPaths: Array<{ start: { x: number; y: number }; end: { x: number; y: number } }> = [];
-            
-            projectCards.forEach((card) => {
-                const cardRect = card.getBoundingClientRect();
-                const cardCenter = {
-                    x: cardRect.left + cardRect.width / 2,
-                    y: cardRect.top + cardRect.height / 2
-                };
-
-                // calculate normal-distributed random offset for path
-                const u1 = Math.random();
-                const u2 = Math.random();
-                const z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
-                const z1 = Math.sqrt(-2.0 * Math.log(u1)) * Math.sin(2.0 * Math.PI * u2);
-                const offsetX = z0 * 50;
-                const offsetY = z1 * 50;
-
-                const offsetCardCenter = {
-                    x: cardCenter.x + offsetX,
-                    y: cardCenter.y + offsetY
-                };
-                
-                cellPaths.push({
-                    start: cellCenter,
-                    end: offsetCardCenter,
-                });
+            cellPaths.push({
+                start: cellCenter,
+                end: offsetCardCenter,
             });
-            
-            paths.set(cell, cellPaths);
         });
-        
-        return paths;
+
+        return cellPaths;
     }
 
-    // Store timelines to avoid recreating them
-    const cellTimelines = new Map<Element, gsap.core.Timeline>();
-
-    // Function to animate a cell along a path
-    function createScrollControlledAnimation(cell) {
-        // Don't recreate if timeline already exists
-        if (cellTimelines.has(cell)) {
-            return cellTimelines.get(cell)!;
-        }
-
-        const paths = calculatePaths();
-        const cellPaths = paths.get(cell);
-
-        const duration = 2 + Math.random() * 0.5; // Random duration between 2 and 5 seconds
-        const rotation = Math.random() * 180 - 90; // Random rotation angle
+    function calculateTimeline(cell: Element, paths: Array<{ start: { x: number; y: number }; end: { x: number; y: number } }>) {
+        const duration = 0.8 + Math.random() * 0.4;
+        const rotation = Math.random() * 180 - 90;
 
         // Create a timeline for the animation
         const tl = gsap.timeline({ paused: true});
         
-        if (!cellPaths) return tl;
+        if (!paths) return tl;
 
-        for (let i = 0; i < cellPaths.length; i++) {
-            const path = cellPaths[i];
+        for (let i = 0; i < paths.length; i++) {
+            const path = paths[i];
             const logoRect = content!.getBoundingClientRect();
             
             // Convert screen coordinates to logo coordinates
@@ -139,7 +116,7 @@ kkktmmmmtppp`;
             if (i === 0) {
                 distance = Math.hypot(endX - startX, endY - startY);
             } else {
-                const prevPath = cellPaths[i - 1];
+                const prevPath = paths[i - 1];
                 const prevEndX = prevPath.end.x - logoRect.left;
                 const prevEndY = prevPath.end.y - logoRect.top;
                 distance = Math.hypot(endX - prevEndX, endY - prevEndY);
@@ -150,42 +127,35 @@ kkktmmmmtppp`;
                 y: endY - startY,
                 // outline: '4px solid var(--color-background)',
                 rotation,
-                duration: distance, // Scale duration based on distance
+                duration: distance * duration, // Scale duration based on distance
                 ease: 'linear'
             });
         }
-    
+
         return tl;
     }
 
-    let scrollTriggersCreated = false;
-
-    function createScrollTriggers() {
-        if (scrollTriggersCreated) return;
-        
-        cells.forEach(cell => {
-            const tl = createScrollControlledAnimation(cell);
-            
-            ScrollTrigger.create({
-                trigger: document.body,
-                start: "100px top",
-                end: "bottom bottom",
-                scrub: 1,
-                onUpdate: (self) => {
-                    tl.progress(self.progress);
-                }
-            });
+    function createScrollTrigger(cell: Element, tl: gsap.core.Timeline) {
+        const delay = 100 + Math.random() * 100;
+        ScrollTrigger.create({
+            trigger: document.body,
+            start: `${delay}px top`,
+            end: `bottom bottom`,
+            // end: `bottom+=${delay}px bottom`,
+            scrub: 1,
+            onUpdate: (self) => {
+                tl.progress(self.progress);
+            }
         });
-        
-        scrollTriggersCreated = true;
     }
 
-    // Remove the refresh listener since we don't want to recreate
-    // ScrollTrigger.addEventListener("refresh", () => { ... });
-
-    // Create the animation when page loads
+    // create the animation after a delay to ensure all elements are rendered
     setTimeout(() => {
-        createScrollTriggers();
+        for (const cell of cells) {
+            const paths = calculatePath(cell);
+            const tl = calculateTimeline(cell, paths);
+            createScrollTrigger(cell, tl);
+        }
         ScrollTrigger.refresh();
     }, 1000);
 
