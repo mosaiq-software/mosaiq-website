@@ -1,5 +1,38 @@
 ---
 import MosaiqLogo from '../components/MosaiqLogo.astro';
+import Project from '../components/Project.astro';
+import '../styles/reset.css';
+import '../styles/global.css';
+
+const projects = [
+    {
+        name: 'Card Domain',
+        link: 'carddomain.mosaiq.dev',
+        description: 'A simple, extremely powerful platform for playing real-time card games online with player-enforced rules.',
+        authors: ['Alex Santagata', 'Sam Randa'],
+        timeline: 'July 2025 - August 2025',
+        technologies: ['React', 'WebSocket', 'Express'],
+        left: 10
+    },
+    {
+        name: 'Minefolio',
+        link: 'minefol.io',
+        description: 'A portfolio creation and showcase platform for Minecraft builds and building communities.',
+        authors: ['Matt Hagger', 'Javier Moncada', 'Thinh Pham'],
+        timeline: 'July 2025 - Present',
+        technologies: ['React', 'Express'],
+        right: 20
+    },
+    {
+        name: 'Timelier',
+        link: 'timelier.app',
+        description: 'A tool for students, friends, and coworkers to find compatible times to meet.',
+        authors: ['Sam Randa', 'Zoe Fisk', 'Zach Szeto'],
+        timeline: 'August 2025 - Present',
+        technologies: ['React', 'Websocket', 'Express'],
+        left: 30
+    }
+];
 ---
 
 <html lang="en">
@@ -8,7 +41,7 @@ import MosaiqLogo from '../components/MosaiqLogo.astro';
         <link
             rel="icon"
             type="image/svg+xml"
-            href="/favicon.svg"
+            href="/favicon.ico"
         />
         <meta
             name="viewport"
@@ -20,7 +53,82 @@ import MosaiqLogo from '../components/MosaiqLogo.astro';
         />
         <title>Astro</title>
     </head>
-    <body style="margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 200vh;">
-        <MosaiqLogo />
+    <body>
+        <section id="hero">
+            <div id="hero-text">
+                <h1>Mosaiq<br>Software</h1>
+                <p>
+                    A non-profit student software development group<br>
+                    making stupidly cool things on the web.
+                </p>
+                <button class="outline-button">
+                    See Our Work
+                </button>
+            </div>
+            <MosaiqLogo />
+        </section>
+        <section id="projects">
+            <h1>Projects</h1>
+            {
+                projects.map(project => (
+                    <Project
+                        name={project.name}
+                        link={project.link}
+                        description={project.description}
+                        authors={project.authors}
+                        timeline={project.timeline}
+                        technologies={project.technologies}
+                        left={project.left}
+                        right={project.right}
+                    />
+                ))
+            }
+        </section>
+        <section id="contact">
+            <h1>Contact</h1>
+        </section>
     </body>
 </html>
+
+<style>
+    body {
+        background-color: var(--color-background);
+    }
+
+    #hero {
+        height: 100vh;
+        display: flex;
+    }
+
+    #hero-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xl);
+        margin: var(--spacing-lg);
+    }
+
+    #hero-text h1 {
+        font-size: 8rem;
+        line-height: 0.9;
+        margin: 0;
+    }
+
+    #projects {
+        display: flex;
+        flex-direction: column;
+        gap: 10em;
+        flex: 1;
+        margin: 10em var(--spacing-lg);
+    }
+
+    #projects h1, #contact h1 {
+        font-size: 8rem;
+        color: var(--color-surface);
+    }
+
+    section {
+        position: relative;
+        z-index: 2;
+    }
+</style>
