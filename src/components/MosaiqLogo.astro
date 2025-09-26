@@ -59,6 +59,24 @@ kkktmmmmtppp`;
 
     const cells = content.querySelectorAll('.cell');
 
+    let mouseX = 0;
+    let mouseY = 0;
+
+    // Add mouse move listener
+    document.addEventListener('mousemove', (e) => {
+        const rect = container!.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Calculate mouse position relative to logo center (-1 to 1 range)
+        mouseX = (e.clientX - centerX) / (window.innerWidth / 2);
+        mouseY = (e.clientY - centerY) / (window.innerHeight / 2);
+        
+        // Clamp values
+        mouseX = Math.max(-1, Math.min(1, mouseX));
+        mouseY = Math.max(-1, Math.min(1, mouseY));
+    });
+
     function randomNormal(mean: number, stdDev: number) {
         const u1 = Math.random();
         const u2 = Math.random();
@@ -184,26 +202,58 @@ kkktmmmmtppp`;
     });
     
     gsap.to(content, {
-        rotateZ: '15deg',
+        rotateZ: '5deg',
         ease: 'power2.out',
     });
 
-    ScrollTrigger.create({
-        trigger: document.body,
-        start: "50px top",
-        end: "500px top",
-        scrub: 1,
-        onUpdate: (self) => {
-            const progress = self.progress;
+    // Mouse tracking animation loop
+    gsap.ticker.add(() => {
+        // check if scroll position is near top of page
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+        if (scrollY < 50) {
+            const maxTilt = 15; // Maximum tilt in degrees
+            
             gsap.to(container, {
-                rotateX: `${20 * (1 - progress)}deg`,
-                rotateY: `${-20 * (1 - progress)}deg`,
-                duration: 0.1,
+                rotateX: 20 + (-mouseY * maxTilt),
+                rotateY: -20 + (mouseX * maxTilt),
+                duration: 0.3,
                 ease: 'power2.out',
             });
+            
             gsap.to(content, {
-                rotateZ: `${15 * (1 - progress)}deg`,
-                duration: 0.1,
+                rotateZ: 5 + (mouseX * 5), // Subtle Z rotation
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+        } else if (scrollY < 500) {
+            const progess = (scrollY - 50) / (500 - 50);
+            const maxTilt = 15; // Maximum tilt in degrees
+
+            gsap.to(container, {
+                rotateX: 20 * (1 - progess) + (-mouseY * maxTilt * (1 - progess)),
+                rotateY: -20 * (1 - progess) + (mouseX * maxTilt * (1 - progess)),
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+
+            gsap.to(content, {
+                rotateZ: 5 * (1 - progess) + (mouseX * 5 * (1 - progess)), // Subtle Z rotation
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+        } else {
+            // Smoothly return to neutral position
+            gsap.to(container, {
+                rotateX: 0,
+                rotateY: 0,
+                duration: 0.5,
+                ease: 'power2.out',
+            });
+            
+            gsap.to(content, {
+                rotateZ: 0,
+                duration: 0.5,
                 ease: 'power2.out',
             });
         }
@@ -239,18 +289,6 @@ kkktmmmmtppp`;
                     duration: 3,
             });
         }
-
-        gsap.fromTo(
-            cell,
-            { opacity: 0, y: 50 },
-            {
-                opacity: 1,
-                y: 0,
-                delay: index * 0.01,
-                duration: 0.5,
-                ease: 'power2.out',
-            }
-        );
     });
 </script>
 <style>
