@@ -30,7 +30,7 @@ import MosaiqLogo from './MosaiqLogo.astro';
 
     import { ScrollTrigger } from 'gsap/ScrollTrigger';
     gsap.registerPlugin(ScrollTrigger);
-    const navbarTitle = document.getElementById('navbar-title');
+    const navbar = document.getElementById('navbar');
     const heroTitle = document.getElementById('hero-title');
     gsap.fromTo(
         heroTitle,
@@ -50,7 +50,7 @@ import MosaiqLogo from './MosaiqLogo.astro';
         }
     );
     gsap.fromTo(
-        navbarTitle,
+        navbar,
         {
             y: -200,
             opacity: 0,
@@ -63,7 +63,6 @@ import MosaiqLogo from './MosaiqLogo.astro';
                 start: 'top 100px',
                 end: 'bottom center',
                 scrub: 1,
-                markers: true,
             },
         }
     );
@@ -98,13 +97,19 @@ import MosaiqLogo from './MosaiqLogo.astro';
                 font-size: 9rem;
                 margin: 0;
                 max-width: 600px;
+                width: 100%;
                 font-family: 'Comfortaa', sans-serif;
+
+                @media (max-width: 768px) {
+                    font-size: 5rem;
+                }
             }
 
             p {
                 font-size: 1.25rem;
                 margin: 0;
                 max-width: 500px;
+                width: 100%;
                 font-family: sans-serif;
             }
 
@@ -124,6 +129,13 @@ import MosaiqLogo from './MosaiqLogo.astro';
                     background: black;
                     color: white;
                 }
+            }
+        }
+
+        .hero-logo {
+            width: 100%;
+            @media (max-width: 768px) {
+                display: none;
             }
         }
     }

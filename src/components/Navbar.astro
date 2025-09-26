@@ -1,14 +1,19 @@
 ---
-
+import MosaiqLogoImage from '../images/MosaiqLogoTransparent.png';
 ---
 
 <script></script>
-<nav class="nav">
-    <div
-        class="nav-logo"
-        id="nav-logo"
-    >
-        <h1 id="navbar-title">Mosaiq Software</h1>
+<nav
+    class="nav"
+    id="navbar"
+>
+    <div class="nav-logo">
+        <img
+            src={MosaiqLogoImage.src}
+            alt="Mosaiq Logo"
+            style="height: 40px; margin-right: 10px;"
+        />
+        <h1>Mosaiq Software</h1>
     </div>
     <div class="nav-links">
         <a href="/about">About</a>
@@ -19,6 +24,8 @@
 </nav>
 <style>
     .nav {
+        opacity: 0;
+
         position: sticky;
         top: 0;
         z-index: 1000;
@@ -32,6 +39,11 @@
         padding: 1.5rem 0;
 
         .nav-logo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
             h1 {
                 font-size: 1rem;
                 margin: 0;

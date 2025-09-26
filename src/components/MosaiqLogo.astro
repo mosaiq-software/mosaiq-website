@@ -54,9 +54,7 @@ kkktmmmmtppp`;
         '.mosaiq-logo',
         {
             scale: 1,
-            rotate: '-34deg',
-            rotateX: '43deg',
-            skew: '8deg, -16deg',
+            transform: 'perspective(600px) rotateX(18deg) rotateY(-14deg) rotateZ(-32deg)',
         },
         {
             scrollTrigger: {
@@ -65,9 +63,7 @@ kkktmmmmtppp`;
                 end: 'bottom bottom',
                 scrub: 2,
             },
-            rotate: '-45deg',
-            rotateX: '0deg',
-            skew: '0deg, 0deg',
+            transform: 'perspective(600px) rotateX(0deg) rotateY(0deg) rotateZ(-45deg)',
         }
     );
     tl.to('.mosaiq-logo', {
@@ -91,25 +87,14 @@ kkktmmmmtppp`;
         ease: 'none',
     });
 
+    const cellFloatRange = 5;
     cells.forEach((cell, index) => {
-        // gsap.fromTo(
-        //     cell,
-        //     { opacity: 0, y: 50 },
-        //     {
-        //         opacity: 1,
-        //         y: 0,
-        //         delay: index * 0.01,
-        //         duration: 0.5,
-        //         ease: 'power2.out',
-        //     }
-        // );
-
         gsap.fromTo(
             cell,
             { rotateX: '0deg', rotateY: '0deg' },
             {
-                rotateX: `${Math.random() * 60}deg`,
-                rotateY: `${Math.random() * 60}deg`,
+                rotateX: `${Math.random() * 10}deg`,
+                rotateY: `${Math.random() * 10}deg`,
                 duration: Math.random() * 2 + 3,
                 ease: 'sine',
                 repeat: -1,
@@ -121,8 +106,8 @@ kkktmmmmtppp`;
             cell.parentElement,
             { x: 0, y: 0 },
             {
-                x: gsap.utils.random(-10, 10),
-                y: gsap.utils.random(-10, 10),
+                x: gsap.utils.random(-cellFloatRange, cellFloatRange),
+                y: gsap.utils.random(-cellFloatRange, cellFloatRange),
                 duration: gsap.utils.random(8, 16),
                 ease: 'sine',
                 repeat: -1,
@@ -130,23 +115,23 @@ kkktmmmmtppp`;
             }
         );
 
-        gsap.fromTo(
-            cell,
-            {
-                x: 0,
-                y: 0,
-            },
-            {
-                x: () => (Math.random() - 0.5) * 200,
-                y: () => (Math.random() - 0.5) * 200,
-                scrollTrigger: {
-                    trigger: document.body,
-                    start: 'top top',
-                    end: 'bottom bottom',
-                    scrub: 2,
-                },
-            }
-        );
+        // gsap.fromTo(
+        //     cell,
+        //     {
+        //         x: 0,
+        //         y: 0,
+        //     },
+        //     {
+        //         x: () => (Math.random() - 0.5) * 200,
+        //         y: () => (Math.random() - 0.5) * 200,
+        //         scrollTrigger: {
+        //             trigger: document.body,
+        //             start: 'top top',
+        //             end: 'bottom bottom',
+        //             scrub: 2,
+        //         },
+        //     }
+        // );
 
         cell.addEventListener('mouseenter', () => {
             gsap.to(cell, {
@@ -196,7 +181,8 @@ kkktmmmmtppp`;
         gap: 0;
     }
     .cell {
-        width: 30px;
-        height: 30px;
+        width: 5vh;
+        height: 5vh;
+        opacity: 0.95;
     }
 </style>
