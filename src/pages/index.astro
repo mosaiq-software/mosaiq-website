@@ -2,9 +2,8 @@
 import MosaiqLogo from '../components/MosaiqLogo.astro';
 import Project from '../components/Project.astro';
 import Square from '../components/Square.astro';
-import '../styles/reset.css';
-import '../styles/global.css';
 import FilterText from '../components/FilterText.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
 const projects = [
     {
@@ -37,173 +36,95 @@ const projects = [
 ];
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link
-            rel="icon"
-            type="image/svg+xml"
-            href="/favicon.ico"
-        />
-        <meta
-            name="viewport"
-            content="width=device-width"
-        />
-        <meta
-            name="generator"
-            content={Astro.generator}
-        />
-        <title>Astro</title>
-    </head>
-    <script>
-        import { gsap } from 'gsap';
-        import { ScrollTrigger } from 'gsap/ScrollTrigger';
-        import { ScrollSmoother } from 'gsap/ScrollSmoother';
-
-        gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-        const smoother = ScrollSmoother.create({
-            smooth: 1.2,
-            effects: true,
-        });
-
-        ScrollTrigger.addEventListener('refresh', () => smoother.refresh());
-
-        document.getElementById('see-our-work')?.addEventListener('click', () => {
-            smoother.scrollTo('#projects', true);
-        });
-    </script>
-    <body class="smooth-wrapper">
-        <div class="smooth-content">
-            <nav>
-                <a
-                    href="/"
-                    class="nav-logo"
-                >
-                    <img
-                        src="assets/MosaiqLogoTransparent.png"
-                        alt="The Mosaiq Logo"
-                        height="50"
-                    />
-                    <h2>Mosaiq Software</h2>
-                </a>
-                <div id="link-group">
-                    <a href="/about">About</a>
-                    <a href="/contact">Contact</a>
-                    <a href="/join">Join</a>
-                </div>
-            </nav>
-            <section id="hero">
-                <div id="hero-text">
-                    <FilterText>
-                        Software development<br />for the inner child
-                    </FilterText>
-                    <p>
-                        Mosaiq Software is a non-profit student software development<br />
-                        group based out of Worcester, Massachusetts making stupidly<br />
-                        cool things on the web.
-                    </p>
-                    <button
-                        class="outline-button"
-                        id="see-our-work"
-                    >
-                        See Our Work
-                    </button>
-                </div>
-                <div id="hero-logo">
-                    <MosaiqLogo />
-                </div>
-            </section>
-            <section id="projects">
-                <h1>Projects</h1>
-                {
-                    projects.map((project) => (
-                        <Project
-                            name={project.name}
-                            link={project.link}
-                            description={project.description}
-                            authors={project.authors}
-                            timeline={project.timeline}
-                            technologies={project.technologies}
-                            left={project.left}
-                            right={project.right}
-                        />
-                    ))
-                }
-                <Square
-                    width={10}
-                    size={800}
-                    color="var(--mosaiq-pink)"
-                    className="square1"
-                    top="30%"
-                    left="-225px"
-                    rotation="55deg"
-                />
-                <Square
-                    width={10}
-                    size={400}
-                    color="var(--mosaiq-blue)"
-                    className="square1"
-                    top="60%"
-                    left="60%"
-                    rotation="-10deg"
-                />
-                <Square
-                    width={10}
-                    size={400}
-                    color="var(--mosaiq-navy)"
-                    className="square1"
-                    top="30%"
-                    right="-500px"
-                    rotation="15deg"
-                />
-                <Square
-                    width={10}
-                    size={300}
-                    color="var(--mosaiq-magenta)"
-                    className="square1"
-                    top="85%"
-                    left="25%"
-                    rotation="45deg"
-                />
-            </section>
-            <section id="contact">
-                <h1>Contact</h1>
-            </section>
+<BaseLayout title="Mosaiq Software">
+    <section id="hero">
+        <div id="hero-text">
+            <FilterText>
+                Software development<br />
+                for the inner child
+            </FilterText>
+            <p>
+                Mosaiq Software is a non-profit student software development<br />
+                group based out of Worcester, Massachusetts making stupidly<br />
+                cool things on the web.
+            </p>
+            <button
+                class="outline-button"
+                id="see-our-work"
+            >
+                See Our Work
+            </button>
         </div>
-    </body>
-</html>
+        <div id="hero-logo">
+            <MosaiqLogo />
+        </div>
+    </section>
+    <section id="projects">
+        <h1>Projects</h1>
+        {
+            projects.map((project) => (
+                <Project
+                    name={project.name}
+                    link={project.link}
+                    description={project.description}
+                    authors={project.authors}
+                    timeline={project.timeline}
+                    technologies={project.technologies}
+                    left={project.left}
+                    right={project.right}
+                />
+            ))
+        }
+        <Square
+            width={10}
+            size={800}
+            color="var(--mosaiq-pink)"
+            className="square1"
+            top="30%"
+            left="-225px"
+            rotation="55deg"
+        />
+        <Square
+            width={10}
+            size={400}
+            color="var(--mosaiq-blue)"
+            className="square1"
+            top="60%"
+            left="60%"
+            rotation="-10deg"
+        />
+        <Square
+            width={10}
+            size={400}
+            color="var(--mosaiq-navy)"
+            className="square1"
+            top="30%"
+            right="-500px"
+            rotation="15deg"
+        />
+        <Square
+            width={10}
+            size={300}
+            color="var(--mosaiq-magenta)"
+            className="square1"
+            top="85%"
+            left="25%"
+            rotation="45deg"
+        />
+    </section>
+    <section id="contact">
+        <h1>Contact</h1>
+    </section>
+</BaseLayout>
 
 <style>
-    body {
-        background-color: var(--color-background);
-        width: 100vw;
-        overflow-x: hidden;
+    .clipped {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        clip-path: url(#svgTextPath);
+        filter: blur(10px);
     }
-
-    nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: var(--spacing-sm) var(--spacing-lg);
-        position: sticky;
-        top: 0;
-        z-index: 3;
-    }
-
-    .nav-logo {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-    }
-
-    #link-group {
-        display: flex;
-        gap: var(--spacing-md);
-        border: 1px solid var(--color-text);
-        padding: var(--spacing-sm) var(--spacing-md);
-        border-radius: var(--border-radius-full);
-    }
-
     #hero {
         height: calc(100vh - 100px);
         display: flex;
