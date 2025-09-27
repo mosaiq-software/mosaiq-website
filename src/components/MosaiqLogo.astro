@@ -35,7 +35,7 @@ kkktmmmmtppp`;
                             <div
                                 data-x={x}
                                 data-y={y}
-                                class={color === "transparent" ? "cell-spacer" : "cell"}
+                                class={color === 'transparent' ? 'cell-spacer' : 'cell'}
                                 style={`background-color: ${color};`}
                             />
                         );
@@ -67,11 +67,11 @@ kkktmmmmtppp`;
         const rect = container!.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        
+
         // Calculate mouse position relative to logo center (-1 to 1 range)
         mouseX = (e.clientX - centerX) / (window.innerWidth / 2);
         mouseY = (e.clientY - centerY) / (window.innerHeight / 2);
-        
+
         // Clamp values
         mouseX = Math.max(-1, Math.min(1, mouseX));
         mouseY = Math.max(-1, Math.min(1, mouseY));
@@ -90,17 +90,17 @@ kkktmmmmtppp`;
         const cellRect = cell.getBoundingClientRect();
         const cellCenter = {
             x: cellRect.left + cellRect.width / 2,
-            y: cellRect.top + cellRect.height / 2
+            y: cellRect.top + cellRect.height / 2,
         };
-        
+
         const path: { x: number; y: number }[] = [];
-        
+
         // add paths for each project card
         projectCards.forEach((card) => {
             const cardRect = card.getBoundingClientRect();
             const cardCenter = {
                 x: cardRect.left + cardRect.width / 2,
-                y: cardRect.top + cardRect.height / 2
+                y: cardRect.top + cardRect.height / 2,
             };
 
             const point = { x: cardCenter.x, y: cardCenter.y };
@@ -126,7 +126,7 @@ kkktmmmmtppp`;
             const contactRect = contactSection.getBoundingClientRect();
             const contactCenter = {
                 x: contactRect.left + contactRect.width / 2,
-                y: contactRect.top + contactRect.height / 2
+                y: contactRect.top + contactRect.height / 2,
             };
 
             const offsetX = randomNormal(0, 50);
@@ -134,12 +134,12 @@ kkktmmmmtppp`;
 
             path.push({
                 x: contactCenter.x + offsetX - cellCenter.x,
-                y: contactCenter.y - 200 + offsetY - cellCenter.y
+                y: contactCenter.y - 200 + offsetY - cellCenter.y,
             });
 
             path.push({
                 x: window.innerWidth + 200 - cellCenter.x,
-                y: contactCenter.y + 200 + offsetY - cellCenter.y
+                y: contactCenter.y + 200 + offsetY - cellCenter.y,
             });
         }
 
@@ -148,7 +148,7 @@ kkktmmmmtppp`;
 
     function calculateTimeline(cell: Element, path: { x: number; y: number }[]) {
         const rotation = Math.random() * 180 - 90;
-        const tl = gsap.timeline({ paused: true});
+        const tl = gsap.timeline({ paused: true });
         if (!path) return tl;
 
         // Separate the path into project visits and exit motion
@@ -161,7 +161,7 @@ kkktmmmmtppp`;
             },
             rotate: rotation,
             ease: 'sine.inOut',
-            duration: 0.8
+            duration: 0.8,
         });
 
         tl.to(cell, {
@@ -170,7 +170,7 @@ kkktmmmmtppp`;
             },
             rotate: rotation,
             ease: 'sine.in',
-            duration: 0.2
+            duration: 0.2,
         });
 
         return tl;
@@ -185,7 +185,7 @@ kkktmmmmtppp`;
             scrub: 1,
             onUpdate: (self) => {
                 tl.progress(self.progress);
-            }
+            },
         });
     }
 
@@ -204,7 +204,7 @@ kkktmmmmtppp`;
         rotateY: '-20deg',
         ease: 'power2.out',
     });
-    
+
     gsap.to(content, {
         rotateZ: '5deg',
         ease: 'power2.out',
@@ -217,16 +217,16 @@ kkktmmmmtppp`;
 
         if (scrollY < 50) {
             const maxTilt = 15; // Maximum tilt in degrees
-            
+
             gsap.to(container, {
-                rotateX: 20 + (-mouseY * maxTilt),
-                rotateY: -20 + (mouseX * maxTilt),
+                rotateX: 20 + -mouseY * maxTilt,
+                rotateY: -20 + mouseX * maxTilt,
                 duration: 0.3,
                 ease: 'power2.out',
             });
-            
+
             gsap.to(content, {
-                rotateZ: 10 + (mouseX * 5), // Subtle Z rotation
+                rotateZ: 10 + mouseX * 5, // Subtle Z rotation
                 duration: 0.3,
                 ease: 'power2.out',
             });
@@ -235,14 +235,14 @@ kkktmmmmtppp`;
             const maxTilt = 15; // Maximum tilt in degrees
 
             gsap.to(container, {
-                rotateX: 20 * (1 - progess) + (-mouseY * maxTilt * (1 - progess)),
-                rotateY: -20 * (1 - progess) + (mouseX * maxTilt * (1 - progess)),
+                rotateX: 20 * (1 - progess) + -mouseY * maxTilt * (1 - progess),
+                rotateY: -20 * (1 - progess) + mouseX * maxTilt * (1 - progess),
                 duration: 0.3,
                 ease: 'power2.out',
             });
 
             gsap.to(content, {
-                rotateZ: 10 * (1 - progess) + (mouseX * 5 * (1 - progess)), // Subtle Z rotation
+                rotateZ: 10 * (1 - progess) + mouseX * 5 * (1 - progess), // Subtle Z rotation
                 duration: 0.3,
                 ease: 'power2.out',
             });
@@ -254,7 +254,7 @@ kkktmmmmtppp`;
                 duration: 0.5,
                 ease: 'power2.out',
             });
-            
+
             gsap.to(content, {
                 rotateZ: 0,
                 duration: 0.5,
@@ -270,10 +270,11 @@ kkktmmmmtppp`;
         if (x !== null && y !== null) {
             const tl = gsap.timeline({
                 repeat: -1,
-                delay: (parseInt(x) + parseInt(y)) * 0.15
+                delay: (parseInt(x) + parseInt(y)) * 0.15,
             });
 
-            tl.fromTo(cell,
+            tl.fromTo(
+                cell,
                 { scale: 1.05 },
                 {
                     scale: 0.8,
@@ -283,14 +284,14 @@ kkktmmmmtppp`;
             );
 
             tl.to(cell, {
-                    scale: 1.05,
-                    duration: 1,
-                    ease: 'power1.inOut',
+                scale: 1.05,
+                duration: 1,
+                ease: 'power1.inOut',
             });
 
             tl.to(cell, {
-                    scale: 1.05,
-                    duration: 3,
+                scale: 1.05,
+                duration: 3,
             });
         }
     });
@@ -308,9 +309,10 @@ kkktmmmmtppp`;
         display: flex;
         gap: 0;
     }
-    .cell, .cell-spacer {
+    .cell,
+    .cell-spacer {
         width: 4vw;
         height: 4vw;
-        z-index: 2;
+        z-index: 1;
     }
 </style>

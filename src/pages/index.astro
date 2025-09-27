@@ -4,6 +4,7 @@ import Project from '../components/Project.astro';
 import Square from '../components/Square.astro';
 import '../styles/reset.css';
 import '../styles/global.css';
+import FilterText from '../components/FilterText.astro';
 
 const projects = [
     {
@@ -13,7 +14,7 @@ const projects = [
         authors: ['Alex Santagata', 'Sam Randa'],
         timeline: 'July 2025 - August 2025',
         technologies: ['React', 'WebSocket', 'Express'],
-        left: 10
+        left: 10,
     },
     {
         name: 'Minefolio',
@@ -22,7 +23,7 @@ const projects = [
         authors: ['Matt Hagger', 'Javier Moncada', 'Thinh Pham'],
         timeline: 'July 2025 - Present',
         technologies: ['React', 'Express'],
-        right: 20
+        right: 20,
     },
     {
         name: 'Timelier',
@@ -31,8 +32,8 @@ const projects = [
         authors: ['Sam Randa', 'Zoe Fisk', 'Zach Szeto'],
         timeline: 'August 2025 - Present',
         technologies: ['React', 'Websocket', 'Express'],
-        left: 30
-    }
+        left: 30,
+    },
 ];
 ---
 
@@ -56,8 +57,15 @@ const projects = [
     </head>
     <body>
         <nav>
-            <a href="/" class="nav-logo">
-                <img src="assets/MosaiqLogoTransparent.png" alt="The Mosaiq Logo" height="50" />
+            <a
+                href="/"
+                class="nav-logo"
+            >
+                <img
+                    src="assets/MosaiqLogoTransparent.png"
+                    alt="The Mosaiq Logo"
+                    height="50"
+                />
                 <h2>Mosaiq Software</h2>
             </a>
             <div id="link-group">
@@ -68,15 +76,15 @@ const projects = [
         </nav>
         <section id="hero">
             <div id="hero-text">
-                <h1>Software development<br>for the inner child</h1>
+                <FilterText>
+                    Software development<br />for the inner child
+                </FilterText>
                 <p>
-                    Mosaiq Software is a non-profit student software development<br>
-                    group based out of Worcester, Massachusetts making stupidly<br>
+                    Mosaiq Software is a non-profit student software development<br />
+                    group based out of Worcester, Massachusetts making stupidly<br />
                     cool things on the web.
                 </p>
-                <button class="outline-button">
-                    See Our Work
-                </button>
+                <button class="outline-button"> See Our Work </button>
             </div>
             <div id="hero-logo">
                 <MosaiqLogo />
@@ -85,7 +93,7 @@ const projects = [
         <section id="projects">
             <h1>Projects</h1>
             {
-                projects.map(project => (
+                projects.map((project) => (
                     <Project
                         name={project.name}
                         link={project.link}
@@ -184,7 +192,6 @@ const projects = [
         align-items: flex-start;
         gap: 4rem;
         margin: var(--spacing-lg);
-        z-index: 2;
     }
 
     #hero-logo {
@@ -196,12 +203,6 @@ const projects = [
         justify-content: center;
     }
 
-    #hero-text h1 {
-        font-size: clamp(3rem, 8vw, 8rem);
-        line-height: 0.9;
-        margin: 0;
-    }
-
     #projects {
         display: flex;
         flex-direction: column;
@@ -210,7 +211,8 @@ const projects = [
         margin: 10em var(--spacing-lg);
     }
 
-    #projects h1, #contact h1 {
+    #projects h1,
+    #contact h1 {
         font-size: 8rem;
         color: var(--color-surface);
     }
