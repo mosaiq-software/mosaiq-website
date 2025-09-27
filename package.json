@@ -5,7 +5,7 @@
     "scripts": {
         "lint": "eslint .",
         "types": "tsc --noemit",
-        "dev": "astro dev",
+        "dev": "astro dev --host",
         "build": "astro build",
         "preview": "astro preview"
     },
