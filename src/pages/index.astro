@@ -5,7 +5,7 @@ import Square from '../components/Square.astro';
 import FilterText from '../components/FilterText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
-import { smoother } from '../scripts/context';
+import SectionLayout from '../layouts/SectionLayout.astro';
 
 const projects = [
     {
@@ -39,7 +39,7 @@ const projects = [
 ---
 
 <BaseLayout title="Mosaiq Software">
-    <section id="hero">
+    <SectionLayout id="hero">
         <div id="hero-text">
             <FilterText>
                 Software development<br />
@@ -60,8 +60,8 @@ const projects = [
         <div id="hero-logo">
             <MosaiqLogo />
         </div>
-    </section>
-    <section id="projects">
+    </SectionLayout>
+    <SectionLayout id="projects">
         <SectionHeaderTitle>Projects</SectionHeaderTitle>
         {
             projects.map((project) => (
@@ -113,10 +113,10 @@ const projects = [
             left="25%"
             rotation="45deg"
         />
-    </section>
-    <section id="contact">
+    </SectionLayout>
+    <SectionLayout id="contact">
         <SectionHeaderTitle>Contact</SectionHeaderTitle>
-    </section>
+    </SectionLayout>
 </BaseLayout>
 <script>
     import { smoother } from '../scripts/context';
@@ -126,13 +126,6 @@ const projects = [
     };
 </script>
 <style>
-    .clipped {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        clip-path: url(#svgTextPath);
-        filter: blur(10px);
-    }
     #hero {
         height: calc(100vh - 100px);
         display: flex;
