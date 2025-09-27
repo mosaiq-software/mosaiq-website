@@ -4,6 +4,7 @@ import Project from '../components/Project.astro';
 import Square from '../components/Square.astro';
 import FilterText from '../components/FilterText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 
 const projects = [
     {
@@ -60,7 +61,7 @@ const projects = [
         </div>
     </section>
     <section id="projects">
-        <h1>Projects</h1>
+        <SectionHeaderTitle>Projects</SectionHeaderTitle>
         {
             projects.map((project) => (
                 <Project
@@ -113,7 +114,7 @@ const projects = [
         />
     </section>
     <section id="contact">
-        <h1>Contact</h1>
+        <SectionHeaderTitle>Contact</SectionHeaderTitle>
     </section>
 </BaseLayout>
 
@@ -154,12 +155,6 @@ const projects = [
         gap: 10em;
         flex: 1;
         margin: 10em var(--spacing-lg);
-    }
-
-    #projects h1,
-    #contact h1 {
-        font-size: 8rem;
-        color: var(--color-surface);
     }
 
     section {
