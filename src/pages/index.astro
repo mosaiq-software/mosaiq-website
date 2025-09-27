@@ -55,97 +55,121 @@ const projects = [
         />
         <title>Astro</title>
     </head>
-    <body>
-        <nav>
-            <a
-                href="/"
-                class="nav-logo"
-            >
-                <img
-                    src="assets/MosaiqLogoTransparent.png"
-                    alt="The Mosaiq Logo"
-                    height="50"
-                />
-                <h2>Mosaiq Software</h2>
-            </a>
-            <div id="link-group">
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-                <a href="/join">Join</a>
-            </div>
-        </nav>
-        <section id="hero">
-            <div id="hero-text">
-                <FilterText>
-                    Software development<br />for the inner child
-                </FilterText>
-                <p>
-                    Mosaiq Software is a non-profit student software development<br />
-                    group based out of Worcester, Massachusetts making stupidly<br />
-                    cool things on the web.
-                </p>
-                <button class="outline-button"> See Our Work </button>
-            </div>
-            <div id="hero-logo">
-                <MosaiqLogo />
-            </div>
-        </section>
-        <section id="projects">
-            <h1>Projects</h1>
-            {
-                projects.map((project) => (
-                    <Project
-                        name={project.name}
-                        link={project.link}
-                        description={project.description}
-                        authors={project.authors}
-                        timeline={project.timeline}
-                        technologies={project.technologies}
-                        left={project.left}
-                        right={project.right}
+    <script>
+        import { gsap } from 'gsap';
+        import { ScrollTrigger } from 'gsap/ScrollTrigger';
+        import { ScrollSmoother } from 'gsap/ScrollSmoother';
+
+        gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+        const smoother = ScrollSmoother.create({
+            smooth: 1,
+            effects: true,
+        });
+
+        ScrollTrigger.addEventListener('refresh', () => smoother.refresh());
+
+        document.getElementById('see-our-work')?.addEventListener('click', () => {
+            smoother.scrollTo('#projects', true);
+        });
+    </script>
+    <body class="smooth-wrapper">
+        <div class="smooth-content">
+            <nav>
+                <a
+                    href="/"
+                    class="nav-logo"
+                >
+                    <img
+                        src="assets/MosaiqLogoTransparent.png"
+                        alt="The Mosaiq Logo"
+                        height="50"
                     />
-                ))
-            }
-            <Square
-                width={10}
-                size={800}
-                color="var(--mosaiq-pink)"
-                className="square1"
-                top="30%"
-                left="-225px"
-                rotation="55deg"
-            />
-            <Square
-                width={10}
-                size={400}
-                color="var(--mosaiq-blue)"
-                className="square1"
-                top="60%"
-                left="60%"
-                rotation="-10deg"
-            />
-            <Square
-                width={10}
-                size={400}
-                color="var(--mosaiq-navy)"
-                className="square1"
-                top="30%"
-                right="-500px"
-                rotation="15deg"
-            />
-            <Square
-                width={10}
-                size={300}
-                color="var(--mosaiq-magenta)"
-                className="square1"
-                top="85%"
-                left="25%"
-                rotation="45deg"
-            />
-        </section>
-        <section id="contact">
-            <h1>Contact</h1>
-        </section>
+                    <h2>Mosaiq Software</h2>
+                </a>
+                <div id="link-group">
+                    <a href="/about">About</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/join">Join</a>
+                </div>
+            </nav>
+            <section id="hero">
+                <div id="hero-text">
+                    <FilterText>
+                        Software development<br />for the inner child
+                    </FilterText>
+                    <p>
+                        Mosaiq Software is a non-profit student software development<br />
+                        group based out of Worcester, Massachusetts making stupidly<br />
+                        cool things on the web.
+                    </p>
+                    <button
+                        class="outline-button"
+                        id="see-our-work"
+                    >
+                        See Our Work
+                    </button>
+                </div>
+                <div id="hero-logo">
+                    <MosaiqLogo />
+                </div>
+            </section>
+            <section id="projects">
+                <h1>Projects</h1>
+                {
+                    projects.map((project) => (
+                        <Project
+                            name={project.name}
+                            link={project.link}
+                            description={project.description}
+                            authors={project.authors}
+                            timeline={project.timeline}
+                            technologies={project.technologies}
+                            left={project.left}
+                            right={project.right}
+                        />
+                    ))
+                }
+                <Square
+                    width={10}
+                    size={800}
+                    color="var(--mosaiq-pink)"
+                    className="square1"
+                    top="30%"
+                    left="-225px"
+                    rotation="55deg"
+                />
+                <Square
+                    width={10}
+                    size={400}
+                    color="var(--mosaiq-blue)"
+                    className="square1"
+                    top="60%"
+                    left="60%"
+                    rotation="-10deg"
+                />
+                <Square
+                    width={10}
+                    size={400}
+                    color="var(--mosaiq-navy)"
+                    className="square1"
+                    top="30%"
+                    right="-500px"
+                    rotation="15deg"
+                />
+                <Square
+                    width={10}
+                    size={300}
+                    color="var(--mosaiq-magenta)"
+                    className="square1"
+                    top="85%"
+                    left="25%"
+                    rotation="45deg"
+                />
+            </section>
+            <section id="contact">
+                <h1>Contact</h1>
+            </section>
+        </div>
     </body>
 </html>
 
