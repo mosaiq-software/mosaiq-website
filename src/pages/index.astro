@@ -5,6 +5,7 @@ import Square from '../components/Square.astro';
 import FilterText from '../components/FilterText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
+import { smoother } from '../scripts/context';
 
 const projects = [
     {
@@ -117,7 +118,13 @@ const projects = [
         <SectionHeaderTitle>Contact</SectionHeaderTitle>
     </section>
 </BaseLayout>
+<script>
+    import { smoother } from '../scripts/context';
 
+    document.getElementById('see-our-work')!.onclick = () => {
+        smoother.scrollTo(document.getElementById('projects')!, true);
+    };
+</script>
 <style>
     .clipped {
         position: absolute;

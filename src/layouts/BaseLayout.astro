@@ -25,20 +25,8 @@ const props = Astro.props;
             name="generator"
             content={Astro.generator}
         />
+        <script src="../scripts/context.ts"></script>
         <title>{props.title}</title>
-        <script>
-            import { gsap } from 'gsap';
-            import { ScrollTrigger } from 'gsap/ScrollTrigger';
-            import { ScrollSmoother } from 'gsap/ScrollSmoother';
-
-            gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-            const smoother = ScrollSmoother.create({
-                smooth: 1.2,
-                effects: true,
-            });
-
-            ScrollTrigger.addEventListener('refresh', () => smoother.refresh());
-        </script>
     </head>
 
     <body class="smooth-wrapper">
