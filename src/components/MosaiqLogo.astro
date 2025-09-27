@@ -31,9 +31,9 @@ kkktmmmmtppp`;
 
     gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
-    const content = document.querySelector('.mosaiq-logo');
-    if (!content) throw new Error('No content element found');
-    const cells = content.querySelectorAll('.cell');
+    const logo = document.querySelector('.mosaiq-logo');
+    if (!logo) throw new Error('No content element found');
+    const cells = logo.querySelectorAll('.cell');
     const tl = gsap.timeline({});
 
     const projects = document.querySelectorAll('.project');
@@ -66,72 +66,82 @@ kkktmmmmtppp`;
             transform: 'perspective(600px) rotateX(0deg) rotateY(0deg) rotateZ(-45deg)',
         }
     );
-    tl.to('.mosaiq-logo', {
-        scrollTrigger: {
-            trigger: document.body,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 2,
-        },
-        motionPath: {
-            path: [
-                { x: 0, y: 0 },
-                ...Array.from(projects).map((project) => {
-                    const projectCoord = { x: 0, y: 0 };
-                    const point = MotionPathPlugin.convertCoordinates(content, project, projectCoord);
-                    console.log(point);
-                    return { x: -point.x, y: -point.y };
-                }),
-            ],
-        },
-        ease: 'none',
-    });
+    // tl.to('.mosaiq-logo', {
+    //     scrollTrigger: {
+    //         trigger: document.body,
+    //         start: 'top top',
+    //         end: 'bottom bottom',
+    //         scrub: 2,
+    //     },
+    //     motionPath: {
+    //         path: [
+    //             { x: 0, y: 0 },
+    //             ...Array.from(projects).map((project) => {
+    //                 const projectCoord = { x: 0, y: 0 };
+    //                 const point = MotionPathPlugin.convertCoordinates(content, project, projectCoord);
+    //                 console.log(point);
+    //                 return { x: -point.x, y: -point.y };
+    //             }),
+    //         ],
+    //     },
+    //     ease: 'none',
+    // });
 
+    const cellInitialSpread = window.innerWidth;
     const cellFloatRange = 5;
     cells.forEach((cell, index) => {
-        gsap.fromTo(
-            cell,
-            { rotateX: '0deg', rotateY: '0deg' },
-            {
-                rotateX: `${Math.random() * 10}deg`,
-                rotateY: `${Math.random() * 10}deg`,
-                duration: Math.random() * 2 + 3,
-                ease: 'sine',
-                repeat: -1,
-                yoyo: true,
-            }
-        );
+        const cellTl = gsap.timeline({});
 
-        gsap.fromTo(
-            cell.parentElement,
-            { x: 0, y: 0 },
-            {
-                x: gsap.utils.random(-cellFloatRange, cellFloatRange),
-                y: gsap.utils.random(-cellFloatRange, cellFloatRange),
-                duration: gsap.utils.random(8, 16),
-                ease: 'sine',
-                repeat: -1,
-                yoyo: true,
-            }
-        );
+        cellTl.to(cell, {
+            x: gsap.utils.random(-cellInitialSpread, cellInitialSpread),
+            y: gsap.utils.random(-cellInitialSpread, cellInitialSpread),
+            z: gsap.utils.random(-cellInitialSpread, cellInitialSpread),
+            duration: 0,
+            ease: 'none',
+        });
+        cellTl.to(cell, {
+            x: gsap.utils.random(-cellFloatRange, cellFloatRange),
+            y: gsap.utils.random(-cellFloatRange, cellFloatRange),
+            z: gsap.utils.random(-cellFloatRange, cellFloatRange),
+            duration: gsap.utils.random(2, 4),
+            ease: 'elastic',
+            yoyo: true,
+        });
+        cellTl.to(cell, {
+            x: gsap.utils.random(-cellFloatRange, cellFloatRange),
+            y: gsap.utils.random(-cellFloatRange, cellFloatRange),
+            z: gsap.utils.random(-cellFloatRange, cellFloatRange),
+            duration: gsap.utils.random(1.5, 3),
+            ease: 'sine',
+            repeat: -1,
+            yoyo: true,
+        });
 
-        // gsap.fromTo(
-        //     cell,
-        //     {
-        //         x: 0,
-        //         y: 0,
-        //     },
-        //     {
-        //         x: () => (Math.random() - 0.5) * 200,
-        //         y: () => (Math.random() - 0.5) * 200,
-        //         scrollTrigger: {
-        //             trigger: document.body,
-        //             start: 'top top',
-        //             end: 'bottom bottom',
-        //             scrub: 2,
-        //         },
-        //     }
-        // );
+        const parent = cell.parentElement;
+        if (parent) {
+            cellTl.to(parent, {
+                scrollTrigger: {
+                    trigger: document.body,
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 2,
+                },
+                motionPath: {
+                    path: [
+                        { x: 0, y: 0 },
+                        ...Array.from(projects).map((project) => {
+                            const projectCoord = { x: 0, y: 0 };
+                            const point = MotionPathPlugin.convertCoordinates(parent, project, projectCoord);
+                            const noiseX = 0; //gsap.utils.random(-10, 10);
+                            const noiseY = 0; //gsap.utils.random(-300, 300);
+                            const noiseCurve = gsap.utils.random(3, 9);
+                            return { x: -point.x + noiseX, y: -point.y + noiseY, curviness: noiseCurve };
+                        }),
+                    ],
+                },
+                ease: 'none',
+            });
+        }
 
         cell.addEventListener('mouseenter', () => {
             gsap.to(cell, {
