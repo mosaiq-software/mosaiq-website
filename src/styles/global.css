@@ -49,6 +49,12 @@
     --color-text-secondary: #555555;
     --color-surface: #d3d3d3;
 
+    --mosaiq-blue: #2384ca;
+    --mosaiq-purple: #482362;
+    --mosaiq-magenta: #932e76;
+    --mosaiq-pink: #d31757;
+    --mosaiq-navy: #21286c;
+
     --spacing-xs: 4px;
     --spacing-sm: 8px;
     --spacing-md: 16px;
@@ -92,4 +98,10 @@ button {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     border-radius: var(--border-radius-full);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    font-family: 'DM Sans', sans-serif;
 }

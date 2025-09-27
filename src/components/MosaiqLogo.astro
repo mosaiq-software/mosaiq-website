@@ -103,16 +103,20 @@ kkktmmmmtppp`;
                 y: cardRect.top + cardRect.height / 2
             };
 
-            // calculate normal-distributed random offset for path
-            const offsetX = randomNormal(0, 50);
-            const offsetY = randomNormal(0, 50);
+            const point = { x: cardCenter.x, y: cardCenter.y };
 
-            const offsetCardCenter = {
-                x: cardCenter.x + offsetX - cellCenter.x,
-                y: cardCenter.y + offsetY - cellCenter.y
-            };
-            
-            path.push(offsetCardCenter);
+            // calculate normal-distributed random offset for path
+            point.x += randomNormal(0, 50);
+            point.y += randomNormal(0, 50);
+
+            // bias the point to be closer to the center of the screen
+            point.x = (point.x - window.innerWidth / 2) * 0.7 + window.innerWidth / 2;
+
+            // convert to relative to cell center
+            point.x -= cellCenter.x;
+            point.y -= cellCenter.y;
+
+            path.push(point);
         });
 
         // add path for middle of contact section
@@ -193,7 +197,7 @@ kkktmmmmtppp`;
             createScrollTrigger(cell, tl);
         }
         ScrollTrigger.refresh();
-    }, 1000);
+    }, 250);
 
     gsap.to(container, {
         rotateX: '20deg',
@@ -222,7 +226,7 @@ kkktmmmmtppp`;
             });
             
             gsap.to(content, {
-                rotateZ: 5 + (mouseX * 5), // Subtle Z rotation
+                rotateZ: 10 + (mouseX * 5), // Subtle Z rotation
                 duration: 0.3,
                 ease: 'power2.out',
             });
@@ -238,7 +242,7 @@ kkktmmmmtppp`;
             });
 
             gsap.to(content, {
-                rotateZ: 5 * (1 - progess) + (mouseX * 5 * (1 - progess)), // Subtle Z rotation
+                rotateZ: 10 * (1 - progess) + (mouseX * 5 * (1 - progess)), // Subtle Z rotation
                 duration: 0.3,
                 ease: 'power2.out',
             });
