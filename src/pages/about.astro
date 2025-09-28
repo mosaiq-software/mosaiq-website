@@ -74,13 +74,15 @@ import SectionLayout from '../layouts/SectionLayout.astro';
         >
             <SectionHeaderTitle>Who?</SectionHeaderTitle>
             {
-                Array.from({ length: 8 }).map((_, i) => (
-                    <img
-                        src={`/assets/headshots/winnie.jpg`}
-                        alt="Team Member Headshot"
-                        class="headshot"
-                        draggable="false"
-                    />
+                Array.from({ length: 12 }).map((_, i) => (
+                    <div class="headshot-wrapper">
+                        <img
+                            src={`/assets/headshots/winnie.jpg`}
+                            alt="Team Member Headshot"
+                            class="headshot"
+                            draggable="false"
+                        />
+                    </div>
                 ))
             }
         </div>
@@ -93,10 +95,13 @@ import SectionLayout from '../layouts/SectionLayout.astro';
     import gsap from 'gsap';
     import { Draggable } from 'gsap/Draggable';
     import { InertiaPlugin } from 'gsap/InertiaPlugin';
-    gsap.registerPlugin(Draggable, InertiaPlugin);
+    import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+    import { MotionPathHelper } from 'gsap/MotionPathHelper';
+    gsap.registerPlugin(Draggable, InertiaPlugin, MotionPathPlugin, MotionPathHelper);
 
-    const headshots = document.querySelectorAll('.headshot');
-    const membersContainer = document.querySelector('.members')!;
+    const headshots = document.querySelectorAll('.headshots') as NodeListOf<HTMLImageElement>;
+    const headshotWrappers = document.querySelectorAll('.headshot-wrapper') as NodeListOf<HTMLDivElement>;
+    const membersContainer = document.querySelector('.members') as HTMLDivElement;
 
     // spread out headshots around members container
     const containerCenter = {
@@ -104,37 +109,61 @@ import SectionLayout from '../layouts/SectionLayout.astro';
         y: membersContainer.clientHeight / 2,
     };
 
-    headshots.forEach((headshot, index) => {
-        Draggable.create(headshot, {
+    headshotWrappers.forEach((wrapper, index) => {
+        Draggable.create(wrapper, {
             bounds: membersContainer,
             inertia: true,
             edgeResistance: 0.65,
             type: 'x,y',
             throwProps: true,
         });
-
         // get a point around the center of the container based on the index
-        const angle = (index / headshots.length) * Math.PI * 2;
-        const radius = Math.min(membersContainer.clientWidth, membersContainer.clientHeight) / 3;
-        const x = containerCenter.x + radius * Math.cos(angle) - headshot.clientWidth / 2;
-        const y = containerCenter.y + radius * Math.sin(angle) - headshot.clientHeight / 2;
-        headshot.style.top = `${y}px`;
-        headshot.style.left = `${x}px`;
+        const angle = (index / headshotWrappers.length) * Math.PI * 2;
+        const radiusX = (membersContainer.clientWidth - wrapper.clientWidth) / gsap.utils.random(2, 5);
+        const radiusY = (membersContainer.clientHeight - wrapper.clientHeight) / gsap.utils.random(2, 5);
+        const x = containerCenter.x + radiusX * Math.cos(angle) - wrapper.clientWidth / 2;
+        const y = containerCenter.y + radiusY * Math.sin(angle) - wrapper.clientHeight / 2;
+        wrapper.style.top = `${y}px`;
+        wrapper.style.left = `${x}px`;
+    });
+
+    headshots.forEach((headshot) => {
+        // generate n random points around the center of the headshot
+        const points = Array.from({ length: 5 }).map(() => {
+            const angle = gsap.utils.random(0, Math.PI * 2);
+            const radius = gsap.utils.random(0, 20);
+            return {
+                x: radius * Math.cos(angle),
+                y: radius * Math.sin(angle),
+            };
+        });
+        // animate to each point in sequence
+        gsap.to(headshot, {
+            duration: gsap.utils.random(2, 4),
+            repeat: -1,
+            motionPath: {
+                path: points,
+            },
+        });
     });
 </script>
 <style>
     .members {
         width: 100%;
-        height: 800px;
+        height: 100vh;
         position: relative;
     }
 
+    .headshot-wrapper {
+        position: absolute;
+        width: 20vmin;
+        height: 20vmin;
+    }
     .headshot {
-        width: 200px;
-        height: 200px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         user-select: none;
-        position: absolute;
     }
 
     .info {
