@@ -1,0 +1,318 @@
+---
+interface Props {}
+const props = Astro.props;
+const colors = {
+    s: '#2384ca',
+    i: '#21286c',
+    p: '#482362',
+    m: '#932e76',
+    k: '#d31757',
+    t: 'transparent',
+};
+
+const logo = `ppptiiiitsss
+ppptiiiitsss
+ppptiiiitsss
+tttttiiitttt
+mmmmtttttiii
+mmmmtpptiiii
+mmmmtpptiiii
+mmmtttttiiii
+ttttmmmttttt
+kkktmmmmtppp
+kkktmmmmtppp
+kkktmmmmtppp`;
+---
+
+<div class="logo-container">
+    <div class="mosaiq-logo">
+        {
+            logo.split('\n').map((row, y) => (
+                <div class="row">
+                    {row.split('').map((char, x) => {
+                        const color = colors[char as keyof typeof colors] || colors.t;
+                        return (
+                            <div
+                                data-x={x}
+                                data-y={y}
+                                class={color === 'transparent' ? 'cell-spacer' : 'cell'}
+                                style={`background-color: ${color};`}
+                            />
+                        );
+                    })}
+                </div>
+            ))
+        }
+    </div>
+</div>
+<script>
+    import { gsap } from 'gsap';
+
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    import { ScrollSmoother } from 'gsap/ScrollSmoother';
+    import { MotionPathPlugin } from 'gsap/all';
+
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother, MotionPathPlugin);
+    const content = document.querySelector('.mosaiq-logo');
+    const container = document.querySelector('.logo-container');
+    if (!content) throw new Error('No content element found');
+
+    const cells = content.querySelectorAll('.cell');
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    // Add mouse move listener
+    document.addEventListener('mousemove', (e) => {
+        const rect = container!.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Calculate mouse position relative to logo center (-1 to 1 range)
+        mouseX = (e.clientX - centerX) / (window.innerWidth / 2);
+        mouseY = (e.clientY - centerY) / (window.innerHeight / 2);
+
+        // Clamp values
+        mouseX = Math.max(-1, Math.min(1, mouseX));
+        mouseY = Math.max(-1, Math.min(1, mouseY));
+    });
+
+    function randomNormal(mean: number, stdDev: number) {
+        const u1 = Math.random();
+        const u2 = Math.random();
+        const z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+        return z0 * stdDev + mean;
+    }
+
+    function calculatePath(cell: Element) {
+        const projectCards = document.querySelectorAll('.project-card');
+
+        const cellRect = cell.getBoundingClientRect();
+        const cellCenter = {
+            x: cellRect.left + cellRect.width / 2,
+            y: cellRect.top + cellRect.height / 2,
+        };
+
+        const path: { x: number; y: number }[] = [];
+
+        // add paths for each project card
+        projectCards.forEach((card) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = {
+                x: cardRect.left + cardRect.width / 2,
+                y: cardRect.top + cardRect.height / 2,
+            };
+
+            const point = { x: cardCenter.x, y: cardCenter.y };
+
+            // calculate normal-distributed random offset for path
+            point.x += randomNormal(0, 50);
+            point.y += randomNormal(0, 50);
+
+            // bias the point to be closer to the center of the screen
+            point.x = (point.x - window.innerWidth / 2) * 0.7 + window.innerWidth / 2;
+
+            // convert to relative to cell center
+            point.x -= cellCenter.x;
+            point.y -= cellCenter.y;
+
+            path.push(point);
+        });
+
+        // add path for middle of contact section
+        // and bottom of contact section off the right side of the screen
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            const contactRect = contactSection.getBoundingClientRect();
+            const contactCenter = {
+                x: contactRect.left + contactRect.width / 2,
+                y: contactRect.top + contactRect.height / 2,
+            };
+
+            const offsetX = randomNormal(0, 50);
+            const offsetY = randomNormal(0, 50);
+
+            path.push({
+                x: contactCenter.x + offsetX - cellCenter.x,
+                y: contactCenter.y - 200 + offsetY - cellCenter.y,
+            });
+
+            path.push({
+                x: window.innerWidth + 200 - cellCenter.x,
+                y: contactCenter.y + 200 + offsetY - cellCenter.y,
+            });
+        }
+
+        return path;
+    }
+
+    function calculateTimeline(cell: Element, path: { x: number; y: number }[]) {
+        const rotation = Math.random() * 180 - 90;
+        const tl = gsap.timeline({ paused: true });
+        if (!path) return tl;
+
+        // Separate the path into project visits and exit motion
+        const projectPaths = path.slice(0, -2); // All except last 2 points
+        const exitPaths = path.slice(-2); // Last 2 points (contact center and off-screen)
+
+        tl.to(cell, {
+            motionPath: {
+                path: [{ x: 0, y: 0 }, ...projectPaths],
+            },
+            rotate: rotation,
+            ease: 'sine.inOut',
+            duration: 0.8,
+        });
+
+        tl.to(cell, {
+            motionPath: {
+                path: exitPaths,
+            },
+            rotate: rotation,
+            ease: 'sine.in',
+            duration: 0.2,
+        });
+
+        return tl;
+    }
+
+    function createScrollTrigger(cell: Element, tl: gsap.core.Timeline) {
+        const delay = 50 + Math.random() * 200;
+        ScrollTrigger.create({
+            trigger: document.body,
+            start: `${delay}px top`,
+            end: `bottom-=${delay}px bottom`,
+            scrub: 1,
+            onUpdate: (self) => {
+                tl.progress(self.progress);
+            },
+        });
+    }
+
+    // create the animation after a delay to ensure all elements are rendered
+    setTimeout(() => {
+        for (const cell of cells) {
+            const paths = calculatePath(cell);
+            const tl = calculateTimeline(cell, paths);
+            createScrollTrigger(cell, tl);
+        }
+        ScrollTrigger.refresh();
+    }, 250);
+
+    gsap.to(container, {
+        rotateX: '20deg',
+        rotateY: '-20deg',
+        ease: 'power2.out',
+    });
+
+    gsap.to(content, {
+        rotateZ: '5deg',
+        ease: 'power2.out',
+    });
+
+    // Mouse tracking animation loop
+    gsap.ticker.add(() => {
+        // check if scroll position is near top of page
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+        if (scrollY < 50) {
+            const maxTilt = 15; // Maximum tilt in degrees
+
+            gsap.to(container, {
+                rotateX: 20 + -mouseY * maxTilt,
+                rotateY: -20 + mouseX * maxTilt,
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+
+            gsap.to(content, {
+                rotateZ: 10 + mouseX * 5, // Subtle Z rotation
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+        } else if (scrollY < 500) {
+            const progess = (scrollY - 50) / (500 - 50);
+            const maxTilt = 15; // Maximum tilt in degrees
+
+            gsap.to(container, {
+                rotateX: 20 * (1 - progess) + -mouseY * maxTilt * (1 - progess),
+                rotateY: -20 * (1 - progess) + mouseX * maxTilt * (1 - progess),
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+
+            gsap.to(content, {
+                rotateZ: 10 * (1 - progess) + mouseX * 5 * (1 - progess), // Subtle Z rotation
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+        } else {
+            // Smoothly return to neutral position
+            gsap.to(container, {
+                rotateX: 0,
+                rotateY: 0,
+                duration: 0.5,
+                ease: 'power2.out',
+            });
+
+            gsap.to(content, {
+                rotateZ: 0,
+                duration: 0.5,
+                ease: 'power2.out',
+            });
+        }
+    });
+
+    cells.forEach((cell, index) => {
+        const x = cell.getAttribute('data-x');
+        const y = cell.getAttribute('data-y');
+
+        if (x !== null && y !== null) {
+            const tl = gsap.timeline({
+                repeat: -1,
+                delay: (parseInt(x) + parseInt(y)) * 0.15,
+            });
+
+            tl.fromTo(
+                cell,
+                { scale: 1.05 },
+                {
+                    scale: 0.8,
+                    duration: 1,
+                    ease: 'power1.inOut',
+                }
+            );
+
+            tl.to(cell, {
+                scale: 1.05,
+                duration: 1,
+                ease: 'power1.inOut',
+            });
+
+            tl.to(cell, {
+                scale: 1.05,
+                duration: 3,
+            });
+        }
+    });
+</script>
+<style>
+    .mosaiq-logo {
+        display: flex;
+        gap: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+    .row {
+        display: flex;
+        gap: 0;
+    }
+    .cell,
+    .cell-spacer {
+        width: 4vw;
+        height: 4vw;
+        z-index: 1;
+    }
+</style>

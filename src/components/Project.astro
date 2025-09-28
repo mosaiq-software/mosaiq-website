@@ -1,0 +1,61 @@
+---
+interface props {
+    name: string;
+    link: string;
+    description: string;
+    authors: string[];
+    timeline: string;
+    technologies: string[];
+    left?: number;
+    right?: number;
+}
+
+const {
+    name, link, description,
+    authors, timeline, technologies
+} = Astro.props;
+
+const inlineStyle = `
+    ${Astro.props.left ? `align-self: flex-start; margin-left: ${Astro.props.left}%;` : ''}
+    ${Astro.props.right ? `align-self: flex-end; margin-right: ${Astro.props.right}%;` : ''}
+`;
+---
+
+<div class="project-card" style={inlineStyle}>
+    <a href={`https://${link}`} class="project-link">
+        <h2>{name}</h2>
+        <p>{link}</p>
+    </a>
+    <p class="description">{description}</p>
+    <div>
+        <p class="authors">{authors.join(', ')}</p>
+        <p class="technologies">{timeline} • {technologies.join(', ')}</p>
+    </div>
+</div>
+
+<style>
+    .project-card {
+        border-radius: 8px;
+        padding: var(--spacing-md);
+        border: 1px solid var(--color-text);
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+        backdrop-filter: blur(10px);
+        background-color: var(--color-background-transparent);
+    }
+
+    .project-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .project-link h2 {
+        margin: 0;
+    }
+
+    .authors, .technologies {
+        color: var(--color-text-secondary);
+    }
+</style>

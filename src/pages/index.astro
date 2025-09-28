@@ -1,0 +1,173 @@
+---
+import MosaiqLogo from '../components/MosaiqLogo.astro';
+import Project from '../components/Project.astro';
+import Square from '../components/Square.astro';
+import FilterText from '../components/FilterText.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = [
+    {
+        name: 'Card Domain',
+        link: 'carddomain.mosaiq.dev',
+        description: 'A simple, extremely powerful platform for playing real-time card games online with player-enforced rules.',
+        authors: ['Alex Santagata', 'Sam Randa'],
+        timeline: 'July 2025 - August 2025',
+        technologies: ['React', 'WebSocket', 'Express'],
+        left: 10,
+    },
+    {
+        name: 'Minefolio',
+        link: 'minefol.io',
+        description: 'A portfolio creation and showcase platform for Minecraft builds and building communities.',
+        authors: ['Matt Hagger', 'Javier Moncada', 'Thinh Pham'],
+        timeline: 'July 2025 - Present',
+        technologies: ['React', 'Express'],
+        right: 20,
+    },
+    {
+        name: 'Timelier',
+        link: 'timelier.app',
+        description: 'A tool for students, friends, and coworkers to find compatible times to meet.',
+        authors: ['Sam Randa', 'Zoe Fisk', 'Zach Szeto'],
+        timeline: 'August 2025 - Present',
+        technologies: ['React', 'Websocket', 'Express'],
+        left: 30,
+    },
+];
+---
+
+<BaseLayout title="Mosaiq Software">
+    <section id="hero">
+        <div id="hero-text">
+            <FilterText>
+                Software development<br />
+                for the inner child
+            </FilterText>
+            <p>
+                Mosaiq Software is a non-profit student software development<br />
+                group based out of Worcester, Massachusetts making stupidly<br />
+                cool things on the web.
+            </p>
+            <button
+                class="outline-button"
+                id="see-our-work"
+            >
+                See Our Work
+            </button>
+        </div>
+        <div id="hero-logo">
+            <MosaiqLogo />
+        </div>
+    </section>
+    <section id="projects">
+        <h1>Projects</h1>
+        {
+            projects.map((project) => (
+                <Project
+                    name={project.name}
+                    link={project.link}
+                    description={project.description}
+                    authors={project.authors}
+                    timeline={project.timeline}
+                    technologies={project.technologies}
+                    left={project.left}
+                    right={project.right}
+                />
+            ))
+        }
+        <Square
+            width={10}
+            size={800}
+            color="var(--mosaiq-pink)"
+            className="square1"
+            top="30%"
+            left="-225px"
+            rotation="55deg"
+        />
+        <Square
+            width={10}
+            size={400}
+            color="var(--mosaiq-blue)"
+            className="square1"
+            top="60%"
+            left="60%"
+            rotation="-10deg"
+        />
+        <Square
+            width={10}
+            size={400}
+            color="var(--mosaiq-navy)"
+            className="square1"
+            top="30%"
+            right="-500px"
+            rotation="15deg"
+        />
+        <Square
+            width={10}
+            size={300}
+            color="var(--mosaiq-magenta)"
+            className="square1"
+            top="85%"
+            left="25%"
+            rotation="45deg"
+        />
+    </section>
+    <section id="contact">
+        <h1>Contact</h1>
+    </section>
+</BaseLayout>
+
+<style>
+    .clipped {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        clip-path: url(#svgTextPath);
+        filter: blur(10px);
+    }
+    #hero {
+        height: calc(100vh - 100px);
+        display: flex;
+        position: relative;
+    }
+
+    #hero-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4rem;
+        margin: var(--spacing-lg);
+    }
+
+    #hero-logo {
+        position: absolute;
+        inset: 0;
+        left: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #projects {
+        display: flex;
+        flex-direction: column;
+        gap: 10em;
+        flex: 1;
+        margin: 10em var(--spacing-lg);
+    }
+
+    #projects h1,
+    #contact h1 {
+        font-size: 8rem;
+        color: var(--color-surface);
+    }
+
+    section {
+        position: relative;
+        z-index: 2;
+    }
+
+    #contact {
+        height: 100vh;
+    }
+</style>
