@@ -2,6 +2,7 @@
 import '../styles/reset.css';
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
     title: string;
@@ -31,9 +32,10 @@ const props = Astro.props;
 
     <body class="smooth-wrapper">
         <div class="smooth-content">
-            <Navbar />
             <div id="content">
+                <Navbar />
                 <slot />
+                <Footer />
             </div>
         </div>
     </body>
