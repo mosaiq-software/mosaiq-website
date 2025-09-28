@@ -92,39 +92,41 @@ const team = [
         </>
         <div class="info">
             <SectionHeaderTitle>What?</SectionHeaderTitle>
-            <div
-                class="text-bubble"
-                style="margin-left:25%;"
-            >
-                <p>We're Mosaiq Software!</p>
-            </div>
-            <div
-                class="text-bubble"
-                style="margin-left:20%;"
-            >
-                <p>A team of passionate developers and designers with a bizarre love for building digital tchotchkes.</p>
-                <p>We craft delightful web experiences that blend creativity and technology.</p>
-                <p>Our mission? To turn ideas into stunning realities, one pixel at a time.</p>
-            </div>
-            <div
-                class="text-bubble"
-                style="margin-left:40%;"
-            >
-                <p>Want to join us on this journey?</p>
-                <p>Check out how you can <a href="/join">get involved</a>!</p>
-            </div>
-            <div
-                class="text-bubble"
-                style="margin-left:30%;"
-            >
-                <p>Have an idea for what we should build next? We'd love to hear from you!</p>
-                <p>
-                    Reach out to us at <a
-                        href="mailto:hello@mosaiq.com"
-                        target="_blank"
-                        >hello@mosaiq.com</a
-                    >
-                </p>
+            <div class="bubbles">
+                <div
+                    class="text-bubble"
+                    style="margin-left:25%;"
+                >
+                    <h2>We're Mosaiq Software!</h2>
+                </div>
+                <div
+                    class="text-bubble"
+                    style="margin-left:20%;"
+                >
+                    <p>A team of passionate developers and designers with a bizarre love for building digital tchotchkes.</p>
+                    <p>We craft delightful web experiences that blend creativity and technology.</p>
+                    <p>Our mission? To turn ideas into stunning realities, one pixel at a time.</p>
+                </div>
+                <div
+                    class="text-bubble"
+                    style="margin-left:40%;"
+                >
+                    <p>Want to join us on this journey?</p>
+                    <p>Check out how you can <a href="/join">get involved</a>!</p>
+                </div>
+                <div
+                    class="text-bubble"
+                    style="margin-left:30%;"
+                >
+                    <p>Have an idea for what we should build next? We'd love to hear from you!</p>
+                    <p>
+                        Reach out to us at <a
+                            href="mailto:hello@mosaiq.com"
+                            target="_blank"
+                            >hello@mosaiq.com</a
+                        >
+                    </p>
+                </div>
             </div>
         </div>
         <div class="members">
@@ -165,7 +167,8 @@ const team = [
     import gsap from 'gsap';
     import ScrollTrigger from 'gsap/ScrollTrigger';
     import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+    import SplitText from 'gsap/SplitText';
+    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, SplitText);
 
     if (ScrollTrigger.isTouch === 1) {
         ScrollTrigger.normalizeScroll({
@@ -173,6 +176,44 @@ const team = [
             type: 'touch,wheel,pointer',
         });
     }
+
+    document.fonts.ready.then(() => {
+        const splitText = new SplitText('.bubbles', {
+            type: 'lines,words,chars',
+            wordsClass: 'text-bubble-word',
+        });
+        gsap.from(splitText.words, {
+            opacity: 0,
+            y: 20,
+            rotationX: 90,
+            transformOrigin: '0% 50% -50',
+            stagger: 0.02,
+            ease: 'back.out(1.7)',
+            duration: 1,
+            scrollTrigger: {
+                trigger: '.bubbles',
+                start: 'top 80%',
+            },
+        });
+
+        const textBubbles = document.querySelectorAll('.text-bubble') as NodeListOf<HTMLDivElement>;
+        const textRotMax = 5;
+        textBubbles.forEach((bubble) => {
+            document.addEventListener('mousemove', (e) => {
+                const rect = bubble.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                gsap.to(bubble, {
+                    rotationY: gsap.utils.clamp(-textRotMax, textRotMax, x * 10),
+                    rotationX: gsap.utils.clamp(-textRotMax, textRotMax, -y * 20),
+                    transformPerspective: 500,
+                    transformOrigin: 'center',
+                    ease: 'sine.out',
+                    overwrite: 'auto',
+                });
+            });
+        });
+    });
 
     const headshotWrappers = document.querySelectorAll('.headshot-wrapper') as NodeListOf<HTMLDivElement>;
     const headshotWheel = document.querySelector('.headshot-wheel') as HTMLDivElement;
@@ -262,80 +303,93 @@ const team = [
     });
 </script>
 <style>
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        /* remove margin-left from text bubbles on mobile */
+        @media screen and (max-width: 768px) {
+            .text-bubble {
+                margin-left: 0 !important;
+            }
+        }
+        .bubbles {
+            background-color: var(--color-background);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 2rem 0;
+
+            .text-bubble {
+                padding: 1rem 2rem;
+                width: fit-content;
+                font-size: var(--font-size-lg);
+
+                a {
+                    color: var(--mosaiq-blue);
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
     .members {
         width: 100%;
         position: relative;
         user-select: none !important;
         min-height: 100vh;
         overflow-y: clip;
-    }
 
-    .headshot-wheel {
-        position: absolute;
-        top: 900px;
-        left: calc(-500px + 50%);
-        width: 1000px;
-        height: 1000px;
-        user-select: none;
-
-        .circle {
+        .headshot-wheel {
             position: absolute;
-            border-radius: 50000px;
-            border: double 0.5em transparent;
-            background-image: linear-gradient(var(--color-background), var(--color-background)), linear-gradient(to right, var(--mosaiq-blue), var(--mosaiq-pink));
-            background-origin: border-box;
-            background-clip: content-box, border-box;
-            pointer-events: none;
+            top: 900px;
+            left: calc(-500px + 50%);
+            width: 1000px;
+            height: 1000px;
+            user-select: none;
+
+            .circle {
+                position: absolute;
+                border-radius: 50000px;
+                border: double 0.5em transparent;
+                background-image: linear-gradient(var(--color-background), var(--color-background)), linear-gradient(to right, var(--mosaiq-blue), var(--mosaiq-pink));
+                background-origin: border-box;
+                background-clip: content-box, border-box;
+                pointer-events: none;
+            }
+
+            .headshot-wrapper {
+                position: absolute;
+                width: 300px;
+                height: 500px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+
+                p {
+                    font-size: var(--font-size-md);
+                    color: var(--color-text);
+                    text-align: center;
+                    user-select: auto;
+                }
+
+                .headshot {
+                    width: 100%;
+                    height: 300px;
+                    object-fit: cover;
+                    user-select: none;
+                }
+            }
         }
-    }
-
-    .headshot-wrapper {
-        position: absolute;
-        width: 300px;
-        height: 500px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-
-        p {
-            font-size: var(--font-size-md);
-            color: var(--color-text);
-            text-align: center;
-            user-select: auto;
-        }
-    }
-    .headshot {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        user-select: none;
-    }
-
-    .info {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    /* remove margin-left from text bubbles on mobile */
-    @media screen and (max-width: 768px) {
-        .text-bubble {
-            margin-left: 0 !important;
-        }
-    }
-
-    .text-bubble {
-        padding: 1rem 2rem;
-        backdrop-filter: blur(20px);
-        width: fit-content;
-        font-size: var(--font-size-lg);
-    }
-
-    a {
-        color: var(--mosaiq-blue);
-        text-decoration: none;
     }
 
     .timeline {
