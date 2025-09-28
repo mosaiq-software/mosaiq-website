@@ -10,10 +10,7 @@ interface props {
     right?: number;
 }
 
-const {
-    name, link, description,
-    authors, timeline, technologies
-} = Astro.props;
+const { name, link, description, authors, timeline, technologies } = Astro.props;
 
 const inlineStyle = `
     ${Astro.props.left ? `align-self: flex-start; margin-left: ${Astro.props.left}%;` : ''}
@@ -21,8 +18,14 @@ const inlineStyle = `
 `;
 ---
 
-<div class="project-card" style={inlineStyle}>
-    <a href={`https://${link}`} class="project-link">
+<div
+    class="project-card"
+    style={inlineStyle}
+>
+    <a
+        href={`https://${link}`}
+        class="project-link"
+    >
         <h2>{name}</h2>
         <p>{link}</p>
     </a>
@@ -44,6 +47,7 @@ const inlineStyle = `
         gap: var(--spacing-md);
         backdrop-filter: blur(10px);
         background-color: var(--color-background-transparent);
+        margin-top: 10rem;
     }
 
     .project-link {
@@ -55,7 +59,8 @@ const inlineStyle = `
         margin: 0;
     }
 
-    .authors, .technologies {
+    .authors,
+    .technologies {
         color: var(--color-text-secondary);
     }
 </style>
