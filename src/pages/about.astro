@@ -68,96 +68,112 @@ import SectionLayout from '../layouts/SectionLayout.astro';
                 </p>
             </div>
         </div>
-        <div
-            class="members"
-            draggable="false"
-        >
+        <div class="members">
             <SectionHeaderTitle>Who?</SectionHeaderTitle>
-            {
-                Array.from({ length: 12 }).map((_, i) => (
-                    <div class="headshot-wrapper">
-                        <img
-                            src={`/assets/headshots/winnie.jpg`}
-                            alt="Team Member Headshot"
-                            class="headshot"
-                            draggable="false"
-                        />
-                    </div>
-                ))
-            }
+            <div class="headshot-wheel">
+                {
+                    Array.from({ length: 9 }).map((_, i) => (
+                        <div class="headshot-wrapper">
+                            <img
+                                src={`/assets/headshots/winnie.jpg`}
+                                alt="Team Member Headshot"
+                                class="headshot"
+                                draggable="false"
+                            />
+                        </div>
+                    ))
+                }
+            </div>
         </div>
         <div class="timeline">
+            <div class="backdrop"></div>
             <SectionHeaderTitle>How?</SectionHeaderTitle>
         </div>
     </SectionLayout>
 </BaseLayout>
 <script>
     import gsap from 'gsap';
+    import ScrollTrigger from 'gsap/ScrollTrigger';
     import { Draggable } from 'gsap/Draggable';
     import { InertiaPlugin } from 'gsap/InertiaPlugin';
-    import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-    import { MotionPathHelper } from 'gsap/MotionPathHelper';
-    gsap.registerPlugin(Draggable, InertiaPlugin, MotionPathPlugin, MotionPathHelper);
+    gsap.registerPlugin(Draggable, InertiaPlugin, ScrollTrigger);
 
-    const headshots = document.querySelectorAll('.headshots') as NodeListOf<HTMLImageElement>;
     const headshotWrappers = document.querySelectorAll('.headshot-wrapper') as NodeListOf<HTMLDivElement>;
-    const membersContainer = document.querySelector('.members') as HTMLDivElement;
+    const headshotWheel = document.querySelector('.headshot-wheel') as HTMLDivElement;
 
-    // spread out headshots around members container
-    const containerCenter = {
-        x: membersContainer.clientWidth / 2,
-        y: membersContainer.clientHeight / 2,
+    const wheelCenter = {
+        x: headshotWheel.clientWidth / 2,
+        y: headshotWheel.clientHeight / 2,
     };
 
+    const radius = headshotWheel.clientWidth;
+
+    // draw a circle representing the radius
+    const radiusCircle = document.createElement('div');
+    radiusCircle.style.position = 'absolute';
+    radiusCircle.style.width = `${radius * 2}px`;
+    radiusCircle.style.height = `${radius * 2}px`;
+    radiusCircle.style.border = '2px dashed blue';
+    radiusCircle.style.borderRadius = '50%';
+    radiusCircle.style.top = `${wheelCenter.y - radius}px`;
+    radiusCircle.style.left = `${wheelCenter.x - radius}px`;
+    headshotWheel.appendChild(radiusCircle);
+
+    // spread the headshots evenly around the circle
+    const degreesPerHeadshot = 30;
+    const totalScrollDegrees = degreesPerHeadshot * (headshotWrappers.length - 1);
+    const degreesOffset = 270 - degreesPerHeadshot * headshotWrappers.length;
+
     headshotWrappers.forEach((wrapper, index) => {
-        Draggable.create(wrapper, {
-            bounds: membersContainer,
-            inertia: true,
-            edgeResistance: 0.65,
-            type: 'x,y',
-            throwProps: true,
-        });
-        // get a point around the center of the container based on the index
-        const angle = (index / headshotWrappers.length) * Math.PI * 2;
-        const radiusX = (membersContainer.clientWidth - wrapper.clientWidth) / gsap.utils.random(2, 5);
-        const radiusY = (membersContainer.clientHeight - wrapper.clientHeight) / gsap.utils.random(2, 5);
-        const x = containerCenter.x + radiusX * Math.cos(angle) - wrapper.clientWidth / 2;
-        const y = containerCenter.y + radiusY * Math.sin(angle) - wrapper.clientHeight / 2;
-        wrapper.style.top = `${y}px`;
-        wrapper.style.left = `${x}px`;
+        // position the headshot around the circle
+        const angleDeg = degreesPerHeadshot * (index + 1) + degreesOffset;
+        const angle = (angleDeg * Math.PI) / 180;
+        const x = wheelCenter.x + radius * Math.cos(angle) - wrapper.clientWidth / 2;
+        const y = wheelCenter.y + radius * Math.sin(angle) - wrapper.clientHeight / 2;
+        wrapper.style.transform = `translate(${x}px, ${y}px)`;
+
+        // rotate the headshot to face outward
+        const rotation = (angle * 180) / Math.PI + 90;
+        wrapper.style.transform += ` rotate(${rotation}deg)`;
     });
 
-    headshots.forEach((headshot) => {
-        // generate n random points around the center of the headshot
-        const points = Array.from({ length: 5 }).map(() => {
-            const angle = gsap.utils.random(0, Math.PI * 2);
-            const radius = gsap.utils.random(0, 20);
-            return {
-                x: radius * Math.cos(angle),
-                y: radius * Math.sin(angle),
-            };
-        });
-        // animate to each point in sequence
-        gsap.to(headshot, {
-            duration: gsap.utils.random(2, 4),
-            repeat: -1,
-            motionPath: {
-                path: points,
-            },
-        });
+    ScrollTrigger.create({
+        trigger: '.members',
+        start: 'top top',
+        end: 'center top',
+        pin: true,
+        anticipatePin: 1,
+        onUpdate(self) {
+            const rotation = self.progress * totalScrollDegrees;
+            gsap.to(headshotWheel, {
+                rotation,
+                ease: 'none',
+                overwrite: 'auto',
+            });
+        },
     });
 </script>
 <style>
     .members {
         width: 100%;
-        height: 100vh;
+        height: 200vh;
         position: relative;
+        user-select: none !important;
+    }
+
+    .headshot-wheel {
+        position: absolute;
+        top: 900px;
+        left: calc(-500px + 50%);
+        width: 1000px;
+        height: 1000px;
+        user-select: none;
     }
 
     .headshot-wrapper {
         position: absolute;
-        width: 20vmin;
-        height: 20vmin;
+        width: 300px;
+        height: 300px;
     }
     .headshot {
         width: 100%;
@@ -189,5 +205,21 @@ import SectionLayout from '../layouts/SectionLayout.astro';
     a {
         color: var(--mosaiq-blue);
         text-decoration: none;
+    }
+
+    .timeline {
+        height: 100vh;
+        z-index: 1;
+
+        position: relative;
+
+        .backdrop {
+            position: absolute;
+            top: 0;
+            left: -50vw;
+            width: 200vw;
+            height: 100%;
+            background-color: aqua;
+        }
     }
 </style>
