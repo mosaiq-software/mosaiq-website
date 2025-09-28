@@ -1,13 +1,91 @@
 ---
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
+import Square from '../components/Square.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
 ---
 
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="about">
+        <Square
+            width={10}
+            size={800}
+            color="var(--mosaiq-navy)"
+            top="30%"
+            left="10%"
+            rotation="80deg"
+        />
+        <Square
+            width={10}
+            size={300}
+            color="var(--mosaiq-magenta)"
+            top="60%"
+            right="10%"
+            rotation="100deg"
+        />
         <SectionHeaderTitle>About</SectionHeaderTitle>
+        <div class="headshots">
+            {
+                Array.from({ length: 18 }).map((_, i) => (
+                    <img
+                        src={`/assets/headshots/winnie.jpg`}
+                        alt="Winnie"
+                        class="headshot"
+                    />
+                ))
+            }
+        </div>
     </SectionLayout>
 </BaseLayout>
+<script>
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-<style></style>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const headshots = gsap.utils.toArray('.headshot');
+
+    gsap.fromTo(
+        headshots,
+        {
+            x: 0,
+        },
+        {
+            x: window.innerWidth,
+            ease: 'none',
+            duration: 3,
+            repeat: -1,
+        }
+    );
+
+    const proxy = { skew: 0 };
+    const skewSetter = gsap.quickSetter(headshots, 'skewX', 'deg');
+    const clamp = gsap.utils.clamp(-20, 20);
+    ScrollTrigger.create({
+        onUpdate: (self) => {
+            const skew = clamp(self.getVelocity() / -100);
+            proxy.skew = skew;
+            gsap.to(proxy, {
+                onUpdate: () => skewSetter(proxy.skew),
+            });
+        },
+    });
+</script>
+<style>
+    .headshots {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: none;
+        gap: 1rem;
+        padding: 1rem 0;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+    }
+    .headshot {
+        width: 300px;
+        height: 400px;
+        object-fit: cover;
+    }
+</style>
