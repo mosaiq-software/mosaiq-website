@@ -6,12 +6,6 @@
     <h1 class="text background-text"><slot /></h1>
     <h1
         aria-hidden="true"
-        class="text outline-text"
-    >
-        <slot />
-    </h1>
-    <h1
-        aria-hidden="true"
         class="text filter-text"
     >
         <slot />
@@ -29,6 +23,7 @@
         line-height: 0.9;
         margin: 0;
     }
+    
     .text {
         position: absolute;
     }
@@ -39,12 +34,6 @@
         z-index: -2;
     }
 
-    .outline-text {
-        color: transparent;
-        -webkit-text-stroke-width: 1.5px;
-        -webkit-text-stroke-color: white;
-        z-index: 3;
-    }
 
     .filter-text {
         mix-blend-mode: saturation;
