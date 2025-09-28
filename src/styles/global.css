@@ -1,45 +1,19 @@
 /* fonts */
 @font-face {
-    font-family: 'DM Sans';
-    src: url('/fonts/DMSans-Regular.ttf') format('truetype');
+    font-family: 'Clash Display';
+    src: url('/fonts/ClashDisplay-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'DM Sans';
-    src: url('/fonts/DMSans-Italic.ttf') format('truetype');
-    font-weight: 400;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'DM Sans';
-    src: url('/fonts/DMSans-Bold.ttf') format('truetype');
-    font-weight: 700;
+    font-family: 'Clash Display';
+    src: url('/fonts/ClashDisplay-Semibold.woff2') format('woff2');
+    font-weight: 600;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'DM Sans';
-    src: url('/fonts/DMSans-BoldItalic.ttf') format('truetype');
-    font-weight: 700;
-    font-style: italic;
-}
 
-@font-face {
-    font-family: 'DM Sans';
-    src: url('/fonts/DMSans-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'DM Sans';
-    src: url('/fonts/DMSans-LightItalic.ttf') format('truetype');
-    font-weight: 300;
-    font-style: italic;
-}
 
 /* variables */
 :root {
@@ -71,19 +45,19 @@
 
 /* global styles */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 600;
     color: var(--color-text);
 }
 
 p {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Clash Display', sans-serif;
     font-weight: 400;
     color: var(--color-text);
 }
 
 button {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Clash Display', sans-serif;
     font-weight: 400;
     color: var(--color-text);
     font-size: var(--font-size-lg);
@@ -103,5 +77,5 @@ button {
 a {
     text-decoration: none;
     color: inherit;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Clash Display', sans-serif;
 }
