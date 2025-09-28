@@ -1,9 +1,11 @@
 ---
-import MosaiqLogo from '../components/MosaiqLogo.astro';
+import FancyMosaiqLogo from '../components/FancyMosaiqLogo.astro';
 import Project from '../components/Project.astro';
 import Square from '../components/Square.astro';
 import FilterText from '../components/FilterText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
+import SectionLayout from '../layouts/SectionLayout.astro';
 
 const projects = [
     {
@@ -37,7 +39,7 @@ const projects = [
 ---
 
 <BaseLayout title="Mosaiq Software">
-    <section id="hero">
+    <SectionLayout id="hero">
         <div id="hero-text">
             <FilterText>
                 Software development<br />
@@ -56,11 +58,11 @@ const projects = [
             </button>
         </div>
         <div id="hero-logo">
-            <MosaiqLogo />
+            <FancyMosaiqLogo />
         </div>
-    </section>
-    <section id="projects">
-        <h1>Projects</h1>
+    </SectionLayout>
+    <SectionLayout id="projects">
+        <SectionHeaderTitle>Projects</SectionHeaderTitle>
         {
             projects.map((project) => (
                 <Project
@@ -111,26 +113,19 @@ const projects = [
             left="25%"
             rotation="45deg"
         />
-    </section>
-    <section id="contact">
-        <h1>Contact</h1>
-    </section>
+    </SectionLayout>
+    <SectionLayout id="contact">
+        <SectionHeaderTitle>Contact</SectionHeaderTitle>
+    </SectionLayout>
 </BaseLayout>
+<script>
+    import { smoother } from '../scripts/context';
 
+    document.getElementById('see-our-work')!.onclick = () => {
+        smoother.scrollTo(document.getElementById('projects')!, true);
+    };
+</script>
 <style>
-    .clipped {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        clip-path: url(#svgTextPath);
-        filter: blur(10px);
-    }
-    #hero {
-        height: calc(100vh - 100px);
-        display: flex;
-        position: relative;
-    }
-
     #hero-text {
         display: flex;
         flex-direction: column;
@@ -146,28 +141,5 @@ const projects = [
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    #projects {
-        display: flex;
-        flex-direction: column;
-        gap: 10em;
-        flex: 1;
-        margin: 10em var(--spacing-lg);
-    }
-
-    #projects h1,
-    #contact h1 {
-        font-size: 8rem;
-        color: var(--color-surface);
-    }
-
-    section {
-        position: relative;
-        z-index: 2;
-    }
-
-    #contact {
-        height: 100vh;
     }
 </style>

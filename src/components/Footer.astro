@@ -1,0 +1,48 @@
+---
+import SimpleMosaiqLogo from './SimpleMosaiqLogo.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+    <div class="column footer-links">
+        <h2 class="bkg-text">Organization</h2>
+        <a href="/about">About</a>
+        <a href="/join">Join</a>
+    </div>
+    <div class="column">
+        <SimpleMosaiqLogo />
+        <h2 class="white-text">Mosaiq Software</h2>
+        <p class="white-text">© {year} Mosaiq Software</p>
+    </div>
+    <div class="column footer-links">
+        <h2 class="bkg-text">Resources</h2>
+        <a href="/brand">Brand Assets</a>
+    </div>
+</footer>
+
+<style>
+    footer {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        padding: var(--spacing-lg) var(--spacing-lg);
+        z-index: 3;
+        background-color: var(--mosaiq-pink);
+        min-height: 50vh;
+        color: var(--color-background);
+    }
+    .column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+    }
+    .white-text {
+        color: var(--color-background);
+    }
+    .bkg-text {
+        color: #fb3b7c;
+    }
+</style>

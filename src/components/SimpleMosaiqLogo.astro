@@ -1,0 +1,15 @@
+<img
+    src="assets/MosaiqLogoOutlined.png"
+    alt="The Mosaiq Logo"
+    height="50"
+    class="simple-mosaiq-logo"
+/>
+<script>
+    const logos = document.querySelectorAll('.simple-mosaiq-logo');
+    logos.forEach((logo) => {
+        logo.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            window.location.href = '/brand';
+        });
+    });
+</script>

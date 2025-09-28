@@ -1,15 +1,13 @@
 ---
+import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLayout from '../layouts/SectionLayout.astro';
 ---
 
 <BaseLayout title="Mosaiq Software">
-    <section id="about">
-        <h1>About</h1>
-    </section>
+    <SectionLayout id="about">
+        <SectionHeaderTitle>About</SectionHeaderTitle>
+    </SectionLayout>
 </BaseLayout>
 
-<style>
-    #about {
-        height: 100vh;
-    }
-</style>
+<style></style>
