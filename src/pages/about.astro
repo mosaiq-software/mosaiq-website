@@ -11,7 +11,7 @@ import SectionLayout from '../layouts/SectionLayout.astro';
             width={10}
             size={800}
             color="var(--mosaiq-navy)"
-            top="30%"
+            top="400px"
             left="10%"
             rotation="80deg"
         />
@@ -19,73 +19,146 @@ import SectionLayout from '../layouts/SectionLayout.astro';
             width={10}
             size={300}
             color="var(--mosaiq-magenta)"
-            top="60%"
+            top="100px"
             right="10%"
             rotation="100deg"
         />
-        <SectionHeaderTitle>About</SectionHeaderTitle>
-        <div class="headshots">
+        <Square
+            width={10}
+            size={500}
+            color="var(--mosaiq-blue)"
+            top="900px"
+            right="20%"
+            rotation="35deg"
+        />
+        <div class="info">
+            <SectionHeaderTitle>What?</SectionHeaderTitle>
+            <div
+                class="text-bubble"
+                style="margin-left:25%;"
+            >
+                <p>We're Mosaiq Software!</p>
+            </div>
+            <div
+                class="text-bubble"
+                style="margin-left:20%;"
+            >
+                <p>A team of passionate developers and designers with a bizarre love for building digital tchotchkes.</p>
+                <p>We craft delightful web experiences that blend creativity and technology.</p>
+                <p>Our mission? To turn ideas into stunning realities, one pixel at a time.</p>
+            </div>
+            <div
+                class="text-bubble"
+                style="margin-left:40%;"
+            >
+                <p>Want to join us on this journey?</p>
+                <p>Check out how you can <a href="/join">get involved</a>!</p>
+            </div>
+            <div
+                class="text-bubble"
+                style="margin-left:30%;"
+            >
+                <p>Have an idea for what we should build next? We'd love to hear from you!</p>
+                <p>
+                    Reach out to us at <a
+                        href="mailto:hello@mosaiq.com"
+                        target="_blank"
+                        >hello@mosaiq.com</a
+                    >
+                </p>
+            </div>
+        </div>
+        <div
+            class="members"
+            draggable="false"
+        >
+            <SectionHeaderTitle>Who?</SectionHeaderTitle>
             {
-                Array.from({ length: 18 }).map((_, i) => (
+                Array.from({ length: 8 }).map((_, i) => (
                     <img
                         src={`/assets/headshots/winnie.jpg`}
-                        alt="Winnie"
+                        alt="Team Member Headshot"
                         class="headshot"
+                        draggable="false"
                     />
                 ))
             }
+        </div>
+        <div class="timeline">
+            <SectionHeaderTitle>How?</SectionHeaderTitle>
         </div>
     </SectionLayout>
 </BaseLayout>
 <script>
     import gsap from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    import { Draggable } from 'gsap/Draggable';
+    import { InertiaPlugin } from 'gsap/InertiaPlugin';
+    gsap.registerPlugin(Draggable, InertiaPlugin);
 
-    gsap.registerPlugin(ScrollTrigger);
+    const headshots = document.querySelectorAll('.headshot');
+    const membersContainer = document.querySelector('.members')!;
 
-    const headshots = gsap.utils.toArray('.headshot');
+    // spread out headshots around members container
+    const containerCenter = {
+        x: membersContainer.clientWidth / 2,
+        y: membersContainer.clientHeight / 2,
+    };
 
-    gsap.fromTo(
-        headshots,
-        {
-            x: 0,
-        },
-        {
-            x: window.innerWidth,
-            ease: 'none',
-            duration: 3,
-            repeat: -1,
-        }
-    );
+    headshots.forEach((headshot, index) => {
+        Draggable.create(headshot, {
+            bounds: membersContainer,
+            inertia: true,
+            edgeResistance: 0.65,
+            type: 'x,y',
+            throwProps: true,
+        });
 
-    const proxy = { skew: 0 };
-    const skewSetter = gsap.quickSetter(headshots, 'skewX', 'deg');
-    const clamp = gsap.utils.clamp(-20, 20);
-    ScrollTrigger.create({
-        onUpdate: (self) => {
-            const skew = clamp(self.getVelocity() / -100);
-            proxy.skew = skew;
-            gsap.to(proxy, {
-                onUpdate: () => skewSetter(proxy.skew),
-            });
-        },
+        // get a point around the center of the container based on the index
+        const angle = (index / headshots.length) * Math.PI * 2;
+        const radius = Math.min(membersContainer.clientWidth, membersContainer.clientHeight) / 3;
+        const x = containerCenter.x + radius * Math.cos(angle) - headshot.clientWidth / 2;
+        const y = containerCenter.y + radius * Math.sin(angle) - headshot.clientHeight / 2;
+        headshot.style.top = `${y}px`;
+        headshot.style.left = `${x}px`;
     });
 </script>
 <style>
-    .headshots {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: none;
-        gap: 1rem;
-        padding: 1rem 0;
+    .members {
         width: 100%;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2rem;
+        height: 800px;
+        position: relative;
     }
+
     .headshot {
-        width: 300px;
-        height: 400px;
+        width: 200px;
+        height: 200px;
         object-fit: cover;
+        user-select: none;
+        position: absolute;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    /* remove margin-left from text bubbles on mobile */
+    @media screen and (max-width: 768px) {
+        .text-bubble {
+            margin-left: 0 !important;
+        }
+    }
+
+    .text-bubble {
+        padding: 1rem 2rem;
+        backdrop-filter: blur(20px);
+        width: fit-content;
+        font-size: var(--font-size-lg);
+    }
+
+    a {
+        color: var(--mosaiq-blue);
+        text-decoration: none;
     }
 </style>
