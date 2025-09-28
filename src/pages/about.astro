@@ -3,34 +3,93 @@ import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import Square from '../components/Square.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
+
+const team = [
+    {
+        name: 'Matt Hagger',
+        role: 'Software Engineer',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2024-10-05',
+    },
+    {
+        name: 'Javier Moncada',
+        role: 'Software Engineer',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2024-10-07',
+    },
+    {
+        name: 'Thinh Pham',
+        role: 'Software Engineer',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2024-10-08',
+    },
+    {
+        name: 'Zach Szeto',
+        role: 'Software Engineer',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2024-11-08',
+    },
+    {
+        name: 'Sohrob Yaghouti',
+        role: 'Product Manager',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2024-11-21',
+    },
+    {
+        name: 'Sam Randa',
+        role: 'Web Platform Engineer',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2025-03-19',
+    },
+    {
+        name: 'Zoe Fisk',
+        role: 'Software Engineer',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2025-03-21',
+    },
+    {
+        name: 'Alex Santagata',
+        role: 'Software Engineer',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2025-06-06',
+    },
+    {
+        name: 'Robin Idk your last name',
+        role: 'Hangs out',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2025-09-23',
+    },
+].sort((a, b) => new Date(b.since).getTime() - new Date(a.since).getTime());
 ---
 
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="about">
-        <Square
-            width={10}
-            size={800}
-            color="var(--mosaiq-navy)"
-            top="400px"
-            left="10%"
-            rotation="80deg"
-        />
-        <Square
-            width={10}
-            size={300}
-            color="var(--mosaiq-magenta)"
-            top="100px"
-            right="10%"
-            rotation="100deg"
-        />
-        <Square
-            width={10}
-            size={500}
-            color="var(--mosaiq-blue)"
-            top="900px"
-            right="20%"
-            rotation="35deg"
-        />
+        <>
+            <Square
+                width={10}
+                size={800}
+                color="var(--mosaiq-navy)"
+                top="400px"
+                left="10%"
+                rotation="80deg"
+            />
+            <Square
+                width={10}
+                size={300}
+                color="var(--mosaiq-magenta)"
+                top="100px"
+                right="10%"
+                rotation="100deg"
+            />
+            <Square
+                width={10}
+                size={500}
+                color="var(--mosaiq-blue)"
+                top="900px"
+                right="20%"
+                rotation="35deg"
+            />
+        </>
         <div class="info">
             <SectionHeaderTitle>What?</SectionHeaderTitle>
             <div
@@ -73,15 +132,16 @@ import SectionLayout from '../layouts/SectionLayout.astro';
             <div class="headshot-wheel">
                 <div class="circle"></div>
                 {
-                    Array.from({ length: 9 }).map((_, i) => (
+                    team.map((member, i) => (
                         <div class="headshot-wrapper">
                             <img
-                                src={`/assets/headshots/winnie.jpg`}
-                                alt="Team Member Headshot"
+                                src={member.img}
+                                aria-hidden="true"
                                 class="headshot"
                                 draggable="false"
                             />
-                            <p>Team Member Name</p>
+                            <p>{member.name}</p>
+                            <p>{member.role}</p>
                         </div>
                     ))
                 }
@@ -112,12 +172,8 @@ import SectionLayout from '../layouts/SectionLayout.astro';
         y: headshotWheel.clientHeight / 2,
     };
 
+    // size and position the circle
     const radius = headshotWheel.clientWidth;
-
-    // radiusCircle.style.width = `${radius * 2}px`;
-    // radiusCircle.style.height = `${radius * 2}px`;
-    // radiusCircle.style.top = `${wheelCenter.y - radius}px`;
-    // radiusCircle.style.left = `${wheelCenter.x - radius}px`;
     const circle = headshotWheel.querySelector('.circle') as HTMLDivElement;
     circle.style.width = `${radius * 2}px`;
     circle.style.height = `${radius * 2}px`;
