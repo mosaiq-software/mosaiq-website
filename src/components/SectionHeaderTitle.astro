@@ -1,8 +1,34 @@
-<h1><slot /></h1>
+<h1 class="section-header-title"><slot /></h1>
+<script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const el = document.querySelectorAll('.section-header-title');
+    // make it --color-surface when above halfway, and --color-text when below halfway
+    el.forEach((element) => {
+        gsap.fromTo(
+            element,
+            {
+                color: 'var(--color-surface)',
+            },
+            {
+                color: 'var(--color-text)',
+                scrollTrigger: {
+                    trigger: element,
+                    start: 'top center',
+                    end: 'bottom center',
+                    scrub: true,
+                },
+            }
+        );
+    });
+</script>
 <style>
     h1 {
         font-size: 8rem;
-        color: var(--color-surface);
+        color: var(--color-text);
         opacity: 0.85;
     }
 </style>
