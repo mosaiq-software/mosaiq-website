@@ -8,13 +8,13 @@ const team = [
     {
         name: 'Matt Hagger',
         role: 'Software Engineer',
-        img: '/assets/headshots/winnie.jpg',
+        img: '/assets/headshots/matt.jpg',
         since: '2024-10-05',
     },
     {
         name: 'Javier Moncada',
         role: 'Software Engineer',
-        img: '/assets/headshots/winnie.jpg',
+        img: '/assets/headshots/javier.jpg',
         since: '2024-10-07',
     },
     {
@@ -26,37 +26,37 @@ const team = [
     {
         name: 'Zach Szeto',
         role: 'Software Engineer',
-        img: '/assets/headshots/winnie.jpg',
+        img: '/assets/headshots/zach.jpg',
         since: '2024-11-08',
     },
     {
         name: 'Sohrob Yaghouti',
         role: 'Product Manager',
-        img: '/assets/headshots/winnie.jpg',
+        img: '/assets/headshots/sohrob.jpg',
         since: '2024-11-21',
     },
     {
         name: 'Sam Randa',
         role: 'Web Platform Engineer',
-        img: '/assets/headshots/winnie.jpg',
+        img: '/assets/headshots/sam.jpg',
         since: '2025-03-19',
     },
     {
         name: 'Zoe Fisk',
         role: 'Software Engineer',
-        img: '/assets/headshots/winnie.jpg',
+        img: '/assets/headshots/zoe.jpg',
         since: '2025-03-21',
     },
     {
         name: 'Alex Santagata',
         role: 'Software Engineer',
-        img: '/assets/headshots/winnie.jpg',
+        img: '/assets/headshots/alex.jpg',
         since: '2025-06-06',
     },
     {
         name: 'Robin Idk your last name',
         role: 'Hangs out',
-        img: '/assets/headshots/winnie.jpg',
+        img: '/assets/headshots/robin.png',
         since: '2025-09-23',
     },
 ].sort((a, b) => new Date(b.since).getTime() - new Date(a.since).getTime());
@@ -209,9 +209,9 @@ const team = [
                 </div>
             </div>
         </div>
-        <div class="timeline">
+        <!-- <div class="timeline">
             <SectionHeaderTitle>When?</SectionHeaderTitle>
-        </div>
+        </div> -->
     </SectionLayout>
     <script>
         import gsap from 'gsap';
@@ -353,18 +353,18 @@ const team = [
                 yoyo: true,
                 ease: 'sine.inOut',
             });
-            ScrollTrigger.create({
-                trigger: inner,
-                start: 'top bottom',
-                end: 'bottom top',
-                onUpdate(self) {
-                    const skew = gsap.utils.clamp(-10, 10, self.getVelocity() / 100);
-                    gsap.to(inner, {
-                        skewY: skew,
-                        ease: 'sine.out',
-                    });
-                },
-            });
+            // ScrollTrigger.create({
+            //     trigger: inner,
+            //     start: 'top bottom',
+            //     end: 'bottom top',
+            //     onUpdate(self) {
+            //         const skew = gsap.utils.clamp(-10, 10, self.getVelocity() / 100);
+            //         gsap.to(inner, {
+            //             skewY: skew,
+            //             ease: 'sine.out',
+            //         });
+            //     },
+            // });
         });
 
         ScrollTrigger.create({
@@ -437,6 +437,7 @@ const team = [
                     .headshot {
                         width: 100%;
                         height: 300px;
+                        aspect-ratio: 1/1;
                         object-fit: cover;
                         user-select: none;
                     }
