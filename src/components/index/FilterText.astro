@@ -3,13 +3,16 @@ import SectionHeaderTitle from '../SectionHeaderTitle.astro';
 ---
 
 <div>
-    <SectionHeaderTitle extraStyles="position: absolute; z-index: -2; transform-origin: center;">
+    <SectionHeaderTitle
+        extraStyles="position: absolute; z-index: -2; transform-origin: center;"
+        color="var(--color-filtered-text)"
+    >
         <slot />
     </SectionHeaderTitle>
     <SectionHeaderTitle
         areaHidden
-        extraStyles="position: absolute; z-index: 1; mix-blend-mode: saturation; scale: 0.996;"
-        color="var(--mosaiq-pink)"
+        extraStyles="position: absolute; z-index: 1; mix-blend-mode: overlay;"
+        color="white"
     >
         <slot />
     </SectionHeaderTitle>
