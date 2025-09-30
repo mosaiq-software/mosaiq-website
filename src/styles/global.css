@@ -51,6 +51,7 @@ h6 {
     font-family: 'Clash Display', sans-serif;
     font-weight: 600;
     color: var(--color-text);
+    word-spacing: 0.25em;
 }
 
 p,
