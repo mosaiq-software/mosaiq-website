@@ -1,0 +1,19 @@
+---
+import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLayout from '../layouts/SectionLayout.astro';
+import _projects from '../data/projects.json' assert { type: 'json' };
+import type { Project } from '../scripts/types';
+import ProjectElement from '../components/index/Project.astro';
+
+const projects = _projects as Project[];
+---
+
+<BaseLayout title="Mosaiq Software">
+    <SectionLayout id="projects">
+        <SectionHeaderTitle>Projects</SectionHeaderTitle>
+        {projects.map((project) => <ProjectElement project={project} />)}
+    </SectionLayout>
+</BaseLayout>
+
+<style></style>

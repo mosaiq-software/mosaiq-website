@@ -31,6 +31,14 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
     <SectionLayout id="projects">
         <SectionHeaderTitle>Projects</SectionHeaderTitle>
         {projects.map((project) => <ProjectElement project={project} />)}
+        <div class="projects-button-container">
+            <a
+                href="/projects"
+                class="outline-button"
+                style="margin: 0 auto;"
+                >See All Projects</a
+            >
+        </div>
         <Square
             width={10}
             size={800}
@@ -108,5 +116,12 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
 
     #contact {
         min-height: 100vh;
+    }
+
+    .projects-button-container {
+        padding: 4rem 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 </style>
