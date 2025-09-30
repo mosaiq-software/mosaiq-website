@@ -1,0 +1,21 @@
+---
+import type { IconName } from '../scripts/FeatherIconNames';
+interface Props {
+    name: IconName;
+    size?: number;
+    color?: string;
+}
+const { name, size, color } = Astro.props as Props;
+---
+
+<i
+    data-feather={name}
+    style={`${size ? `width: ${size}px; height: ${size}px;` : ''} ${color ? `color: ${color};` : ''}`}
+></i>
+<script>
+    // const feather = require('feather-icons');
+    import feather from 'feather-icons';
+    document.addEventListener('DOMContentLoaded', function () {
+        feather.replace();
+    });
+</script>

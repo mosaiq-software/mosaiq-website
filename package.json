@@ -12,6 +12,7 @@
     "license": "UNLICENSED",
     "dependencies": {
         "astro": "^5.13.11",
+        "feather-icons": "^4.29.2",
         "gsap": "^3.13.0"
     },
     "devDependencies": {
