@@ -1,0 +1,88 @@
+---
+interface Props {
+    align?: 'left' | 'right';
+    amount?: string;
+    orientation?: 'column' | 'row';
+    followMouse?: boolean;
+    animated?: boolean;
+}
+const { align = 'left', amount = '0', orientation = 'column', followMouse = false, animated = true }: Props = Astro.props;
+---
+
+<div
+    class=`text-bubble ${followMouse ? 'floating-text' : '' } ${animated ? 'animated-bubble-text' : ''}`
+    style={`margin-${align}: ${amount}; flex-direction: ${orientation}; align-items: ${orientation === 'row' ? 'center' : align === 'left' ? 'flex-start' : 'flex-end'}; text-align: ${align};`}
+>
+    <slot />
+</div>
+<script>
+    import gsap from 'gsap';
+    import SplitText from 'gsap/SplitText';
+
+    gsap.registerPlugin(SplitText);
+
+    document.fonts.ready.then(() => {
+        // Animate in words
+        const splitText = new SplitText('.animated-bubble-text', {
+            type: 'words',
+            wordsClass: 'text-bubble-word',
+        });
+        console.log(splitText.words);
+        gsap.from(splitText.words, {
+            opacity: 0,
+            y: 20,
+            rotationX: 90,
+            transformOrigin: '0% 50% -50',
+            stagger: 0.02,
+            ease: 'back.out(1.7)',
+            duration: 1,
+            scrollTrigger: {
+                trigger: '.animated-bubble-text',
+                start: 'top 80%',
+            },
+        });
+
+        // Follow mouse movement
+        const textBubbles = document.querySelectorAll('.floating-text') as NodeListOf<HTMLDivElement>;
+        const textRotMax = 5;
+        textBubbles.forEach((bubble) => {
+            document.addEventListener('mousemove', (e) => {
+                const rect = bubble.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                gsap.to(bubble, {
+                    rotationY: gsap.utils.clamp(-textRotMax, textRotMax, x * 10),
+                    rotationX: gsap.utils.clamp(-textRotMax, textRotMax, -y * 20),
+                    transformPerspective: 500,
+                    transformOrigin: 'center',
+                    ease: 'sine.out',
+                    overwrite: 'auto',
+                });
+            });
+        });
+    });
+</script>
+<style>
+    .text-bubble {
+        padding: 1rem 2rem;
+        width: fit-content;
+        font-size: var(--font-size-md);
+        background-color: color-mix(in srgb, var(--color-background) 100%, transparent 8%);
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+
+        a {
+            color: var(--mosaiq-magenta);
+            text-decoration: none;
+        }
+    }
+
+    /* remove margin-left from text bubbles on mobile */
+    @media screen and (max-width: 768px) {
+        .text-bubble {
+            margin-left: 0 !important;
+            flex-direction: column;
+        }
+    }
+</style>

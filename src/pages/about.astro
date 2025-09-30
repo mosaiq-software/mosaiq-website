@@ -1,97 +1,17 @@
 ---
-import Icon from '../components/Icon.astro';
+import MembersWheel from '../components/about/MembersWheel.astro';
+import TextBubble from '../components/about/TextBubble.astro';
+import TextBubbleWrap from '../components/about/TextBubbleWrap.astro';
+import TextWheel from '../components/about/TextWheel.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import Square from '../components/Square.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
-
-interface TeamMember {
-    name: string;
-    role: string;
-    img: string;
-    since: string;
-    website?: string;
-}
-const team: TeamMember[] = [
-    {
-        name: 'Matt Hagger',
-        role: 'Founder',
-        img: '/assets/headshots/matt.jpg',
-        since: '2024-10-05',
-        website: 'https://matthagger.me',
-    },
-    {
-        name: 'Javier Moncada',
-        role: 'Software Engineer',
-        img: '/assets/headshots/javier.jpg',
-        since: '2024-10-07',
-        website: 'https://javierm.me/',
-    },
-    {
-        name: 'Thinh Pham',
-        role: 'Software Engineer',
-        img: '/assets/headshots/winnie.jpg',
-        since: '2024-10-08',
-    },
-    {
-        name: 'Zach Szeto',
-        role: 'Software Engineer',
-        img: '/assets/headshots/zach.jpg',
-        since: '2024-11-08',
-        website: 'https://www.linkedin.com/in/zacharyszeto/',
-    },
-    {
-        name: 'Sohrob Yaghouti',
-        role: 'Product Manager',
-        img: '/assets/headshots/sohrob.jpg',
-        since: '2024-11-21',
-        website: 'https://www.linkedin.com/in/sohrob-yaghouti/',
-    },
-    {
-        name: 'Sam Randa',
-        role: 'Web Platform Engineer',
-        img: '/assets/headshots/sam.jpg',
-        since: '2025-03-19',
-        website: 'https://samranda.com/',
-    },
-    {
-        name: 'Zoe Fisk',
-        role: 'Software Engineer',
-        img: '/assets/headshots/zoe.jpg',
-        since: '2025-03-21',
-        website: 'https://www.linkedin.com/in/zjfisk/',
-    },
-    {
-        name: 'Alex Santagata',
-        role: 'Software Engineer',
-        img: '/assets/headshots/alex.jpg',
-        since: '2025-06-06',
-        website: 'https://alexsantagata.dev/',
-    },
-    {
-        name: 'Robin Idk your last name',
-        role: 'Hangs out',
-        img: '/assets/headshots/robin.png',
-        since: '2025-09-23',
-        website: 'https://rust-lang.org/',
-    },
-].sort((a, b) => new Date(b.since).getTime() - new Date(a.since).getTime());
-
-const getImageBoxShadow = () => {
-    // box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
-    const colors = ['pink', 'magenta', 'purple', 'blue', 'navy'];
-    let x = Math.floor(Math.random() * 10) + 5;
-    if (Math.random() < 0.5) {
-        x = -x;
-    }
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    return `${x}px ${x}px 0px var(--mosaiq-${color})`;
-};
 ---
 
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="about">
-        <>
+        <div class="info">
             <Square
                 width={10}
                 size={800}
@@ -116,35 +36,21 @@ const getImageBoxShadow = () => {
                 right="20%"
                 rotation="35deg"
             />
-        </>
-        <div class="info">
             <SectionHeaderTitle>What?</SectionHeaderTitle>
-            <div class="bubbles">
-                <div
-                    class="text-bubble"
-                    style="margin-left:25%;"
-                >
+            <TextBubbleWrap>
+                <TextBubble amount="25%">
                     <h2>We&rsquo;re Mosaiq Software!</h2>
-                </div>
-                <div
-                    class="text-bubble"
-                    style="margin-left:20%;"
-                >
+                </TextBubble>
+                <TextBubble amount="20%">
                     <p>A band of code-slinging, pixel-pushers with an unexplainable obsession for building digital tchotchkes</p>
                     <p>We dream up oddball concepts and turn them into delightful web experiences that are equal parts creative, chaotic, and cool.</p>
                     <p>Our mission? Make the internet more fun, one bizarrely brilliant project at a time.</p>
-                </div>
-                <div
-                    class="text-bubble"
-                    style="margin-left:40%;"
-                >
+                </TextBubble>
+                <TextBubble amount="40%">
                     <p>Want to jump in?</p>
                     <p>Check out how you can <a href="/join">get involved</a>!</p>
-                </div>
-                <div
-                    class="text-bubble"
-                    style="margin-left:30%;"
-                >
+                </TextBubble>
+                <TextBubble amount="30%">
                     <p>Got a half-baked idea you&rsquo;re dying to see online?</p>
                     <p>
                         Send it to <a
@@ -154,457 +60,44 @@ const getImageBoxShadow = () => {
                         >
                         (we like to collect them)
                     </p>
-                </div>
-            </div>
+                </TextBubble>
+            </TextBubbleWrap>
         </div>
-        <div class="members">
-            <SectionHeaderTitle>Who?</SectionHeaderTitle>
-            <div class="headshot-wheel">
-                <div class="circle"></div>
-                {
-                    team.map((member, i) => (
-                        <div class="headshot-wrapper">
-                            <div class="headshot-inner">
-                                <img
-                                    src={member.img}
-                                    aria-hidden="true"
-                                    class="headshot"
-                                    draggable="false"
-                                    style={`box-shadow: ${getImageBoxShadow()}`}
-                                />
-                            </div>
-                            <div class="headshot-text">
-                                <h3 class="name">{member.name}</h3>
-                                <p class="role">{member.role}</p>
-                                {member.website ? (
-                                    <a
-                                        href={member.website}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="website-link"
-                                        aria-label={`Visit ${member.name}'s website`}
-                                    >
-                                        <Icon
-                                            name={'external-link'}
-                                            size={16}
-                                        />
-                                    </a>
-                                ) : null}
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
-            <div class="bubbles bottom-bubble centered-bubble">
-                <div class="text-bubble">
-                    <p>All of these wonderful people</p>
-                </div>
-            </div>
-        </div>
-        <div class="how with-backdrop">
-            <div class="backdrop"></div>
-            <SectionHeaderTitle>How?</SectionHeaderTitle>
-            <Square
-                width={10}
-                size={800}
-                color="var(--mosaiq-blue)"
-                top="50%"
-                right="-10%"
-                rotation="70deg"
-            />
-            <div class="bubbles">
-                <div
-                    class="text-bubble"
-                    style="margin-left:15%;"
-                >
-                    <p>At Mosaiq, ideas don’t sit on the shelf.</p><br />
-                    <p>We toss them into the wild.</p><br />
-                    <p>Anyone can pitch a project, we prototype fast, poke holes in it, and if it&rsquo;s cool enough, we build it out.</p><br />
-                    <p>Some become open-source gifts to the world, others turn into bigger initiatives, but every project starts the same way: with a spark, a team, and a lot of caffeine.</p>
-                </div>
-                <div
-                    class="text-bubble"
-                    style="margin-left:10%;"
-                >
-                    <p>1 &bull; Someone dreams something up. Big, small, serious, silly &mdash; if it can live on the web, it&rsquo;s fair game.</p>
-                    <br /><p>2 &bull; We throw it at the team. Everyone pokes, prods, and asks, &ldquo;Is this actually cool?&rdquo; If enough people get excited, it moves forward.</p>
-                    <br /><p>3 &bull; Prototype time. Members hack together quick demos &mdash; a little sample that shows what the idea could become.</p>
-                    <br /><p>4 &bull; Refine and build. If a prototype shows promise, we polish it into a full project, adding design and structure.</p>
-                    <br /><p>5 &bull; Release it into the wild. Some projects stay open-source so anyone can use them. Others we keep a little closer if they help fund scholarships or cover hosting.</p>
-                    <br /><!-- <p>6 &bull; Document everything. From silly doodles to full codebases, write it all down so future Mosaiq members can pick up where we left off.</p> -->
-                    <br />
-                </div>
-                <div
-                    class="text-bubble text-wheel-bubble"
-                    style="margin-left:10%;"
-                >
-                    <p>That&rsquo;s our recipe:</p>
-                    <div
-                        class="text-wheel"
-                        aria-hidden="true"
-                    >
-                        <span class="text-wheel-item">brainstorm</span>
-                        <span class="text-wheel-item">prototype</span>
-                        <span class="text-wheel-item">refine</span>
-                        <span class="text-wheel-item">release</span>
-                        <span class="text-wheel-item">repeat</span>
-                    </div>
-                    <p>It keeps the pipeline flowing and ensures Mosaiq is always building something new, weird, and wonderful.</p>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="timeline">
-            <SectionHeaderTitle>When?</SectionHeaderTitle>
-        </div> -->
     </SectionLayout>
-    <script>
-        import gsap from 'gsap';
-        import ScrollTrigger from 'gsap/ScrollTrigger';
-        import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-        import SplitText from 'gsap/SplitText';
-
-        gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, SplitText);
-
-        if (ScrollTrigger.isTouch === 1) {
-            ScrollTrigger.normalizeScroll({
-                allowNestedScroll: true,
-                type: 'touch,wheel,pointer',
-            });
-        }
-
-        document.fonts.ready.then(() => {
-            const splitText = new SplitText('.bubbles', {
-                type: 'words',
-                wordsClass: 'text-bubble-word',
-            });
-            gsap.from(splitText.words, {
-                opacity: 0,
-                y: 20,
-                rotationX: 90,
-                transformOrigin: '0% 50% -50',
-                stagger: 0.02,
-                ease: 'back.out(1.7)',
-                duration: 1,
-                scrollTrigger: {
-                    trigger: '.bubbles',
-                    start: 'top 80%',
-                },
-            });
-
-            const textBubbles = document.querySelectorAll('.floating-text') as NodeListOf<HTMLDivElement>;
-            const textRotMax = 5;
-            textBubbles.forEach((bubble) => {
-                document.addEventListener('mousemove', (e) => {
-                    const rect = bubble.getBoundingClientRect();
-                    const x = (e.clientX - rect.left) / rect.width - 0.5;
-                    const y = (e.clientY - rect.top) / rect.height - 0.5;
-                    gsap.to(bubble, {
-                        rotationY: gsap.utils.clamp(-textRotMax, textRotMax, x * 10),
-                        rotationX: gsap.utils.clamp(-textRotMax, textRotMax, -y * 20),
-                        transformPerspective: 500,
-                        transformOrigin: 'center',
-                        ease: 'sine.out',
-                        overwrite: 'auto',
-                    });
-                });
-            });
-        });
-
-        const textWheel = document.querySelector('.text-wheel') as HTMLDivElement;
-        const textWheelItems = document.querySelectorAll('.text-wheel-item') as NodeListOf<HTMLSpanElement>;
-        const textWheelRadius = 70;
-        const textWheelCenter = {
-            x: textWheel.clientWidth / 2,
-            y: textWheel.clientHeight / 2,
-        };
-        const textWheelDegreesPerItem = 360 / textWheelItems.length;
-        textWheelItems.forEach((item, index) => {
-            const angleDeg = textWheelDegreesPerItem * index - 90;
-            const angle = (angleDeg * Math.PI) / 180;
-            const x = textWheelCenter.x + textWheelRadius * Math.cos(angle) - item.clientWidth / 2;
-            const y = textWheelCenter.y + textWheelRadius * Math.sin(angle) - item.clientHeight / 2;
-            item.style.position = 'absolute';
-            item.style.left = `${x}px`;
-            item.style.top = `${y}px`;
-            item.style.transform = `rotate(${angleDeg + 90}deg)`;
-        });
-
-        gsap.fromTo(
-            '.text-wheel',
-            {
-                rotation: 0,
-            },
-            {
-                rotation: 360,
-                duration: 30,
-                repeat: -1,
-                ease: 'linear',
-            }
-        );
-
-        const headshotWrappers = document.querySelectorAll('.headshot-wrapper') as NodeListOf<HTMLDivElement>;
-        const headshotWheel = document.querySelector('.headshot-wheel') as HTMLDivElement;
-
-        const wheelCenter = {
-            x: headshotWheel.clientWidth / 2,
-            y: headshotWheel.clientHeight / 2,
-        };
-
-        // size and position the circle
-        const radius = headshotWheel.clientWidth;
-        const circle = headshotWheel.querySelector('.circle') as HTMLDivElement;
-        circle.style.width = `${radius * 2}px`;
-        circle.style.height = `${radius * 2}px`;
-        circle.style.top = `${wheelCenter.y - radius}px`;
-        circle.style.left = `${wheelCenter.x - radius}px`;
-
-        // spread the headshots evenly around the circle
-        const degreesPerHeadshot = 30;
-        const totalScrollDegrees = degreesPerHeadshot * (headshotWrappers.length - 1);
-        const degreesOffset = 270 - degreesPerHeadshot * headshotWrappers.length;
-
-        headshotWrappers.forEach((wrapper, index) => {
-            // position the headshot around the circle
-            const angleDeg = degreesPerHeadshot * (index + 1) + degreesOffset;
-            const angle = (angleDeg * Math.PI) / 180;
-            const x = wheelCenter.x + radius * Math.cos(angle) - wrapper.clientWidth / 2;
-            const y = wheelCenter.y + radius * Math.sin(angle) - wrapper.clientHeight / 2;
-            wrapper.style.transform = `translate(${x}px, ${y}px)`;
-
-            // rotate the headshot to face outward
-            const rotation = (angle * 180) / Math.PI + 90;
-            wrapper.style.transform += ` rotate(${rotation}deg)`;
-
-            // floaty animation
-            const inner = wrapper.querySelector('.headshot-inner') as HTMLDivElement;
-            const floatDistance = 10;
-            const pathLength = 10;
-            const def = { x: 0, y: 0, rotationZ: 0 };
-            let path = Array.from({ length: pathLength }, (_, i) => {
-                return {
-                    x: (Math.random() * 2 - 1) * floatDistance,
-                    y: (Math.random() * 2 - 1) * floatDistance,
-                    rotationZ: (Math.random() * 2 - 1) * 3,
-                };
-            });
-            path = [def, ...path, def]; // close the loop
-            gsap.to(inner, {
-                motionPath: {
-                    path,
-                },
-                duration: 20,
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut',
-            });
-            // ScrollTrigger.create({
-            //     trigger: inner,
-            //     start: 'top bottom',
-            //     end: 'bottom top',
-            //     onUpdate(self) {
-            //         const skew = gsap.utils.clamp(-10, 10, self.getVelocity() / 100);
-            //         gsap.to(inner, {
-            //             skewY: skew,
-            //             ease: 'sine.out',
-            //         });
-            //     },
-            // });
-        });
-
-        ScrollTrigger.create({
-            trigger: '.members',
-            start: 'top top',
-            end: '3000px top',
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            scrub: true,
-            onUpdate(self) {
-                const rotation = self.progress * totalScrollDegrees;
-                gsap.to(headshotWheel, {
-                    rotation,
-                    ease: 'none',
-                    overwrite: 'auto',
-                });
-            },
-        });
-    </script>
-    <style>
-        .info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .members {
-            width: 100%;
-            position: relative;
-            user-select: none !important;
-            min-height: 100vh;
-            overflow-y: clip;
-
-            .headshot-wheel {
-                position: absolute;
-                top: 900px;
-                left: calc(-500px + 50%);
-                width: 1000px;
-                height: 1000px;
-                user-select: none;
-
-                .circle {
-                    position: absolute;
-                    border-radius: 50000px;
-                    border: double 0.5em transparent;
-                    background-image: linear-gradient(var(--color-background), var(--color-background)), linear-gradient(to right, var(--mosaiq-blue), var(--mosaiq-pink));
-                    background-origin: border-box;
-                    background-clip: content-box, border-box;
-                    pointer-events: none;
-                }
-
-                .headshot-wrapper {
-                    position: absolute;
-                    width: 300px;
-                    height: 500px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 1rem;
-
-                    /* p {
-                        font-size: var(--font-size-md);
-                        color: var(--color-text);
-                        text-align: center;
-                        user-select: auto;
-                    } */
-
-                    .headshot-text {
-                        width: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        align-items: center;
-                        position: relative;
-
-                        .name {
-                            font-size: var(--font-size-md);
-                        }
-                        .role {
-                            font-size: var(--font-size-sm);
-                            color: var(--color-text-secondary);
-                        }
-                        .website-link {
-                            position: absolute;
-                            top: 4px;
-                            right: 4px;
-                            color: var(--color-text-secondary);
-                        }
-                    }
-
-                    .headshot {
-                        width: 100%;
-                        height: 300px;
-                        aspect-ratio: 1/1;
-                        object-fit: cover;
-                        user-select: none;
-                    }
-                }
-            }
-        }
-
-        .with-backdrop {
-            min-height: 100vh;
-            z-index: 1;
-
-            position: relative;
-
-            .backdrop {
-                position: absolute;
-                top: 0;
-                left: -50vw;
-                width: 200vw;
-                height: 100%;
-                background-color: var(--color-background);
-                z-index: -1;
-            }
-        }
-
-        .bubbles {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 2rem 0;
-
-            .text-bubble {
-                padding: 1rem 2rem;
-                width: fit-content;
-                font-size: var(--font-size-md);
-                background-color: color-mix(in srgb, var(--color-background) 100%, transparent 8%);
-
-                a {
-                    color: var(--mosaiq-magenta);
-                    text-decoration: none;
-                }
-            }
-
-            /* remove margin-left from text bubbles on mobile */
-            @media screen and (max-width: 768px) {
-                .text-bubble {
-                    margin-left: 0 !important;
-                }
-            }
-        }
-
-        .bottom-bubble {
-            position: absolute;
-            bottom: 0;
-        }
-
-        .centered-bubble {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: transparent;
-        }
-
-        .text-wheel-bubble {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: nowrap;
-            gap: 2rem;
-
-            /* column on mobile */
-            @media screen and (max-width: 768px) {
-                flex-direction: column;
-            }
-        }
-
-        .text-wheel {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            pointer-events: none;
-            .text-wheel-item {
-                position: absolute;
-                font-size: var(--font-size-md);
-                color: var(--color-text);
-                white-space: nowrap;
-                user-select: none;
-                text-align: center;
-            }
-        }
-
-        .how {
-            min-height: 100vh;
-        }
-
-        .timeline {
-            min-height: 100vh;
-        }
-    </style>
+    <MembersWheel />
+    <div class="how">
+        <SectionHeaderTitle>How?</SectionHeaderTitle>
+        <Square
+            width={10}
+            size={800}
+            color="var(--mosaiq-blue)"
+            top="50%"
+            right="-10%"
+            rotation="70deg"
+        />
+        <TextBubbleWrap>
+            <TextBubble amount="15%">
+                <p>At Mosaiq, ideas don’t sit on the shelf.</p><br />
+                <p>We toss them into the wild.</p><br />
+                <p>Anyone can pitch a project, we prototype fast, poke holes in it, and if it&rsquo;s cool enough, we build it out.</p><br />
+                <p>Some become open-source gifts to the world, others turn into bigger initiatives, but every project starts the same way: with a spark, a team, and a lot of caffeine.</p>
+            </TextBubble>
+            <TextBubble amount="10%">
+                <p>1 &bull; Someone dreams something up. Big, small, serious, silly &mdash; if it can live on the web, it&rsquo;s fair game.</p>
+                <br /><p>2 &bull; We throw it at the team. Everyone pokes, prods, and asks, &ldquo;Is this actually cool?&rdquo; If enough people get excited, it moves forward.</p>
+                <br /><p>3 &bull; Prototype time. Members hack together quick demos &mdash; a little sample that shows what the idea could become.</p>
+                <br /><p>4 &bull; Refine and build. If a prototype shows promise, we polish it into a full project, adding design and structure.</p>
+                <br /><p>5 &bull; Release it into the wild. Some projects stay open-source so anyone can use them. Others we keep a little closer if they help fund scholarships or cover hosting.</p>
+                <br />
+            </TextBubble>
+            <TextBubble
+                amount="10%"
+                orientation="row"
+            >
+                <p>That&rsquo;s our recipe:</p>
+                <TextWheel items={['brainstorm', 'prototype', 'refine', 'release', 'repeat']} />
+                <p>It keeps the pipeline flowing and ensures Mosaiq is always building something new, weird, and wonderful.</p>
+            </TextBubble>
+        </TextBubbleWrap>
+    </div>
 </BaseLayout>
