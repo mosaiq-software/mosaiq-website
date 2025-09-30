@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
@@ -7,34 +8,135 @@ import SectionLayout from '../layouts/SectionLayout.astro';
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="join">
         <SectionHeaderTitle>Join</SectionHeaderTitle>
-        <h2>Do you find yourself chronically building things? Same here.</h2>
-        <p>Whether you&rsquo;re hunting for your next big project or just want something fun to tinker with on weekends, Mosaiq has a spot for you. We welcome coders, designers, dreamers, and anyone who loves to create.</p>
-        <h3>What we look for</h3>
-        <p>Required:</p>
-        <p>&bull; 18+ years of life experience</p>
-        <p>&bull; A brain full of ideas (good, bad, or gloriously weird)</p>
-        <p>&bull; Curiosity and a hunger to learn new skills</p>
-        <p>&bull; The itch to build things just because you can</p>
-        <p>Nice to have:</p>
-        <p>&bull; Web dev experience (HTML, CSS, JavaScript, TypeScript, React, etc.)</p>
-        <p>&bull; An eye for design or UX</p>
-        <p>&bull; Experience with software or game development</p>
-        <p>Why join?</p>
-        <p>Because you&rsquo;ll get real project experience: the kind you can put on a resume, brag about in interviews, or just show off to your friends. No grades. No payroll. Just the joy of building something awesome and the skills you&rsquo;ll pick up along the way.</p>
-        <p>How to join</p>
-        <p>Skip the fancy applications. Just shoot us an email at join@mosaiq.dev with your resume or portfolio and a quick hello. That&rsquo;s it.</p>
-
-        <h2>Smallprint</h2>
-        <p>Mosaiq is a nonprofit, member-run organization. This is not a full-time job or a paid position. Instead, it&rsquo;s a side commitment where you can gain real project experience, collaborate with others, and build meaningful software.</p>
-        <p>A few important notes:</p>
-        <p>&bull; Compensation: None. Any revenue Mosaiq generates is reinvested into operations or directed toward charitable initiatives such as scholarships.</p>
-        <p>&bull; Time Commitment: This is a part-time, flexible opportunity. Members are expected to balance Mosaiq with classes, work, and other obligations.</p>
-        <p>&bull; Visa Sponsorship: We cannot sponsor work visas or provide employment authorization.</p>
-        <p>What we&rsquo;re really looking for in candidates:</p>
-        <p>&bull; A genuine interest in building, learning, and experimenting with software.</p>
-        <p>&bull; Reliability. People who follow through and contribute consistently.</p>
-        <p>&bull; Collaboration skills. An openness to feedback, willingness to help teammates, and a drive to build together.</p>
-        <p>&bull; Creativity and curiosity. Whether you&rsquo;re coding, designing, or brainstorming, we want members who bring energy and ideas.</p>
-        <p>In short: if you&rsquo;re looking for a paycheck, Mosaiq isn&rsquo;t for you. If you&rsquo;re looking for experience, community, and the chance to make a real impact through code, you&rsquo;ll fit right in.</p>
+        <div class="join-page">
+            <div class="join-section">
+                <div>
+                    <h2>Do you find yourself chronically building things? Same here.</h2>
+                    <p>Whether you&rsquo;re hunting for your next big project or just want something fun to tinker with on weekends, Mosaiq has a spot for you. We welcome coders, designers, dreamers, and anyone who loves to create.</p>
+                </div>
+                <div>
+                    <h3>What we look for</h3>
+                    <p class="subheading">Required</p>
+                    <p>&bull; 18+ years of life experience</p>
+                    <p>&bull; A brain full of ideas (good, bad, or gloriously weird)</p>
+                    <p>&bull; Curiosity and a hunger to learn new skills</p>
+                    <p>&bull; The itch to build things just because you can</p>
+                </div>
+                <div>
+                    <p class="subheading">Nice to have</p>
+                    <p>&bull; Any web dev experience (HTML, CSS, JavaScript, TypeScript, React, etc.)</p>
+                    <p>&bull; Any experience with software or game development</p>
+                    <p>&bull; An eye for design, graphics, or UX</p>
+                </div>
+                <div>
+                    <p class="subheading">Why join?</p>
+                    <p>Because you&rsquo;ll get real project experience: the kind you can put on a resume, brag about in interviews, or just show off to your friends. No grades. No payroll. Just the joy of building something awesome and the skills you&rsquo;ll pick up along the way.</p>
+                </div>
+                <div>
+                    <p class="subheading">How to join</p>
+                    <p>
+                        Skip the fancy applications. Just shoot us an email at <a
+                            href="mailto:join@mosaiq.dev"
+                            target="_blank"
+                            >join@mosaiq.dev</a
+                        > with your resume or portfolio and a quick hello. That&rsquo;s it!
+                    </p>
+                </div>
+            </div>
+            <div class="join-section">
+                <div class="spread">
+                    <h3>Smallprint</h3>
+                    <div class="spread-icon">
+                        <Icon name={'chevron-down'} />
+                    </div>
+                </div>
+                <div class="smallprint">
+                    <p>Mosaiq is a nonprofit, member-run organization. This is not a full-time job or a paid position. Instead, it&rsquo;s a side commitment where you can gain real project experience, collaborate with others, and build meaningful software.</p>
+                </div>
+                <div class="smallprint">
+                    <p class="subheading">A few important notes:</p>
+                    <p>&bull; There is no compensation. Any revenue Mosaiq generates is fully reinvested into operations or directed toward charitable initiatives such as scholarships.</p>
+                    <p>&bull; While this is a part-time, flexible opportunity, members are expected to balance Mosaiq with classes, work, and other obligations.</p>
+                    <p>&bull; We cannot sponsor work visas or provide employment authorization at this time.</p>
+                </div>
+                <div class="smallprint">
+                    <p class="subheading">What we&rsquo;re really looking for in candidates:</p>
+                    <p>&bull; A genuine interest in building, learning, and experimenting with software.</p>
+                    <p>&bull; Reliability. People who follow through and contribute consistently.</p>
+                    <p>&bull; Collaboration skills. An openness to feedback, willingness to help teammates, and a drive to build together.</p>
+                    <p>&bull; Creativity and curiosity. Whether you&rsquo;re coding, designing, or brainstorming, we want members who bring energy and ideas.</p>
+                </div>
+                <div class="smallprint">
+                    <p>In short: if you&rsquo;re looking for a paycheck, Mosaiq isn&rsquo;t for you. If you&rsquo;re looking for experience, community, and the chance to make a real impact through code, you&rsquo;ll fit right in.</p>
+                </div>
+            </div>
+        </div>
     </SectionLayout>
 </BaseLayout>
+<script>
+    import { gsap } from 'gsap';
+
+    document.querySelector('.spread')!.addEventListener('click', () => {
+        const smallprints = document.querySelectorAll('.smallprint');
+        smallprints.forEach((el) => {
+            if (el.classList.contains('expanded')) {
+                gsap.to(el, { height: 0, duration: 0.5, ease: 'power2.inOut' });
+                el.classList.remove('expanded');
+            } else {
+                const fullHeight = el.scrollHeight;
+                gsap.to(el, { height: fullHeight, duration: 0.5, ease: 'power2.inOut' });
+                el.classList.add('expanded');
+            }
+        });
+        gsap.to('.spread-icon', { rotate: smallprints[0].classList.contains('expanded') ? 180 : 0, duration: 0.5, ease: 'power2.inOut' });
+    });
+</script>
+<style>
+    .join-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8rem;
+        padding-bottom: 4rem;
+    }
+    .join-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        p {
+            font-size: var(--font-size-md);
+            max-width: 80ch;
+        }
+
+        .subheading {
+            color: var(--color-text-secondary);
+            font-weight: bold;
+            font-size: var(--font-size-sm);
+        }
+
+        a {
+            color: var(--mosaiq-magenta);
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .spread {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .smallprint {
+            overflow: hidden;
+            height: 0;
+        }
+    }
+</style>
