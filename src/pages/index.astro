@@ -42,7 +42,7 @@ const projects = [
     <SectionLayout id="hero">
         <div id="hero-text">
             <FilterText> Software development for the inner child </FilterText>
-            <p>Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
+            <p data-text="Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.">Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
             <button
                 class="outline-button"
                 id="see-our-work"
@@ -129,6 +129,8 @@ const projects = [
             z-index: 2;
             max-width: 60ch;
             font-size: var(--font-size-lg);
+            paint-order: stroke fill;
+            -webkit-text-stroke: 0.33em var(--color-background);
         }
     }
     #hero-logo {
