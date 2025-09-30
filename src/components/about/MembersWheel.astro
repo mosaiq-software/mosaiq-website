@@ -3,6 +3,7 @@ import Icon from '../Icon.astro';
 import SectionHeaderTitle from '../SectionHeaderTitle.astro';
 import TextBubble from './TextBubble.astro';
 import TextBubbleWrap from './TextBubbleWrap.astro';
+import members from '../../data/members.json' assert { type: 'json' };
 
 interface TeamMember {
     name: string;
@@ -11,70 +12,7 @@ interface TeamMember {
     since: string;
     website?: string;
 }
-const team: TeamMember[] = [
-    {
-        name: 'Matt Hagger',
-        role: 'Founder',
-        img: '/assets/headshots/matt.jpg',
-        since: '2024-10-05',
-        website: 'https://matthagger.me',
-    },
-    {
-        name: 'Javier Moncada',
-        role: 'Software Engineer',
-        img: '/assets/headshots/javier.jpg',
-        since: '2024-10-07',
-        website: 'https://javierm.me/',
-    },
-    {
-        name: 'Thinh Pham',
-        role: 'Software Engineer',
-        img: '/assets/headshots/winnie.jpg',
-        since: '2024-10-08',
-    },
-    {
-        name: 'Zach Szeto',
-        role: 'Software Engineer',
-        img: '/assets/headshots/zach.jpg',
-        since: '2024-11-08',
-        website: 'https://www.linkedin.com/in/zacharyszeto/',
-    },
-    {
-        name: 'Sohrob Yaghouti',
-        role: 'Product Manager',
-        img: '/assets/headshots/sohrob.jpg',
-        since: '2024-11-21',
-        website: 'https://www.linkedin.com/in/sohrob-yaghouti/',
-    },
-    {
-        name: 'Sam Randa',
-        role: 'Web Platform Engineer',
-        img: '/assets/headshots/sam.jpg',
-        since: '2025-03-19',
-        website: 'https://samranda.com/',
-    },
-    {
-        name: 'Zoe Fisk',
-        role: 'Software Engineer',
-        img: '/assets/headshots/zoe.jpg',
-        since: '2025-03-21',
-        website: 'https://www.linkedin.com/in/zjfisk/',
-    },
-    {
-        name: 'Alex Santagata',
-        role: 'Software Engineer',
-        img: '/assets/headshots/alex.jpg',
-        since: '2025-06-06',
-        website: 'https://alexsantagata.dev/',
-    },
-    {
-        name: 'Robin Idk your last name',
-        role: 'Hangs out',
-        img: '/assets/headshots/robin.png',
-        since: '2025-09-23',
-        website: 'https://rust-lang.org/',
-    },
-].sort((a, b) => new Date(b.since).getTime() - new Date(a.since).getTime());
+const team: TeamMember[] = members.sort((a, b) => new Date(b.since).getTime() - new Date(a.since).getTime());
 
 const getImageBoxShadow = () => {
     // box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);

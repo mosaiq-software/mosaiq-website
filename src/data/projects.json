@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Card Domain",
+        "link": "carddomain.mosaiq.dev",
+        "description": "A simple, extremely powerful platform for playing real-time card games online with player-enforced rules.",
+        "authors": ["Alex Santagata", "Sam Randa"],
+        "timeline": "July 2025 - August 2025",
+        "technologies": ["React", "WebSocket", "Express"],
+        "left": 10
+    },
+    {
+        "name": "Minefolio",
+        "link": "minefol.io",
+        "description": "A portfolio creation and showcase platform for Minecraft builds and building communities.",
+        "authors": ["Matt Hagger", "Javier Moncada", "Thinh Pham"],
+        "timeline": "July 2025 - Present",
+        "technologies": ["React", "Express"],
+        "right": 20,
+        "previewImage": "/assets/projects/minefolio.png"
+    },
+    {
+        "name": "Timelier",
+        "link": "timelier.app",
+        "description": "A tool for students, friends, and coworkers to find compatible times to meet.",
+        "authors": ["Sam Randa", "Zoe Fisk", "Zach Szeto"],
+        "timeline": "August 2025 - Present",
+        "technologies": ["React", "Websocket", "Express"],
+        "left": 30
+    }
+]

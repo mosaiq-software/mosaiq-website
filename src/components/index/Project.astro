@@ -1,17 +1,19 @@
 ---
-interface props {
+import Icon from '../Icon.astro';
+
+interface Props {
     name: string;
     link: string;
     description: string;
     authors: string[];
     timeline: string;
     technologies: string[];
+    previewImage?: string;
     left?: number;
     right?: number;
 }
 
-const { name, link, description, authors, timeline, technologies } = Astro.props;
-
+const { name, link, description, authors, timeline, technologies, previewImage } = Astro.props;
 const inlineStyle = `
     ${Astro.props.left ? `align-self: flex-start; margin-left: ${Astro.props.left}%;` : ''}
     ${Astro.props.right ? `align-self: flex-end; margin-right: ${Astro.props.right}%;` : ''}
@@ -25,16 +27,58 @@ const inlineStyle = `
     <a
         href={`https://${link}`}
         class="project-link"
+        target="_blank"
     >
         <h2>{name}</h2>
-        <p>{link}</p>
+        <p>
+            {link}
+            <Icon
+                name={'external-link'}
+                size={14}
+            />
+        </p>
     </a>
     <p class="description">{description}</p>
     <div>
         <p class="authors">{authors.join(', ')}</p>
-        <p class="technologies">{timeline} • {technologies.join(', ')}</p>
+        <p class="timeline">{timeline}</p>
+        <p class="technologies">{technologies.join(', ')}</p>
     </div>
+    {
+        previewImage && (
+            <div class="preview-image">
+                <img
+                    src={previewImage}
+                    aria-hidden="true"
+                />
+            </div>
+        )
+    }
 </div>
+
+<script>
+    import { gsap } from 'gsap';
+
+    const isOnMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (!isOnMobile) {
+        const projectCards = document.querySelectorAll('.project-card') as NodeListOf<HTMLDivElement>;
+        projectCards.forEach((card) => {
+            const img = card.querySelector('.preview-image') as HTMLImageElement;
+            if (!img) return;
+            card.addEventListener('mouseenter', () => {
+                gsap.to(img, { opacity: 1, duration: 0.3 });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(img, { opacity: 0, duration: 0.3 });
+            });
+            card.addEventListener('mousemove', (e) => {
+                const x = e.layerX;
+                const y = e.layerY;
+                gsap.to(img, { x, y, duration: 0.1 });
+            });
+        });
+    }
+</script>
 
 <style>
     .project-card {
@@ -48,6 +92,7 @@ const inlineStyle = `
         backdrop-filter: blur(10px);
         background-color: var(--color-background-transparent);
         margin-top: 10rem;
+        position: relative;
     }
 
     .project-link {
@@ -60,7 +105,28 @@ const inlineStyle = `
     }
 
     .authors,
-    .technologies {
+    .technologies,
+    .timeline {
         color: var(--color-text-secondary);
+    }
+
+    .preview-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+        border-radius: 0 var(--border-radius-full) var(--border-radius-full) var(--border-radius-full);
+        overflow: clip;
+        /* /* Fades out the edges of the image radially, but idk abt it.. */
+        -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 95%);
+        mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 95%);
+
+        img {
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+        }
     }
 </style>

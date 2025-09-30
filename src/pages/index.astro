@@ -6,36 +6,7 @@ import FilterText from '../components/index/FilterText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
-
-const projects = [
-    {
-        name: 'Card Domain',
-        link: 'carddomain.mosaiq.dev',
-        description: 'A simple, extremely powerful platform for playing real-time card games online with player-enforced rules.',
-        authors: ['Alex Santagata', 'Sam Randa'],
-        timeline: 'July 2025 - August 2025',
-        technologies: ['React', 'WebSocket', 'Express'],
-        left: 10,
-    },
-    {
-        name: 'Minefolio',
-        link: 'minefol.io',
-        description: 'A portfolio creation and showcase platform for Minecraft builds and building communities.',
-        authors: ['Matt Hagger', 'Javier Moncada', 'Thinh Pham'],
-        timeline: 'July 2025 - Present',
-        technologies: ['React', 'Express'],
-        right: 20,
-    },
-    {
-        name: 'Timelier',
-        link: 'timelier.app',
-        description: 'A tool for students, friends, and coworkers to find compatible times to meet.',
-        authors: ['Sam Randa', 'Zoe Fisk', 'Zach Szeto'],
-        timeline: 'August 2025 - Present',
-        technologies: ['React', 'Websocket', 'Express'],
-        left: 30,
-    },
-];
+import projects from '../data/projects.json' assert { type: 'json' };
 ---
 
 <BaseLayout title="Mosaiq Software">
@@ -56,20 +27,7 @@ const projects = [
     </SectionLayout>
     <SectionLayout id="projects">
         <SectionHeaderTitle>Projects</SectionHeaderTitle>
-        {
-            projects.map((project) => (
-                <Project
-                    name={project.name}
-                    link={project.link}
-                    description={project.description}
-                    authors={project.authors}
-                    timeline={project.timeline}
-                    technologies={project.technologies}
-                    left={project.left}
-                    right={project.right}
-                />
-            ))
-        }
+        {projects.map((project) => <Project {...project} />)}
         <Square
             width={10}
             size={800}
