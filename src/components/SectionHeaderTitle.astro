@@ -24,27 +24,23 @@ const { extraStyles, areaHidden, color = 'var(--color-text)' } = Astro.props as 
     const el = document.querySelectorAll('.section-header-title') as NodeListOf<HTMLElement>;
     el.forEach((element) => {
         const color = element.dataset.color;
-        gsap.fromTo(
-            element,
-            {
-                color: 'var(--color-surface)',
+        console.log(color);
+        gsap.to(element, {
+            color: color,
+            scrollTrigger: {
+                trigger: element,
+                start: 'top-=100 center',
+                end: 'bottom+=100 center',
+                scrub: true,
+                markers: true,
             },
-            {
-                color: color,
-                scrollTrigger: {
-                    trigger: element,
-                    start: 'top center',
-                    end: 'bottom center',
-                    scrub: true,
-                },
-            }
-        );
+        });
     });
 </script>
 <style>
     h1 {
         font-size: clamp(3rem, 8vw, 8rem);
-        color: var(--color-text);
+        color: var(--color-surface);
         line-height: 0.9;
         margin: 0;
     }
