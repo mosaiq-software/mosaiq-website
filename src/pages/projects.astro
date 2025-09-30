@@ -11,7 +11,7 @@ const projects = _projects as Project[];
 
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="projects">
-        <SectionHeaderTitle>Projects</SectionHeaderTitle>
+        <SectionHeaderTitle outlined>Projects</SectionHeaderTitle>
         {projects.map((project) => <ProjectElement project={project} />)}
     </SectionLayout>
 </BaseLayout>

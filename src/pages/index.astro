@@ -29,7 +29,7 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
         </div>
     </SectionLayout>
     <SectionLayout id="projects">
-        <SectionHeaderTitle>Projects</SectionHeaderTitle>
+        <SectionHeaderTitle outlined>Projects</SectionHeaderTitle>
         {projects.map((project) => <ProjectElement project={project} />)}
         <div class="projects-button-container">
             <a

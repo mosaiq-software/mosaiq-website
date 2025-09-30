@@ -18,6 +18,13 @@ import SectionHeaderTitle from '../SectionHeaderTitle.astro';
     </SectionHeaderTitle>
     <SectionHeaderTitle
         areaHidden
+        extraStyles="position: absolute; z-index: 1; mix-blend-mode: overlay;"
+        color="white"
+    >
+        <slot />
+    </SectionHeaderTitle>
+    <SectionHeaderTitle
+        areaHidden
         extraStyles="visibility: hidden;"
     >
         <slot />
