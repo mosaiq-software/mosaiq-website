@@ -65,16 +65,16 @@ const inlineStyle = `
         projectCards.forEach((card) => {
             const img = card.querySelector('.preview-image') as HTMLImageElement;
             if (!img) return;
-            card.addEventListener('mouseenter', () => {
-                gsap.to(img, { opacity: 1, duration: 0.3 });
+            card.addEventListener('mouseenter', (e) => {
+                gsap.to(img, { opacity: 1, duration: 0.2 });
             });
             card.addEventListener('mouseleave', () => {
-                gsap.to(img, { opacity: 0, duration: 0.3 });
+                gsap.to(img, { opacity: 0, duration: 0.4 });
             });
             card.addEventListener('mousemove', (e) => {
                 const x = e.layerX;
                 const y = e.layerY;
-                gsap.to(img, { x, y, duration: 0.1 });
+                gsap.to(img, { x, y, duration: 0 });
             });
         });
     }

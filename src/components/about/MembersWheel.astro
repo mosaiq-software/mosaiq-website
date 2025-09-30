@@ -136,11 +136,12 @@ const getImageBoxShadow = () => {
         gsap.to(inner, {
             motionPath: {
                 path,
+                curviness: 1.5,
             },
             duration: 20,
             repeat: -1,
             yoyo: true,
-            ease: 'sine.inOut',
+            ease: 'none',
         });
     });
 

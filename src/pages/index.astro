@@ -6,7 +6,9 @@ import FilterText from '../components/index/FilterText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
-import projects from '../data/projects.json' assert { type: 'json' };
+import _projects from '../data/projects.json' assert { type: 'json' };
+
+const projects = _projects.filter((project) => project.homepage);
 ---
 
 <BaseLayout title="Mosaiq Software">
