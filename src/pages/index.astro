@@ -1,14 +1,15 @@
 ---
 import FancyMosaiqLogo from '../components/index/FancyMosaiqLogo.astro';
-import Project from '../components/index/Project.astro';
+import ProjectElement from '../components/index/Project.astro';
 import Square from '../components/Square.astro';
 import FilterText from '../components/index/FilterText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
 import _projects from '../data/projects.json' assert { type: 'json' };
+import { Project } from '../scripts/types';
 
-const projects = _projects.filter((project) => project.homepage);
+const projects = _projects.filter((project) => project.homepage) as Project[];
 ---
 
 <BaseLayout title="Mosaiq Software">
@@ -29,7 +30,7 @@ const projects = _projects.filter((project) => project.homepage);
     </SectionLayout>
     <SectionLayout id="projects">
         <SectionHeaderTitle>Projects</SectionHeaderTitle>
-        {projects.map((project) => <Project {...project} />)}
+        {projects.map((project) => <ProjectElement project={project} />)}
         <Square
             width={10}
             size={800}

@@ -1,22 +1,16 @@
 ---
 import Icon from '../Icon.astro';
+import type { Project } from '../../scripts/types';
 
 interface Props {
-    name: string;
-    link: string;
-    description: string;
-    authors: string[];
-    timeline: string;
-    technologies: string[];
-    previewImage?: string;
-    left?: number;
-    right?: number;
+    project: Project;
 }
 
-const { name, link, description, authors, timeline, technologies, previewImage } = Astro.props;
+const { project } = Astro.props;
+const { name, link, description, authors, timeline, technologies, previewImage, left, right } = project;
 const inlineStyle = `
-    ${Astro.props.left ? `align-self: flex-start; margin-left: ${Astro.props.left}%;` : ''}
-    ${Astro.props.right ? `align-self: flex-end; margin-right: ${Astro.props.right}%;` : ''}
+    ${left ? `align-self: flex-start; margin-left: ${left}%;` : ''}
+    ${right ? `align-self: flex-end; margin-right: ${right}%;` : ''}
 `;
 ---
 
