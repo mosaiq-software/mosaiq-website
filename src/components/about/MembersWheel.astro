@@ -1,0 +1,303 @@
+---
+import Icon from '../Icon.astro';
+import SectionHeaderTitle from '../SectionHeaderTitle.astro';
+import TextBubble from './TextBubble.astro';
+import TextBubbleWrap from './TextBubbleWrap.astro';
+
+interface TeamMember {
+    name: string;
+    role: string;
+    img: string;
+    since: string;
+    website?: string;
+}
+const team: TeamMember[] = [
+    {
+        name: 'Matt Hagger',
+        role: 'Founder',
+        img: '/assets/headshots/matt.jpg',
+        since: '2024-10-05',
+        website: 'https://matthagger.me',
+    },
+    {
+        name: 'Javier Moncada',
+        role: 'Software Engineer',
+        img: '/assets/headshots/javier.jpg',
+        since: '2024-10-07',
+        website: 'https://javierm.me/',
+    },
+    {
+        name: 'Thinh Pham',
+        role: 'Software Engineer',
+        img: '/assets/headshots/winnie.jpg',
+        since: '2024-10-08',
+    },
+    {
+        name: 'Zach Szeto',
+        role: 'Software Engineer',
+        img: '/assets/headshots/zach.jpg',
+        since: '2024-11-08',
+        website: 'https://www.linkedin.com/in/zacharyszeto/',
+    },
+    {
+        name: 'Sohrob Yaghouti',
+        role: 'Product Manager',
+        img: '/assets/headshots/sohrob.jpg',
+        since: '2024-11-21',
+        website: 'https://www.linkedin.com/in/sohrob-yaghouti/',
+    },
+    {
+        name: 'Sam Randa',
+        role: 'Web Platform Engineer',
+        img: '/assets/headshots/sam.jpg',
+        since: '2025-03-19',
+        website: 'https://samranda.com/',
+    },
+    {
+        name: 'Zoe Fisk',
+        role: 'Software Engineer',
+        img: '/assets/headshots/zoe.jpg',
+        since: '2025-03-21',
+        website: 'https://www.linkedin.com/in/zjfisk/',
+    },
+    {
+        name: 'Alex Santagata',
+        role: 'Software Engineer',
+        img: '/assets/headshots/alex.jpg',
+        since: '2025-06-06',
+        website: 'https://alexsantagata.dev/',
+    },
+    {
+        name: 'Robin Idk your last name',
+        role: 'Hangs out',
+        img: '/assets/headshots/robin.png',
+        since: '2025-09-23',
+        website: 'https://rust-lang.org/',
+    },
+].sort((a, b) => new Date(b.since).getTime() - new Date(a.since).getTime());
+
+const getImageBoxShadow = () => {
+    // box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
+    const colors = ['pink', 'magenta', 'purple', 'blue', 'navy'];
+    let x = Math.floor(Math.random() * 10) + 5;
+    if (Math.random() < 0.5) {
+        x = -x;
+    }
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    return `${x}px ${x}px 0px var(--mosaiq-${color})`;
+};
+---
+
+<div class="members">
+    <SectionHeaderTitle>Who?</SectionHeaderTitle>
+    <div class="headshot-wheel">
+        <div class="circle"></div>
+        {
+            team.map((member, i) => (
+                <div class="headshot-wrapper">
+                    <div class="headshot-inner">
+                        <img
+                            src={member.img}
+                            aria-hidden="true"
+                            class="headshot"
+                            draggable="false"
+                            style={`box-shadow: ${getImageBoxShadow()}`}
+                        />
+                    </div>
+                    <div class="headshot-text">
+                        <h3 class="name">{member.name}</h3>
+                        <p class="role">{member.role}</p>
+                        {member.website ? (
+                            <a
+                                href={member.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="website-link"
+                                aria-label={`Visit ${member.name}'s website`}
+                            >
+                                <Icon
+                                    name={'external-link'}
+                                    size={16}
+                                />
+                            </a>
+                        ) : null}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+    <TextBubbleWrap
+        vAlign="bottom"
+        centered
+    >
+        <TextBubble>
+            <p>All of these wonderful people</p>
+        </TextBubble>
+    </TextBubbleWrap>
+</div>
+<script>
+    import gsap from 'gsap';
+    import ScrollTrigger from 'gsap/ScrollTrigger';
+    import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+
+    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+    if (ScrollTrigger.isTouch === 1) {
+        ScrollTrigger.normalizeScroll({
+            allowNestedScroll: true,
+            type: 'touch,wheel,pointer',
+        });
+    }
+
+    const headshotWrappers = document.querySelectorAll('.headshot-wrapper') as NodeListOf<HTMLDivElement>;
+    const headshotWheel = document.querySelector('.headshot-wheel') as HTMLDivElement;
+
+    const wheelCenter = {
+        x: headshotWheel.clientWidth / 2,
+        y: headshotWheel.clientHeight / 2,
+    };
+
+    // size and position the circle
+    const radius = headshotWheel.clientWidth;
+    const circle = headshotWheel.querySelector('.circle') as HTMLDivElement;
+    circle.style.width = `${radius * 2}px`;
+    circle.style.height = `${radius * 2}px`;
+    circle.style.top = `${wheelCenter.y - radius}px`;
+    circle.style.left = `${wheelCenter.x - radius}px`;
+
+    // spread the headshots evenly around the circle
+    const degreesPerHeadshot = 30;
+    const totalScrollDegrees = degreesPerHeadshot * (headshotWrappers.length - 1);
+    const degreesOffset = 270 - degreesPerHeadshot * headshotWrappers.length;
+
+    headshotWrappers.forEach((wrapper, index) => {
+        // position the headshot around the circle
+        const angleDeg = degreesPerHeadshot * (index + 1) + degreesOffset;
+        const angle = (angleDeg * Math.PI) / 180;
+        const x = wheelCenter.x + radius * Math.cos(angle) - wrapper.clientWidth / 2;
+        const y = wheelCenter.y + radius * Math.sin(angle) - wrapper.clientHeight / 2;
+        wrapper.style.transform = `translate(${x}px, ${y}px)`;
+
+        // rotate the headshot to face outward
+        const rotation = (angle * 180) / Math.PI + 90;
+        wrapper.style.transform += ` rotate(${rotation}deg)`;
+
+        // floaty animation
+        const inner = wrapper.querySelector('.headshot-inner') as HTMLDivElement;
+        const floatDistance = 10;
+        const pathLength = 10;
+        const def = { x: 0, y: 0, rotationZ: 0 };
+        let path = Array.from({ length: pathLength }, (_, i) => {
+            return {
+                x: (Math.random() * 2 - 1) * floatDistance,
+                y: (Math.random() * 2 - 1) * floatDistance,
+                rotationZ: (Math.random() * 2 - 1) * 3,
+            };
+        });
+        path = [def, ...path, def]; // close the loop
+        gsap.to(inner, {
+            motionPath: {
+                path,
+            },
+            duration: 20,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+        });
+    });
+
+    ScrollTrigger.create({
+        trigger: '.members',
+        start: 'top top',
+        end: '3000px top',
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        scrub: true,
+        onUpdate(self) {
+            const rotation = self.progress * totalScrollDegrees;
+            gsap.to(headshotWheel, {
+                rotation,
+                ease: 'none',
+                overwrite: 'auto',
+            });
+        },
+    });
+</script>
+<style>
+    .members {
+        width: 100%;
+        position: relative;
+        user-select: none !important;
+        min-height: 100vh;
+        overflow-y: clip;
+
+        .headshot-wheel {
+            position: absolute;
+            top: 900px;
+            left: calc(-500px + 50%);
+            width: 1000px;
+            height: 1000px;
+            user-select: none;
+
+            .circle {
+                position: absolute;
+                border-radius: 50000px;
+                border: double 0.5em transparent;
+                background-image: linear-gradient(var(--color-background), var(--color-background)), linear-gradient(to right, var(--mosaiq-blue), var(--mosaiq-pink));
+                background-origin: border-box;
+                background-clip: content-box, border-box;
+                pointer-events: none;
+            }
+
+            .headshot-wrapper {
+                position: absolute;
+                width: 300px;
+                height: 500px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+
+                /* p {
+                        font-size: var(--font-size-md);
+                        color: var(--color-text);
+                        text-align: center;
+                        user-select: auto;
+                    } */
+
+                .headshot-text {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    position: relative;
+
+                    .name {
+                        font-size: var(--font-size-md);
+                    }
+                    .role {
+                        font-size: var(--font-size-sm);
+                        color: var(--color-text-secondary);
+                    }
+                    .website-link {
+                        position: absolute;
+                        top: 4px;
+                        right: 4px;
+                        color: var(--color-text-secondary);
+                    }
+                }
+
+                .headshot {
+                    width: 100%;
+                    height: 300px;
+                    aspect-ratio: 1/1;
+                    object-fit: cover;
+                    user-select: none;
+                }
+            }
+        }
+    }
+</style>

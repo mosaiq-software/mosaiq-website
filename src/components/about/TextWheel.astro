@@ -1,0 +1,65 @@
+---
+interface Props {
+    items: string[];
+}
+const { items }: Props = Astro.props;
+---
+
+<div
+    class="text-wheel"
+    aria-hidden="true"
+>
+    {items.map((item) => <span class="text-wheel-item">{item}</span>)}
+</div>
+<script>
+    import gsap from 'gsap';
+    document.fonts.ready.then(() => {
+        const textWheel = document.querySelector('.text-wheel') as HTMLDivElement;
+        const textWheelItems = document.querySelectorAll('.text-wheel-item') as NodeListOf<HTMLSpanElement>;
+        const textWheelRadius = 70;
+        const textWheelCenter = {
+            x: textWheel.clientWidth / 2,
+            y: textWheel.clientHeight / 2,
+        };
+        const textWheelDegreesPerItem = 360 / textWheelItems.length;
+        textWheelItems.forEach((item, index) => {
+            const angleDeg = textWheelDegreesPerItem * index - 90;
+            const angle = (angleDeg * Math.PI) / 180;
+            const x = textWheelCenter.x + textWheelRadius * Math.cos(angle) - item.clientWidth / 2;
+            const y = textWheelCenter.y + textWheelRadius * Math.sin(angle) - item.clientHeight / 2;
+            item.style.position = 'absolute';
+            item.style.left = `${x}px`;
+            item.style.top = `${y}px`;
+            item.style.transform = `rotate(${angleDeg + 90}deg)`;
+        });
+
+        gsap.fromTo(
+            textWheel,
+            {
+                rotation: 0,
+            },
+            {
+                rotation: 360,
+                duration: 30,
+                repeat: -1,
+                ease: 'linear',
+            }
+        );
+    });
+</script>
+<style>
+    .text-wheel {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        pointer-events: none;
+        .text-wheel-item {
+            position: absolute;
+            font-size: var(--font-size-md);
+            color: var(--color-text);
+            white-space: nowrap;
+            user-select: none;
+            text-align: center;
+        }
+    }
+</style>

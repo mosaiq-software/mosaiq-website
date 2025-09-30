@@ -1,0 +1,34 @@
+---
+interface Props {
+    centered?: boolean;
+    vAlign?: 'top' | 'bottom';
+    amount?: string;
+}
+const { centered = false, vAlign = undefined, amount = 0 } = Astro.props;
+const v = `position: absolute; ${vAlign}: ${amount};`;
+---
+
+<div
+    class=`bubbles ${centered ? 'centered-bubble' : ''}`
+    style=`${vAlign ? v : ''}`
+>
+    <slot />
+</div>
+<style>
+    .bubbles {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 2rem 0;
+    }
+
+    .centered-bubble {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+</style>
