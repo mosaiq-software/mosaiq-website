@@ -41,15 +41,8 @@ const projects = [
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="hero">
         <div id="hero-text">
-            <FilterText>
-                Software development<br />
-                for the inner child
-            </FilterText>
-            <p>
-                Mosaiq Software is a non-profit software development<br />
-                group based out of Worcester, Massachusetts making stupidly<br />
-                cool things on the web.
-            </p>
+            <FilterText> Software development for the inner child </FilterText>
+            <p>Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
             <button
                 class="outline-button"
                 id="see-our-work"
@@ -131,24 +124,16 @@ const projects = [
         flex-direction: column;
         align-items: flex-start;
         gap: 4rem;
-        margin: var(--spacing-lg);
-    }
 
-    #hero-text p {
-        z-index: 2;
+        p {
+            z-index: 2;
+            max-width: 60ch;
+            font-size: var(--font-size-lg);
+        }
     }
-
     #hero-logo {
         position: absolute;
-        inset: 0;
-        left: 30%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #hero-text p {
-        font-size: var(--font-size-lg);
+        right: 10%;
     }
 
     #projects {
@@ -156,22 +141,9 @@ const projects = [
         flex-direction: column;
         gap: 10em;
         flex: 1;
-        margin: 10em var(--spacing-lg);
-    }
-
-    #projects h1,
-    #contact h1 {
-        font-size: 8rem;
-        color: var(--color-surface);
-    }
-
-    section {
-        position: relative;
-        z-index: 2;
     }
 
     #contact {
-        height: 100vh;
-        margin: 10em var(--spacing-lg);
+        min-height: 100vh;
     }
 </style>

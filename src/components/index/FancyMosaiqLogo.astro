@@ -178,9 +178,9 @@ kkktmmmmtppp`;
 
     function createScrollTrigger(cell: Element, tl: gsap.core.Timeline) {
         const delay = 50 + Math.random() * 200;
-        const contact = document.querySelector("#contact");
+        const contact = document.querySelector('#contact');
         const contactOffsetTop = contact!.getBoundingClientRect().top + window.scrollY;
-        
+
         ScrollTrigger.create({
             trigger: document.body,
             start: `${delay}px top`,
@@ -313,8 +313,8 @@ kkktmmmmtppp`;
     }
     .cell,
     .cell-spacer {
-        width: 4vw;
-        height: 4vw;
+        width: clamp(1.25rem, 4vw, 5rem);
+        height: clamp(1.25rem, 4vw, 5rem);
         z-index: 1;
     }
 </style>
