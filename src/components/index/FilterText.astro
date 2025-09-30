@@ -1,29 +1,26 @@
 ---
-
+import SectionHeaderTitle from '../SectionHeaderTitle.astro';
 ---
 
-<div class="title-text">
-    <h1 class="text background-text"><slot /></h1>
-    <h1
-        aria-hidden="true"
-        class="text filter-text"
+<div>
+    <SectionHeaderTitle extraStyles="position: absolute; z-index: -2; transform-origin: center;">
+        <slot />
+    </SectionHeaderTitle>
+    <SectionHeaderTitle
+        areaHidden
+        extraStyles="position: absolute; z-index: 1; mix-blend-mode: saturation; scale: 0.996;"
+        color="var(--mosaiq-pink)"
     >
         <slot />
-    </h1>
-    <h1
-        aria-hidden="true"
-        class="spacer-text"
+    </SectionHeaderTitle>
+    <SectionHeaderTitle
+        areaHidden
+        extraStyles="visibility: hidden; white-space: nowrap;"
     >
         <slot />
-    </h1>
+    </SectionHeaderTitle>
 </div>
 <style>
-    h1 {
-        font-size: clamp(3rem, 8vw, 8rem);
-        line-height: 0.9;
-        margin: 0;
-    }
-
     .text {
         position: absolute;
     }

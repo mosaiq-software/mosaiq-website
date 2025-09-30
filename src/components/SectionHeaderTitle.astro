@@ -1,20 +1,36 @@
-<h1 class="section-header-title"><slot /></h1>
+---
+interface Props {
+    extraStyles?: string;
+    areaHidden?: boolean;
+    color?: string;
+}
+const { extraStyles, areaHidden, color = 'var(--color-text)' } = Astro.props as Props;
+---
+
+<h1
+    style={extraStyles}
+    class="section-header-title"
+    aria-hidden={areaHidden ? 'true' : 'false'}
+    data-color={color}
+>
+    <slot />
+</h1>
 <script>
     import { gsap } from 'gsap';
     import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const el = document.querySelectorAll('.section-header-title');
-    // make it --color-surface when above halfway, and --color-text when below halfway
+    const el = document.querySelectorAll('.section-header-title') as NodeListOf<HTMLElement>;
     el.forEach((element) => {
+        const color = element.dataset.color;
         gsap.fromTo(
             element,
             {
                 color: 'var(--color-surface)',
             },
             {
-                color: 'var(--color-text)',
+                color: color,
                 scrollTrigger: {
                     trigger: element,
                     start: 'top center',
@@ -27,8 +43,9 @@
 </script>
 <style>
     h1 {
-        font-size: 8rem;
+        font-size: clamp(3rem, 8vw, 8rem);
         color: var(--color-text);
-        opacity: 0.85;
+        line-height: 0.9;
+        margin: 0;
     }
 </style>
