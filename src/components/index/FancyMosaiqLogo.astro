@@ -49,10 +49,9 @@ kkktmmmmtppp`;
     import { gsap } from 'gsap';
 
     import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    import { ScrollSmoother } from 'gsap/ScrollSmoother';
     import { MotionPathPlugin } from 'gsap/all';
 
-    gsap.registerPlugin(ScrollTrigger, ScrollSmoother, MotionPathPlugin);
+    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
     const content = document.querySelector('.mosaiq-logo');
     const container = document.querySelector('.logo-container');
     if (!content) throw new Error('No content element found');

@@ -80,13 +80,7 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
         <SectionHeaderTitle>Contact</SectionHeaderTitle>
     </SectionLayout>
 </BaseLayout>
-<script>
-    import { smoother } from '../scripts/context';
 
-    document.getElementById('see-our-work')!.onclick = () => {
-        smoother.scrollTo(document.getElementById('projects')!, true);
-    };
-</script>
 <style>
     #hero-text {
         display: flex;
