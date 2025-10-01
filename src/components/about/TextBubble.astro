@@ -66,11 +66,13 @@ const { align = 'left', amount = '0', orientation = 'column', followMouse = fals
         padding: 1rem 2rem;
         width: fit-content;
         font-size: var(--font-size-md);
-        background-color: color-mix(in srgb, var(--color-background) 100%, transparent 8%);
+        /* background-color: color-mix(in srgb, var(--color-background) 100%, transparent 8%); */
         display: flex;
         justify-content: center;
+        gap: var(--spacing-sm);
         flex-wrap: nowrap;
-
+        paint-order: stroke fill;
+        -webkit-text-stroke: 0.33em var(--color-background);
         a {
             color: var(--mosaiq-magenta);
             text-decoration: none;
@@ -81,7 +83,7 @@ const { align = 'left', amount = '0', orientation = 'column', followMouse = fals
     @media screen and (max-width: 768px) {
         .text-bubble {
             margin-left: 0 !important;
-            flex-direction: column;
+            flex-direction: column !important;
         }
     }
 </style>

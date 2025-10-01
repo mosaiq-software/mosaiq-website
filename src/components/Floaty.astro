@@ -1,0 +1,51 @@
+---
+interface Props {
+    radius?: number;
+    pathComplexity?: number;
+    speed?: number;
+}
+const { radius = 10, pathComplexity = 10, speed = 1 } = Astro.props as Props;
+---
+
+<div
+    class="floaty-wrapper"
+    data-radius={radius}
+    data-path-complexity={pathComplexity}
+    data-speed={speed}
+>
+    <div class="floaty-inner">
+        <slot />
+    </div>
+</div>
+
+<script>
+    import { gsap } from 'gsap';
+    import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+    gsap.registerPlugin(MotionPathPlugin);
+    // floaty animation
+    const wrappers = document.querySelectorAll('.floaty-wrapper') as NodeListOf<HTMLDivElement>;
+    wrappers.forEach((wrapper) => {
+        const { radius, pathComplexity, speed } = wrapper.dataset;
+        const inner = wrapper.querySelector('.floaty-inner') as HTMLDivElement;
+        const floatDistance = Number(radius) || 10;
+        const pathLength = Number(pathComplexity) || 10;
+        const def = { x: 0, y: 0, rotationZ: 0 };
+        let path = Array.from({ length: pathLength }, (_, i) => {
+            return {
+                x: (Math.random() * 2 - 1) * floatDistance,
+                y: (Math.random() * 2 - 1) * floatDistance,
+                rotationZ: (Math.random() * 2 - 1) * 3,
+            };
+        });
+        path = [def, ...path, def]; // close the loop
+        gsap.to(inner, {
+            motionPath: {
+                path,
+                curviness: 1.5,
+            },
+            duration: 20 / (Number(speed) || 1),
+            repeat: -1,
+            ease: 'none',
+        });
+    });
+</script>

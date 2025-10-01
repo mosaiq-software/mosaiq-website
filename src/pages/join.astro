@@ -1,76 +1,105 @@
 ---
+import TextBubble from '../components/about/TextBubble.astro';
+import TextBubbleWrap from '../components/about/TextBubbleWrap.astro';
 import Icon from '../components/Icon.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
+import Square from '../components/Square.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
 ---
 
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="join">
-        <SectionHeaderTitle>Join</SectionHeaderTitle>
-        <div class="join-page">
-            <div class="join-section">
-                <div>
-                    <h2>Do you find yourself chronically building things? Same here.</h2>
-                    <p>Whether you&rsquo;re hunting for your next big project or just want something fun to tinker with on weekends, Mosaiq has a spot for you. We welcome coders, designers, dreamers, and anyone who loves to create.</p>
-                </div>
-                <div>
-                    <h3>What we look for</h3>
-                    <p class="subheading">Required</p>
-                    <p>&bull; 18+ years of life experience</p>
-                    <p>&bull; A brain full of ideas (good, bad, or gloriously weird)</p>
-                    <p>&bull; Curiosity and a hunger to learn new skills</p>
-                    <p>&bull; The itch to build things just because you can</p>
-                </div>
-                <div>
-                    <p class="subheading">Nice to have</p>
-                    <p>&bull; Any web dev experience (HTML, CSS, JavaScript, TypeScript, React, etc.)</p>
-                    <p>&bull; Any experience with software or game development</p>
-                    <p>&bull; An eye for design, graphics, or UX</p>
-                </div>
-                <div>
-                    <p class="subheading">Why join?</p>
-                    <p>Because you&rsquo;ll get real project experience: the kind you can put on a resume, brag about in interviews, or just show off to your friends. No grades. No payroll. Just the joy of building something awesome and the skills you&rsquo;ll pick up along the way.</p>
-                </div>
-                <div>
-                    <p class="subheading">How to join</p>
-                    <p>
-                        Skip the fancy applications. Just shoot us an email at <a
-                            href="mailto:join@mosaiq.dev"
-                            target="_blank"
-                            >join@mosaiq.dev</a
-                        > with your resume or portfolio and a quick hello. That&rsquo;s it!
-                    </p>
-                </div>
-            </div>
-            <div class="join-section">
+        <SectionHeaderTitle outlined>Join</SectionHeaderTitle>
+        <Square
+            width={10}
+            size={'20vw'}
+            color="var(--mosaiq-navy)"
+            top="400px"
+            right="10%"
+            rotation="10deg"
+        />
+        <Square
+            width={10}
+            size={'45vw'}
+            color="var(--mosaiq-magenta)"
+            top="500px"
+            left="20%"
+            rotation="40deg"
+        />
+        <Square
+            width={10}
+            size={'25vw'}
+            color="var(--mosaiq-blue)"
+            top="-50px"
+            left="50%"
+            rotation="20deg"
+        />
+        <TextBubbleWrap>
+            <TextBubble amount="10%">
+                <h2>Do you find yourself chronically building something?<br />So do we.</h2>
+                <p>Whether you&rsquo;re hunting for your next big project or just want something fun to tinker with on weekends, Mosaiq has a spot for you. We welcome coders, designers, dreamers, and anyone who loves to create.</p>
+            </TextBubble>
+            <TextBubble amount="25%">
+                <h4>What we look for</h4>
+                <p class="subheading">Required</p>
+                <p>&bull; 18+ years of life experience</p>
+                <p>&bull; A brain full of ideas (good, bad, or gloriously weird)</p>
+                <p>&bull; Curiosity and a hunger to learn new skills</p>
+                <p>&bull; The itch to build things just because you can</p>
+            </TextBubble>
+            <TextBubble amount="30%">
+                <p class="subheading">Nice to have</p>
+                <p>&bull; Any web dev experience (HTML, CSS, JavaScript, TypeScript, React, etc.)</p>
+                <p>&bull; Any experience with software or game development</p>
+                <p>&bull; An eye for design, graphics, or UX</p>
+            </TextBubble>
+            <TextBubble amount="20%">
+                <p class="subheading">Why join?</p>
+                <p>Because you&rsquo;ll get real project experience: the kind you can put on a resume, brag about in interviews, or just show off to your friends. No grades. No payroll. Just the joy of building something awesome and the skills you&rsquo;ll pick up along the way.</p>
+            </TextBubble>
+            <TextBubble amount="35%">
+                <h4>How to join</h4>
+                <p>
+                    Skip the fancy applications. Just shoot us an email at <a
+                        href="mailto:join@mosaiq.dev"
+                        target="_blank"
+                        >join@mosaiq.dev</a
+                    > with your resume or portfolio and a quick hello. That&rsquo;s it!
+                </p>
+            </TextBubble>
+        </TextBubbleWrap>
+        <TextBubbleWrap>
+            <TextBubble amount="20%">
                 <div class="spread">
-                    <h3>Smallprint</h3>
                     <div class="spread-icon">
                         <Icon name={'chevron-down'} />
                     </div>
+                    <h3>Smallprint</h3>
                 </div>
-                <div class="smallprint">
+            </TextBubble>
+            <div class="smallprint">
+                <TextBubble amount="20%">
                     <p>Mosaiq is a nonprofit, member-run organization. This is not a full-time job or a paid position. Instead, it&rsquo;s a side commitment where you can gain real project experience, collaborate with others, and build meaningful software.</p>
-                </div>
-                <div class="smallprint">
+                </TextBubble>
+                <TextBubble amount="20%">
                     <p class="subheading">A few important notes:</p>
                     <p>&bull; There is no compensation. Any revenue Mosaiq generates is fully reinvested into operations or directed toward charitable initiatives such as scholarships.</p>
                     <p>&bull; While this is a part-time, flexible opportunity, members are expected to balance Mosaiq with classes, work, and other obligations.</p>
                     <p>&bull; We cannot sponsor work visas or provide employment authorization at this time.</p>
-                </div>
-                <div class="smallprint">
+                </TextBubble>
+                <TextBubble amount="20%">
                     <p class="subheading">What we&rsquo;re really looking for in candidates:</p>
                     <p>&bull; A genuine interest in building, learning, and experimenting with software.</p>
                     <p>&bull; Reliability. People who follow through and contribute consistently.</p>
                     <p>&bull; Collaboration skills. An openness to feedback, willingness to help teammates, and a drive to build together.</p>
                     <p>&bull; Creativity and curiosity. Whether you&rsquo;re coding, designing, or brainstorming, we want members who bring energy and ideas.</p>
-                </div>
-                <div class="smallprint">
+                </TextBubble>
+                <TextBubble amount="20%">
                     <p>In short: if you&rsquo;re looking for a paycheck, Mosaiq isn&rsquo;t for you. If you&rsquo;re looking for experience, community, and the chance to make a real impact through code, you&rsquo;ll fit right in.</p>
-                </div>
+                </TextBubble>
             </div>
-        </div>
+        </TextBubbleWrap>
     </SectionLayout>
 </BaseLayout>
 <script>
@@ -92,51 +121,31 @@ import SectionLayout from '../layouts/SectionLayout.astro';
     });
 </script>
 <style>
-    .join-page {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8rem;
-        padding-bottom: 4rem;
+    p {
+        font-size: var(--font-size-md);
+        max-width: 80ch;
     }
-    .join-section {
+
+    .subheading {
+        color: var(--color-text-secondary);
+        font-weight: bold;
+        font-size: var(--font-size-sm);
+    }
+
+    a {
+        color: var(--mosaiq-magenta);
+    }
+
+    .spread {
         display: flex;
-        flex-direction: column;
-        gap: 2rem;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+    }
 
-        p {
-            font-size: var(--font-size-md);
-            max-width: 80ch;
-        }
-
-        .subheading {
-            color: var(--color-text-secondary);
-            font-weight: bold;
-            font-size: var(--font-size-sm);
-        }
-
-        a {
-            color: var(--mosaiq-magenta);
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-        .spread {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-        .smallprint {
-            overflow: hidden;
-            height: 0;
-        }
+    .smallprint {
+        overflow: hidden;
+        width: 100%;
+        height: 0;
     }
 </style>

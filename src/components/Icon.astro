@@ -11,6 +11,8 @@ const { name, size, color } = Astro.props as Props;
 <i
     data-feather={name}
     style={`${size ? `width: ${size}px; height: ${size}px;` : ''} ${color ? `color: ${color};` : ''}`}
+    aria-hidden="true"
+    class="icon"
 ></i>
 <script>
     // const feather = require('feather-icons');
@@ -19,3 +21,12 @@ const { name, size, color } = Astro.props as Props;
         feather.replace();
     });
 </script>
+<style>
+    .icon {
+        display: inline-block;
+        vertical-align: middle;
+        stroke-width: 2;
+        stroke: currentColor;
+        fill: none;
+    }
+</style>

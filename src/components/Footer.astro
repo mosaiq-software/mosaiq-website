@@ -10,23 +10,30 @@ const year = new Date().getFullYear();
         <a href="/about">About</a>
         <a href="/join">Join</a>
         <br />
-        <h2 class="bkg-text">Website Design</h2>
-        <a href="https://matthagger.me/">Matt Hagger</a>
-        <a href="https://samranda.com">Sam Randa</a>
+        <h2 class="bkg-text">Another footer</h2>
+        <a href="https://matthagger.me/">To keep</a>
+        <a href="https://samranda.com">Things balanced</a>
     </div>
     <div class="column">
-        <SimpleMosaiqLogo />
-        <h2 class="white-text">Mosaiq Software</h2>
+        <a href="/">
+            <SimpleMosaiqLogo />
+        </a>
+        <a
+            href="/"
+            style="text-decoration: none;"
+        >
+            <h2 class="white-text">Mosaiq Software</h2>
+        </a>
         <p class="white-text">&copy; {year} Mosaiq Software</p>
     </div>
     <div class="column footer-links">
         <h2 class="bkg-text">Resources</h2>
         <a href="/brand">Brand Assets</a>
-        <a href="/brand">ANOTHER THINGS!!</a>
+        <a href="/projects">Projects</a>
         <br />
-        <h2 class="bkg-text">Another footer</h2>
-        <a href="https://matthagger.me/">To keep</a>
-        <a href="https://samranda.com">Things balanced</a>
+        <h2 class="bkg-text">Website Design</h2>
+        <a href="https://matthagger.me/">Matt Hagger</a>
+        <a href="https://samranda.com">Sam Randa</a>
     </div>
 </footer>
 
@@ -34,6 +41,7 @@ const year = new Date().getFullYear();
     footer {
         width: 100%;
         display: flex;
+        flex-direction: row;
         justify-content: space-evenly;
         align-items: flex-start;
         padding: var(--spacing-lg) var(--spacing-lg);
@@ -41,6 +49,13 @@ const year = new Date().getFullYear();
         background-color: var(--mosaiq-pink);
         min-height: 50vh;
         color: var(--color-background);
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: var(--spacing-xl);
+        }
     }
     .column {
         display: flex;

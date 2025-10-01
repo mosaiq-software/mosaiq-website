@@ -14,15 +14,15 @@ import SectionLayout from '../layouts/SectionLayout.astro';
         <div class="info">
             <Square
                 width={10}
-                size={800}
-                color="var(--mosaiq-navy)"
-                top="400px"
+                size={'45vw'}
+                color="var(--mosaiq-blue)"
+                top="500px"
                 left="10%"
                 rotation="80deg"
             />
             <Square
                 width={10}
-                size={300}
+                size={'20vw'}
                 color="var(--mosaiq-magenta)"
                 top="100px"
                 right="10%"
@@ -30,25 +30,25 @@ import SectionLayout from '../layouts/SectionLayout.astro';
             />
             <Square
                 width={10}
-                size={500}
+                size={'40vw'}
                 color="var(--mosaiq-pink)"
                 top="900px"
-                right="20%"
+                left="80%"
                 rotation="35deg"
             />
-            <SectionHeaderTitle>What?</SectionHeaderTitle>
+            <SectionHeaderTitle outlined>What?</SectionHeaderTitle>
             <TextBubbleWrap>
                 <TextBubble amount="25%">
                     <h2>We&rsquo;re Mosaiq Software!</h2>
                 </TextBubble>
                 <TextBubble amount="20%">
-                    <p>A band of code-slinging, pixel-pushers with an unexplainable obsession for building digital tchotchkes</p>
+                    <p>A band of code-slinging, pixel-pushers with an unexplainable obsession for building digital tchotchkes.</p>
                     <p>We dream up oddball concepts and turn them into delightful web experiences that are equal parts creative, chaotic, and cool.</p>
                     <p>Our mission? Make the internet more fun, one bizarrely brilliant project at a time.</p>
                 </TextBubble>
                 <TextBubble amount="40%">
                     <p>Want to jump in?</p>
-                    <p>Check out how you can <a href="/join">get involved</a>!</p>
+                    <p>Check out how you can <a href="/join">get involved!</a></p>
                 </TextBubble>
                 <TextBubble amount="30%">
                     <p>Got a half-baked idea you&rsquo;re dying to see online?</p>
@@ -63,41 +63,71 @@ import SectionLayout from '../layouts/SectionLayout.astro';
                 </TextBubble>
             </TextBubbleWrap>
         </div>
+        <MembersWheel />
+        <div class="how">
+            <SectionHeaderTitle outlined>How?</SectionHeaderTitle>
+            <Square
+                width={10}
+                size={'60vw'}
+                color="var(--mosaiq-blue)"
+                top="50%"
+                right="-10%"
+                rotation="70deg"
+            />
+            <Square
+                width={10}
+                size={'30vw'}
+                color="var(--mosaiq-purple)"
+                bottom="400px"
+                left="80%"
+                rotation="35deg"
+            />
+            <Square
+                width={10}
+                size={'25vw'}
+                color="var(--mosaiq-pink)"
+                bottom="200px"
+                left="20%"
+                rotation="5deg"
+            />
+            <TextBubbleWrap>
+                <TextBubble amount="20%">
+                    <p>At Mosaiq, ideas don’t sit on the shelf.</p><br />
+                    <p>We toss them into the wild.</p><br />
+                </TextBubble>
+                <TextBubble amount="30%">
+                    <p>Anyone can pitch a project, we prototype fast, poke holes in it, and if it&rsquo;s cool enough, we build it out.</p><br />
+                    <p>Some become open-source gifts to the world, others turn into bigger initiatives, but every project starts the same way: with a spark, a team, and a lot of caffeine.</p>
+                </TextBubble>
+                <TextBubble amount="18%">
+                    <p>1 &bull; Someone dreams something up. Big, small, serious, silly &mdash; if it can live on the web, it&rsquo;s fair game.</p>
+                </TextBubble>
+                <TextBubble amount="20%">
+                    <p>2 &bull; We throw it at the team. Everyone pokes, prods, and asks, &ldquo;Is this actually cool?&rdquo; If enough people get excited, it moves forward.</p>
+                </TextBubble>
+                <TextBubble amount="22%">
+                    <p>3 &bull; Prototype time. Members hack together quick demos &mdash; a little sample that shows what the idea could become.</p>
+                </TextBubble>
+                <TextBubble amount="24%">
+                    <p>4 &bull; Refine and build. If a prototype shows promise, we polish it into a full project, adding design and structure.</p>
+                </TextBubble>
+                <TextBubble amount="26%">
+                    <p>5 &bull; Release it into the wild. Some projects stay open-source so anyone can use them. Others we keep a little closer if they help fund scholarships or cover hosting.</p>
+                </TextBubble>
+                <TextBubble
+                    amount="15%"
+                    orientation="row"
+                >
+                    <p>That&rsquo;s our recipe:</p>
+                    <TextWheel items={['brainstorm', 'prototype', 'refine', 'release', 'repeat']} />
+                    <p>It keeps the pipeline flowing and ensures Mosaiq is always building something new, weird, and wonderful.</p>
+                </TextBubble>
+            </TextBubbleWrap>
+        </div>
     </SectionLayout>
-    <MembersWheel />
-    <div class="how">
-        <SectionHeaderTitle>How?</SectionHeaderTitle>
-        <Square
-            width={10}
-            size={800}
-            color="var(--mosaiq-blue)"
-            top="50%"
-            right="-10%"
-            rotation="70deg"
-        />
-        <TextBubbleWrap>
-            <TextBubble amount="15%">
-                <p>At Mosaiq, ideas don’t sit on the shelf.</p><br />
-                <p>We toss them into the wild.</p><br />
-                <p>Anyone can pitch a project, we prototype fast, poke holes in it, and if it&rsquo;s cool enough, we build it out.</p><br />
-                <p>Some become open-source gifts to the world, others turn into bigger initiatives, but every project starts the same way: with a spark, a team, and a lot of caffeine.</p>
-            </TextBubble>
-            <TextBubble amount="10%">
-                <p>1 &bull; Someone dreams something up. Big, small, serious, silly &mdash; if it can live on the web, it&rsquo;s fair game.</p>
-                <br /><p>2 &bull; We throw it at the team. Everyone pokes, prods, and asks, &ldquo;Is this actually cool?&rdquo; If enough people get excited, it moves forward.</p>
-                <br /><p>3 &bull; Prototype time. Members hack together quick demos &mdash; a little sample that shows what the idea could become.</p>
-                <br /><p>4 &bull; Refine and build. If a prototype shows promise, we polish it into a full project, adding design and structure.</p>
-                <br /><p>5 &bull; Release it into the wild. Some projects stay open-source so anyone can use them. Others we keep a little closer if they help fund scholarships or cover hosting.</p>
-                <br />
-            </TextBubble>
-            <TextBubble
-                amount="10%"
-                orientation="row"
-            >
-                <p>That&rsquo;s our recipe:</p>
-                <TextWheel items={['brainstorm', 'prototype', 'refine', 'release', 'repeat']} />
-                <p>It keeps the pipeline flowing and ensures Mosaiq is always building something new, weird, and wonderful.</p>
-            </TextBubble>
-        </TextBubbleWrap>
-    </div>
 </BaseLayout>
+<style>
+    p {
+        max-width: 80ch;
+    }
+</style>
