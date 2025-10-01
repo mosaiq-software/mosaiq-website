@@ -2,7 +2,7 @@
     {
         "name": "Card Domain",
         "link": "carddomain.mosaiq.dev",
-        "description": "A simple, extremely powerful platform for playing real-time card games online with player-enforced rules.",
+        "description": "A simple platform for online real-time card games with powerful (extensive?) customization over decks and gameplay.",
         "authors": ["Alex Santagata", "Sam Randa"],
         "timeline": "July 2025 - August 2025",
         "technologies": ["React", "WebSocket", "Express"],
