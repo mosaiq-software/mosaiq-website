@@ -29,7 +29,7 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
         </div>
     </SectionLayout>
     <SectionLayout id="projects">
-        <SectionHeaderTitle outlined>Projects</SectionHeaderTitle>
+        <SectionHeaderTitle>Projects</SectionHeaderTitle>
         {projects.map((project) => <ProjectElement project={project} />)}
         <div class="projects-button-container">
             <a
@@ -94,8 +94,6 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
             z-index: 2;
             max-width: 40ch;
             font-size: var(--font-size-lg);
-            paint-order: stroke fill;
-            -webkit-text-stroke: 0.33em var(--color-background);
         }
     }
 
@@ -112,7 +110,7 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
         overflow-x: hidden;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 450px) {
         #hero-logo {
             width: 80%;
             margin-top: var(--spacing-xl);

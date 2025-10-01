@@ -3,14 +3,13 @@ interface Props {
     extraStyles?: string;
     areaHidden?: boolean;
     color?: string;
-    outlined?: boolean;
 }
-const { extraStyles, areaHidden, color = 'var(--color-surface)', outlined } = Astro.props as Props;
+const { extraStyles, areaHidden, color = 'var(--color-surface)' } = Astro.props as Props;
 ---
 
 <h1
     style={`${extraStyles}; color: ${color};`}
-    class=`section-header-title ${outlined ? 'outlined' : ''}`
+    class=`section-header-title`
     aria-hidden={areaHidden ? 'true' : 'false'}
     data-color={color}
 >
@@ -42,9 +41,5 @@ const { extraStyles, areaHidden, color = 'var(--color-surface)', outlined } = As
         font-size: clamp(2rem, 14vw, 6rem);
         line-height: 0.9;
         margin: 0;
-    }
-    .outlined {
-        paint-order: stroke fill;
-        -webkit-text-stroke: 0.05em var(--color-background);
     }
 </style>
