@@ -1,0 +1,49 @@
+<div class="hovercard">
+    <slot />
+    <div class="hovercard-content">
+        <slot name="card" />
+    </div>
+</div>
+
+<script>
+    import { gsap } from 'gsap';
+
+    const isOnMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (!isOnMobile) {
+        const hovercards = document.querySelectorAll('.hovercard') as NodeListOf<HTMLDivElement>;
+        hovercards.forEach((card) => {
+            const trigger = card.firstElementChild as HTMLDivElement;
+            const content = card.querySelector('.hovercard-content') as HTMLDivElement;
+
+            // Portal
+            document.body.appendChild(content);
+
+            trigger.addEventListener('mouseenter', () => {
+                gsap.set(content, { opacity: 1 });
+            });
+            trigger.addEventListener('mouseleave', () => {
+                gsap.set(content, { opacity: 0 });
+            });
+            trigger.addEventListener('mousemove', (e) => {
+                const x = e.clientX + window.scrollX;
+                const y = e.clientY + window.scrollY;
+                gsap.set(content, { x, y, opacity: 1 });
+            });
+            document.addEventListener('scroll', () => {
+                gsap.set(content, { opacity: 0 });
+            });
+        });
+    }
+</script>
+
+<style>
+    .hovercard-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
+</style>

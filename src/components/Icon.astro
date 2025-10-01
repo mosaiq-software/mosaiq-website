@@ -2,15 +2,37 @@
 import type { IconName } from '../scripts/FeatherIconNames';
 interface Props {
     name: IconName;
-    size?: number;
+    size?: number | string;
     color?: string;
 }
 const { name, size, color } = Astro.props as Props;
+let sizeNum: number | undefined = undefined;
+const sizes = {
+    sm: 14,
+    small: 14,
+    md: 16,
+    medium: 16,
+    lg: 20,
+    large: 20,
+    xl: 24,
+    'extra-large': 24,
+};
+if (typeof size === 'string') {
+    if (!isNaN(Number(size))) {
+        sizeNum = Number(size);
+    } else if (size.endsWith('px') && !isNaN(Number(size.slice(0, -2)))) {
+        sizeNum = Number(size.slice(0, -2));
+    } else if (size in sizes) {
+        sizeNum = sizes[size as keyof typeof sizes];
+    } else {
+        sizeNum = undefined;
+    }
+}
 ---
 
 <i
     data-feather={name}
-    style={`${size ? `width: ${size}px; height: ${size}px;` : ''} ${color ? `color: ${color};` : ''}`}
+    style={`${sizeNum ? `width: ${sizeNum}px; height: ${sizeNum}px;` : ''} ${color ? `color: ${color};` : ''}`}
     aria-hidden="true"
     class="icon"
 ></i>

@@ -1,6 +1,6 @@
 export interface Project {
     name: string;
-    link: string;
+    link?: string;
     description: string;
     authors: string[];
     timeline: string;
