@@ -5,11 +5,11 @@ interface Props {
     color?: string;
     outlined?: boolean;
 }
-const { extraStyles, areaHidden, color = 'var(--color-text)', outlined } = Astro.props as Props;
+const { extraStyles, areaHidden, color = 'var(--color-surface)', outlined } = Astro.props as Props;
 ---
 
 <h1
-    style={extraStyles}
+    style={`${extraStyles}; color: ${color};`}
     class=`section-header-title ${outlined ? 'outlined' : ''}`
     aria-hidden={areaHidden ? 'true' : 'false'}
     data-color={color}
@@ -17,30 +17,29 @@ const { extraStyles, areaHidden, color = 'var(--color-text)', outlined } = Astro
     <slot />
 </h1>
 <script>
-    import { gsap } from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    // import { gsap } from 'gsap';
+    // import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-    gsap.registerPlugin(ScrollTrigger);
+    // gsap.registerPlugin(ScrollTrigger);
 
-    const el = document.querySelectorAll('.section-header-title') as NodeListOf<HTMLElement>;
-    el.forEach((element) => {
-        const color = element.dataset.color;
-        console.log(color);
-        gsap.to(element, {
-            color: color,
-            scrollTrigger: {
-                trigger: element,
-                start: 'top-=100 center',
-                end: 'bottom+=100 center',
-                scrub: true,
-            },
-        });
-    });
+    // const el = document.querySelectorAll('.section-header-title') as NodeListOf<HTMLElement>;
+    // el.forEach((element) => {
+    //     const color = element.dataset.color;
+    //     console.log(color);
+    //     gsap.to(element, {
+    //         color: color,
+    //         scrollTrigger: {
+    //             trigger: element,
+    //             start: 'top-=100 center',
+    //             end: 'bottom+=100 center',
+    //             scrub: true,
+    //         },
+    //     });
+    // });
 </script>
 <style>
     h1 {
         font-size: clamp(3rem, 8vw, 8rem);
-        color: var(--color-surface);
         line-height: 0.9;
         margin: 0;
     }
