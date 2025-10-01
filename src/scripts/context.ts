@@ -14,7 +14,6 @@ ScrollTrigger.addEventListener('refresh', () => smoother.refresh());
 export { smoother };
 
 const projectId = import.meta.env.PUBLIC_MS_CLARITY_PROJECT_ID;
-console.log('Clarity Project ID:', projectId);
 if (projectId) {
     Clarity.init(projectId);
 
