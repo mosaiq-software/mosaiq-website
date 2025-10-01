@@ -55,9 +55,9 @@
         "website": "https://alexsantagata.dev/"
     },
     {
-        "name": "Robin Idk your last name",
-        "role": "Hangs out",
-        "img": "/assets/headshots/robin.png",
+        "name": "Robin Person",
+        "role": "Intern?",
+        "img": "/assets/headshots/robin.jpg",
         "since": "2025-09-23",
         "website": "https://rust-lang.org/"
     }
