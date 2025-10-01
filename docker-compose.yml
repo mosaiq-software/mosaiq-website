@@ -5,6 +5,6 @@ services:
         volumes:
             - type: bind
               source: ${NSM_WWW_PATH}
-              target: /www
+              target: /app/dist
         env_file:
             - .env
