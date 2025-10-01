@@ -39,42 +39,44 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
                 >See All Projects</a
             >
         </div>
-        <Square
-            width={10}
-            size={800}
-            color="var(--mosaiq-pink)"
-            className="square1"
-            top="30%"
-            left="-225px"
-            rotation="55deg"
-        />
-        <Square
-            width={10}
-            size={400}
-            color="var(--mosaiq-blue)"
-            className="square1"
-            top="60%"
-            left="60%"
-            rotation="-10deg"
-        />
-        <Square
-            width={10}
-            size={400}
-            color="var(--mosaiq-navy)"
-            className="square1"
-            top="30%"
-            right="-500px"
-            rotation="15deg"
-        />
-        <Square
-            width={10}
-            size={300}
-            color="var(--mosaiq-magenta)"
-            className="square1"
-            top="85%"
-            left="25%"
-            rotation="45deg"
-        />
+        <div class="square-container">
+            <Square
+                width={10}
+                size={800}
+                color="var(--mosaiq-pink)"
+                className="square1"
+                top="30%"
+                left="-225px"
+                rotation="55deg"
+            />
+            <Square
+                width={10}
+                size={400}
+                color="var(--mosaiq-blue)"
+                className="square1"
+                top="60%"
+                left="60%"
+                rotation="-10deg"
+            />
+            <Square
+                width={10}
+                size={400}
+                color="var(--mosaiq-navy)"
+                className="square1"
+                top="30%"
+                right="-500px"
+                rotation="15deg"
+            />
+            <Square
+                width={10}
+                size={300}
+                color="var(--mosaiq-magenta)"
+                className="square1"
+                top="85%"
+                left="25%"
+                rotation="45deg"
+            />
+        </div>
     </SectionLayout>
     <SectionLayout id="contact">
         <SectionHeaderTitle>Contact</SectionHeaderTitle>
@@ -102,6 +104,12 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
         right: 10%;
         width: 50%;
         aspect-ratio: 1 / 1;
+    }
+
+    .square-container {
+        position: absolute;
+        inset: 0;
+        overflow-x: hidden;
     }
 
     @media screen and (max-width: 768px) {
