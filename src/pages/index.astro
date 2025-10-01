@@ -1,56 +1,23 @@
 ---
 import FancyMosaiqLogo from '../components/index/FancyMosaiqLogo.astro';
-import Project from '../components/index/Project.astro';
+import ProjectElement from '../components/index/Project.astro';
 import Square from '../components/Square.astro';
 import FilterText from '../components/index/FilterText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
 import ContactInfo from '../components/ContactInfo.astro';
+import _projects from '../data/projects.json' assert { type: 'json' };
+import { Project } from '../scripts/types';
 
-const projects = [
-    {
-        name: 'Card Domain',
-        link: 'carddomain.mosaiq.dev',
-        description: 'A simple, extremely powerful platform for playing real-time card games online with player-enforced rules.',
-        authors: ['Alex Santagata', 'Sam Randa'],
-        timeline: 'July 2025 - August 2025',
-        technologies: ['React', 'WebSocket', 'Express'],
-        left: 10,
-    },
-    {
-        name: 'Minefolio',
-        link: 'minefol.io',
-        description: 'A portfolio creation and showcase platform for Minecraft builds and building communities.',
-        authors: ['Matt Hagger', 'Javier Moncada', 'Thinh Pham'],
-        timeline: 'July 2025 - Present',
-        technologies: ['React', 'Express'],
-        right: 20,
-    },
-    {
-        name: 'Timelier',
-        link: 'timelier.app',
-        description: 'A tool for students, friends, and coworkers to find compatible times to meet.',
-        authors: ['Sam Randa', 'Zoe Fisk', 'Zach Szeto'],
-        timeline: 'August 2025 - Present',
-        technologies: ['React', 'Websocket', 'Express'],
-        left: 30,
-    },
-];
+const projects = _projects.filter((project) => project.homepage) as Project[];
 ---
 
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="hero">
         <div id="hero-text">
-            <FilterText>
-                Software development<br />
-                for the inner child
-            </FilterText>
-            <p>
-                Mosaiq Software is a non-profit software development<br />
-                group based out of Worcester, Massachusetts making stupidly<br />
-                cool things on the web.
-            </p>
+            <FilterText> Software development for the inner child </FilterText>
+            <p data-text="Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.">Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
             <button
                 class="outline-button"
                 id="see-our-work"
@@ -63,21 +30,16 @@ const projects = [
         </div>
     </SectionLayout>
     <SectionLayout id="projects">
-        <SectionHeaderTitle>Projects</SectionHeaderTitle>
-        {
-            projects.map((project) => (
-                <Project
-                    name={project.name}
-                    link={project.link}
-                    description={project.description}
-                    authors={project.authors}
-                    timeline={project.timeline}
-                    technologies={project.technologies}
-                    left={project.left}
-                    right={project.right}
-                />
-            ))
-        }
+        <SectionHeaderTitle outlined>Projects</SectionHeaderTitle>
+        {projects.map((project) => <ProjectElement project={project} />)}
+        <div class="projects-button-container">
+            <a
+                href="/projects"
+                class="outline-button"
+                style="margin: 0 auto;"
+                >See All Projects</a
+            >
+        </div>
         <Square
             width={10}
             size={800}
@@ -133,24 +95,18 @@ const projects = [
         flex-direction: column;
         align-items: flex-start;
         gap: 4rem;
-        margin: var(--spacing-lg);
-    }
 
-    #hero-text p {
-        z-index: 2;
+        p {
+            z-index: 2;
+            max-width: 60ch;
+            font-size: var(--font-size-lg);
+            paint-order: stroke fill;
+            -webkit-text-stroke: 0.33em var(--color-background);
+        }
     }
-
     #hero-logo {
         position: absolute;
-        inset: 0;
-        left: 30%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #hero-text p {
-        font-size: var(--font-size-lg);
+        right: 10%;
     }
 
     #projects {
@@ -158,22 +114,16 @@ const projects = [
         flex-direction: column;
         gap: 10em;
         flex: 1;
-        margin: 10em var(--spacing-lg);
-    }
-
-    #projects h1,
-    #contact h1 {
-        font-size: 8rem;
-        color: var(--color-surface);
-    }
-
-    section {
-        position: relative;
-        z-index: 2;
     }
 
     #contact {
-        height: 100vh;
-        margin: 10em var(--spacing-lg);
+        min-height: 100vh;
+    }
+
+    .projects-button-container {
+        padding: 4rem 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 </style>

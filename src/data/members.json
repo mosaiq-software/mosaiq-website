@@ -1,0 +1,64 @@
+[
+    {
+        "name": "Matt Hagger",
+        "role": "Founder",
+        "img": "/assets/headshots/matt.jpg",
+        "since": "2024-10-05",
+        "website": "https://matthagger.me"
+    },
+    {
+        "name": "Javier Moncada",
+        "role": "Software Engineer",
+        "img": "/assets/headshots/javier.jpg",
+        "since": "2024-10-07",
+        "website": "https://javierm.me/"
+    },
+    {
+        "name": "Thinh Pham",
+        "role": "Software Engineer",
+        "img": "/assets/headshots/winnie.jpg",
+        "since": "2024-10-08"
+    },
+    {
+        "name": "Zach Szeto",
+        "role": "Software Engineer",
+        "img": "/assets/headshots/zach.jpg",
+        "since": "2024-11-08",
+        "website": "https://www.linkedin.com/in/zacharyszeto/"
+    },
+    {
+        "name": "Sohrob Yaghouti",
+        "role": "Product Manager",
+        "img": "/assets/headshots/sohrob.jpg",
+        "since": "2024-11-21",
+        "website": "https://www.linkedin.com/in/sohrob-yaghouti/"
+    },
+    {
+        "name": "Sam Randa",
+        "role": "Web Platform Engineer",
+        "img": "/assets/headshots/sam.jpg",
+        "since": "2025-03-19",
+        "website": "https://samranda.com/"
+    },
+    {
+        "name": "Zoe Fisk",
+        "role": "Software Engineer",
+        "img": "/assets/headshots/zoe.jpg",
+        "since": "2025-03-21",
+        "website": "https://www.linkedin.com/in/zjfisk/"
+    },
+    {
+        "name": "Alex Santagata",
+        "role": "Software Engineer",
+        "img": "/assets/headshots/alex.jpg",
+        "since": "2025-06-06",
+        "website": "https://alexsantagata.dev/"
+    },
+    {
+        "name": "Robin Person",
+        "role": "Intern?",
+        "img": "/assets/headshots/robin.jpg",
+        "since": "2025-09-23",
+        "website": "https://rust-lang.org/"
+    }
+]

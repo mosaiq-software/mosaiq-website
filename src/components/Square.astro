@@ -1,7 +1,7 @@
 ---
 interface Props {
     width: number;
-    size: number;
+    size: number | string;
     color: string;
     className?: string;
     left?: string;
@@ -13,18 +13,22 @@ interface Props {
 const { width, size, color, className, left, right, top, bottom, rotation } = Astro.props;
 
 const style = `
-    width: ${size}px;
-    height: ${size}px;
+    width: ${typeof size === 'string' ? size : size + 'px'};
+    height: ${typeof size === 'string' ? size : size + 'px'};
     border: ${width}px solid ${color};
     position: absolute;
-    ${left ? "left: " + left + ";" : ""}
-    ${right ? "right: " + right + ";" : ""}
-    ${top ? "top: " + top + ";" : ""}
-    ${bottom ? "bottom: " + bottom + ";" : ""}
-    transform: translate(-50%, -50%) ${rotation ? "rotate(" + rotation + ")" : ""};
+    ${left ? 'left: ' + left + ';' : ''}
+    ${right ? 'right: ' + right + ';' : ''}
+    ${top ? 'top: ' + top + ';' : ''}
+    ${bottom ? 'bottom: ' + bottom + ';' : ''}
+    transform: translate(-50%, -50%) ${rotation ? 'rotate(' + rotation + ')' : ''};
     transform-origin: center;
     z-index: -1;
 `;
 ---
 
-<div class=`square${className ? " " + className : ""}` style={style}></div>
+<div
+    class=`square${className ? " " + className : ""}`
+    style={style}
+>
+</div>

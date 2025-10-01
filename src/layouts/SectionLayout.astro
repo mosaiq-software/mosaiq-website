@@ -17,5 +17,9 @@ const props = Astro.props as Props;
         z-index: 2;
         padding: 0 var(--spacing-lg) var(--spacing-xl) var(--spacing-lg);
         min-height: 100vh;
+
+        @media screen and (max-width: 768px) {
+            padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
+        }
     }
 </style>
