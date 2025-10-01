@@ -15,8 +15,16 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="hero">
         <div id="hero-text">
-            <FilterText> Software development for the inner child </FilterText>
-            <p>Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
+            <div id="hero-title">
+                <FilterText>
+                    <SectionHeaderTitle>Software development for the inner child</SectionHeaderTitle>
+                </FilterText>
+            </div>
+            <div id="hero-description">
+                <FilterText>
+                    <p>Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
+                </FilterText>
+            </div>
             <button
                 class="outline-button"
                 id="see-our-work"
@@ -118,11 +126,11 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
         }
 
         #hero-text {
-            height: 75vh;
+            height: 70vh;
             gap: 2rem;
         }
 
-        #hero-text p {
+        #hero-description {
             margin-top: auto;
         }
     }

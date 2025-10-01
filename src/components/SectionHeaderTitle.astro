@@ -1,17 +1,14 @@
 ---
 interface Props {
     extraStyles?: string;
-    areaHidden?: boolean;
     color?: string;
 }
-const { extraStyles, areaHidden, color = 'var(--color-surface)' } = Astro.props as Props;
+const { extraStyles, color = 'var(--color-surface)' } = Astro.props as Props;
 ---
 
 <h1
     style={`${extraStyles}; color: ${color};`}
     class=`section-header-title`
-    aria-hidden={areaHidden ? 'true' : 'false'}
-    data-color={color}
 >
     <slot />
 </h1>

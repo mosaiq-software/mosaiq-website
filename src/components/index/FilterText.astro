@@ -1,55 +1,44 @@
----
-import SectionHeaderTitle from '../SectionHeaderTitle.astro';
----
 
-<div>
-    <SectionHeaderTitle
-        extraStyles="position: absolute; z-index: -2; transform-origin: center;"
-        color="var(--color-filtered-text)"
-    >
-        <slot />
-    </SectionHeaderTitle>
-    <SectionHeaderTitle
-        areaHidden
-        extraStyles="position: absolute; z-index: 1; mix-blend-mode: overlay;"
-        color="white"
-    >
-        <slot />
-    </SectionHeaderTitle>
-    <SectionHeaderTitle
-        areaHidden
-        extraStyles="position: absolute; z-index: 1; mix-blend-mode: overlay;"
-        color="white"
-    >
-        <slot />
-    </SectionHeaderTitle>
-    <SectionHeaderTitle
-        areaHidden
-        extraStyles="visibility: hidden;"
-    >
-        <slot />
-    </SectionHeaderTitle>
+<div
+    class="filter-text-primary"
+    color="black"
+>
+    <slot />
+</div>
+<div
+    class="filter-text-filtered"
+    aria-hidden="true"
+    color="white"
+>
+    <slot />
+</div>
+<div
+    class="filter-text-filtered"
+    aria-hidden="true"
+    color="white"
+>
+    <slot />
+</div>
+<div
+    aria-hidden="true"
+    style="visibility: hidden;"
+>
+    <slot />
 </div>
 <style>
-    .text {
-        position: absolute;
+    .filter-text-primary {
+        position: absolute; z-index: -2; transform-origin: center;
     }
 
-    .background-text {
-        color: black;
-        transform-origin: center;
-        z-index: -2;
+    :global(.filter-text-primary>*) {
+        color: black !important;
     }
 
-    .filter-text {
-        mix-blend-mode: saturation;
-        scale: 0.996;
-        color: #d31757;
-        z-index: 1;
+    .filter-text-filtered {
+        position: absolute; z-index: 1; mix-blend-mode: overlay;
     }
 
-    .spacer-text {
-        visibility: hidden;
-        white-space: nowrap;
+    :global(.filter-text-filtered>*) {
+        color: white !important;
     }
 </style>
