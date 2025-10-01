@@ -7,7 +7,8 @@
         "types": "tsc --noemit",
         "dev": "astro dev --host",
         "build": "astro build",
-        "preview": "astro preview"
+        "preview": "astro preview",
+        "build:prod": "npm ci && npm run build"
     },
     "license": "UNLICENSED",
     "dependencies": {
