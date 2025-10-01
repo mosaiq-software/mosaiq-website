@@ -5,13 +5,32 @@ import HoverCard from '../HoverCard.astro';
 
 interface Props {
     project: Project;
+    randomizePosition?: boolean;
+    colorBoxShadow?: boolean;
 }
 
-const { project } = Astro.props;
-const { name, link, description, authors, timeline, technologies, previewImage, left, right } = project;
+const { project, randomizePosition, colorBoxShadow } = Astro.props;
+const { name, link, description, authors, timeline, technologies, previewImage, left: _left, right } = project;
+let left = _left;
+if (randomizePosition || left === undefined) {
+    left = Math.floor(Math.random() * 50) + 10;
+}
+
+const getImageBoxShadow = () => {
+    // box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
+    const colors = ['pink', 'magenta', 'purple', 'blue', 'navy'];
+    let x = Math.floor(Math.random() * 10) + 5;
+    if (Math.random() < 0.5) {
+        x = -x;
+    }
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    return `${x}px ${x}px 0px var(--mosaiq-${color})`;
+};
+
 const inlineStyle = `
     ${left ? `align-self: flex-start; margin-left: ${left}%;` : ''}
     ${right ? `align-self: flex-end; margin-right: ${right}%;` : ''}
+    ${colorBoxShadow ? `box-shadow: ${getImageBoxShadow()};` : ''}
 `;
 ---
 
@@ -65,6 +84,7 @@ const inlineStyle = `
         padding: var(--spacing-md);
         border: 1px solid var(--color-text);
         max-width: 500px;
+        min-width: 400px;
         width: fit-content;
         display: flex;
         flex-direction: column;

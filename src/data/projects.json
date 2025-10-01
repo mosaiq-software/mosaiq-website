@@ -19,7 +19,7 @@
         "technologies": ["React", "Express"],
         "previewImage": "/assets/projects/minefolio.png",
         "homepage": true,
-        "right": 20
+        "left": 40
     },
     {
         "name": "Timelier",
@@ -29,7 +29,7 @@
         "technologies": ["React Native", "Expo", "Websocket", "Express"],
         "previewImage": "/assets/projects/timelier.png",
         "homepage": true,
-        "left": 30
+        "left": 20
     },
     {
         "name": "Terrazzo",
