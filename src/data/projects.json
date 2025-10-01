@@ -48,16 +48,7 @@
         "authors": ["Matt Hagger", "Alex Santagata"],
         "timeline": "August 2025 - September 2025",
         "technologies": ["React", "Express", "Docker", "Nginx"],
-        "previewImage": "/assets/projects/nsm.png"
-    },
-    {
-        "name": "Action Performance Tracker",
-        "link": "apt.mosaiq.dev",
-        "description": "A web application for tracking and analyzing performance metrics for web applications.",
-        "authors": ["Matt Hagger"],
-        "timeline": "November 2024 - December 2024",
-        "technologies": ["React", "Express"],
-        "previewImage": "/assets/projects/apt.png"
+        "previewImage": "/assets/projects/nodeservermanager.png"
     },
     {
         "name": "Bloom",

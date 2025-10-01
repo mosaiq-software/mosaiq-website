@@ -77,6 +77,23 @@ kkktmmmmtppp`;
         mouseY = Math.max(-1, Math.min(1, mouseY));
     });
 
+    // listen to the device gyroscope if available
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', (event) => {
+            // gamma is the left-to-right tilt in degrees, where right is positive
+            // beta is the front-to-back tilt in degrees, where front is positive
+            if (event.gamma !== null && event.beta !== null) {
+                // Normalize to -1 to 1 range
+                mouseX = event.gamma / 45; // assuming max tilt of 45 degrees
+                mouseY = event.beta / 45; // assuming max tilt of 45 degrees
+
+                // Clamp values
+                mouseX = Math.max(-1, Math.min(1, mouseX));
+                mouseY = Math.max(-1, Math.min(1, mouseY));
+            }
+        });
+    }
+
     function randomNormal(mean: number, stdDev: number) {
         const u1 = Math.random();
         const u2 = Math.random();
