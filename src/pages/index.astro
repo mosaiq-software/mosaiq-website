@@ -16,7 +16,7 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
     <SectionLayout id="hero">
         <div id="hero-text">
             <FilterText> Software development for the inner child </FilterText>
-            <p data-text="Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.">Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
+            <p>Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
             <button
                 class="outline-button"
                 id="see-our-work"
@@ -112,8 +112,9 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
 
     @media screen and (max-width: 450px) {
         #hero-logo {
-            width: 80%;
-            margin-top: var(--spacing-xl);
+            width: min(80%, 40vh);
+            margin-top: 0;
+            right: 15%;
         }
 
         #hero-text {
