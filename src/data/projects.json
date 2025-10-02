@@ -2,7 +2,7 @@
     {
         "name": "Card Domain",
         "link": "carddomain.mosaiq.dev",
-        "description": "A simple platform for online real-time card games with powerful (extensive?) customization over decks and gameplay.",
+        "description": "A simple platform for online real-time card gaming with powerful customization over decks, cards, and gameplay.",
         "authors": ["Alex Santagata", "Sam Randa"],
         "timeline": "July 2025 - August 2025",
         "technologies": ["React", "WebSocket", "Express"],
@@ -36,7 +36,7 @@
         "name": "Terrazzo",
         "link": "terrazzo.mosaiq.dev",
         "description": "A modern, open-source project management and collaboration tool for small teams.",
-        "authors": ["Matt Hagger", "Et Al"],
+        "authors": ["Mosaiq Team"],
         "timeline": "December 2024 - July 2025",
         "technologies": ["React", "Express", "Websocket"],
         "previewImage": "/assets/projects/terrazzo.png"
