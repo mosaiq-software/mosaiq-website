@@ -6,6 +6,7 @@ import FilterText from '../components/index/FilterText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
+import ContactInfo from '../components/ContactInfo.astro';
 import _projects from '../data/projects.json' assert { type: 'json' };
 import { Project } from '../scripts/types';
 
@@ -78,6 +79,7 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
     </SectionLayout>
     <SectionLayout id="contact">
         <SectionHeaderTitle>Contact</SectionHeaderTitle>
+        <ContactInfo />
     </SectionLayout>
 </BaseLayout>
 <script>
