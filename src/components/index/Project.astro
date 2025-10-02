@@ -1,78 +1,89 @@
 ---
 import Icon from '../Icon.astro';
 import type { Project } from '../../scripts/types';
+import HoverCard from '../HoverCard.astro';
 
 interface Props {
     project: Project;
+    randomizePosition?: boolean;
+    colorBoxShadow?: boolean;
 }
 
-const { project } = Astro.props;
-const { name, link, description, authors, timeline, technologies, previewImage, left, right } = project;
+const { project, randomizePosition, colorBoxShadow } = Astro.props;
+const { name, link, description, authors, timeline, technologies, previewImage, left: _left, right } = project;
+let left = _left;
+if (randomizePosition || left === undefined) {
+    left = Math.floor(Math.random() * 50) + 10;
+}
+
+const getImageBoxShadow = () => {
+    // box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
+    const colors = ['pink', 'magenta', 'purple', 'blue', 'navy'];
+    let x = Math.floor(Math.random() * 10) + 5;
+    if (Math.random() < 0.5) {
+        x = -x;
+    }
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    return `${x}px ${x}px 0px var(--mosaiq-${color})`;
+};
+
 const inlineStyle = `
     ${left ? `align-self: flex-start; margin-left: ${left}%;` : ''}
     ${right ? `align-self: flex-end; margin-right: ${right}%;` : ''}
+    ${colorBoxShadow ? `box-shadow: ${getImageBoxShadow()};` : ''}
 `;
 ---
 
-<div
-    class="project-card"
-    style={inlineStyle}
->
-    <a
-        href={`https://${link}`}
-        class="project-link"
-        target="_blank"
+<HoverCard>
+    <div
+        class="project-card"
+        style={inlineStyle}
     >
-        <h2>{name}</h2>
-        <p>
-            {link}
-            <Icon
-                name={'external-link'}
-                size={14}
-            />
-        </p>
-    </a>
-    <p class="description">{description}</p>
-    <div>
-        <p class="authors">{authors.join(', ')}</p>
-        <p class="timeline">{timeline}</p>
-        <p class="technologies">{technologies.join(', ')}</p>
+        {
+            link ? (
+                <a
+                    href={`https://${link}`}
+                    class="project-link"
+                    target="_blank"
+                >
+                    <h2>{name}</h2>
+                    <Icon
+                        name={'external-link'}
+                        size={'md'}
+                    />
+                </a>
+            ) : (
+                <h2>{name}</h2>
+            )
+        }
+        <p class="description">{description}</p>
+        <div>
+            <p class="authors">{authors.join(', ')}</p>
+            <p class="timeline">{timeline}</p>
+            <p class="technologies">{technologies.join(', ')}</p>
+        </div>
+        {
+            previewImage && (
+                <div class="preview-image-mobile">
+                    <img src={previewImage} />
+                </div>
+            )
+        }
     </div>
-    {
-        previewImage && (
-            <div class="preview-image">
+    <div
+        slot="card"
+        class="preview-image"
+    >
+        {
+            previewImage && (
                 <img
                     src={previewImage}
                     aria-hidden="true"
                 />
-            </div>
-        )
-    }
-</div>
-
-<script>
-    import { gsap } from 'gsap';
-
-    const isOnMobile = window.matchMedia('(max-width: 768px)').matches;
-    if (!isOnMobile) {
-        const projectCards = document.querySelectorAll('.project-card') as NodeListOf<HTMLDivElement>;
-        projectCards.forEach((card) => {
-            const img = card.querySelector('.preview-image') as HTMLImageElement;
-            if (!img) return;
-            card.addEventListener('mouseenter', (e) => {
-                gsap.to(img, { opacity: 1, duration: 0.2 });
-            });
-            card.addEventListener('mouseleave', () => {
-                gsap.to(img, { opacity: 0, duration: 0.4 });
-            });
-            card.addEventListener('mousemove', (e) => {
-                const x = e.layerX;
-                const y = e.layerY;
-                gsap.to(img, { x, y, duration: 0 });
-            });
-        });
-    }
-</script>
+            )
+        }
+    </div>
+</HoverCard>
 
 <style>
     .project-card {
@@ -80,22 +91,46 @@ const inlineStyle = `
         padding: var(--spacing-md);
         border: 1px solid var(--color-text);
         max-width: 500px;
+        min-width: 500px;
+        width: fit-content;
         display: flex;
         flex-direction: column;
         gap: var(--spacing-md);
         backdrop-filter: blur(10px);
         background-color: var(--color-background-transparent);
-        margin-top: 10rem;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
         position: relative;
+
+        @media screen and (max-width: 600px) {
+            min-width: 100%;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .preview-image-mobile {
+            display: none;
+
+            @media screen and (max-width: 600px) {
+                display: block;
+            }
+        }
     }
 
     .project-link {
         text-decoration: none;
         color: inherit;
-    }
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-    .project-link h2 {
-        margin: 0;
+        &:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            margin: 0;
+        }
     }
 
     .authors,
@@ -105,12 +140,6 @@ const inlineStyle = `
     }
 
     .preview-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        pointer-events: none;
-        user-select: none;
         border-radius: 0 var(--border-radius-full) var(--border-radius-full) var(--border-radius-full);
         overflow: clip;
         /* /* Fades out the edges of the image radially, but idk abt it.. */
@@ -121,6 +150,10 @@ const inlineStyle = `
             width: 400px;
             height: 400px;
             object-fit: cover;
+        }
+
+        @media screen and (max-width: 600px) {
+            display: none;
         }
     }
 </style>

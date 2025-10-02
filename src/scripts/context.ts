@@ -1,17 +1,4 @@
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import Clarity from '@microsoft/clarity';
-
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-const smoother = ScrollSmoother.create({
-    smooth: 1.2,
-    effects: true,
-});
-
-ScrollTrigger.addEventListener('refresh', () => smoother.refresh());
-
-export { smoother };
 
 const projectId = import.meta.env.PUBLIC_MS_CLARITY_PROJECT_ID;
 if (projectId) {

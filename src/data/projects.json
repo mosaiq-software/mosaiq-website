@@ -2,7 +2,7 @@
     {
         "name": "Card Domain",
         "link": "carddomain.mosaiq.dev",
-        "description": "A simple platform for online real-time card games with powerful (extensive?) customization over decks and gameplay.",
+        "description": "A simple platform for online real-time card gaming with powerful customization over decks, cards, and gameplay.",
         "authors": ["Alex Santagata", "Sam Randa"],
         "timeline": "July 2025 - August 2025",
         "technologies": ["React", "WebSocket", "Express"],
@@ -19,31 +19,30 @@
         "technologies": ["React", "Express"],
         "previewImage": "/assets/projects/minefolio.png",
         "homepage": true,
-        "right": 20
+        "left": 40
     },
     {
         "name": "Timelier",
-        "link": "timelier.app",
         "description": "A tool for students, friends, and coworkers to find compatible times to meet.",
         "authors": ["Sam Randa", "Zoe Fisk", "Zach Szeto"],
         "timeline": "August 2025 - Present",
         "technologies": ["React Native", "Expo", "Websocket", "Express"],
         "previewImage": "/assets/projects/timelier.png",
         "homepage": true,
-        "left": 30
+        "left": 20
     },
     {
         "name": "Terrazzo",
         "link": "terrazzo.mosaiq.dev",
         "description": "A modern, open-source project management and collaboration tool for small teams.",
-        "authors": ["Matt Hagger", "Et Al"],
+        "authors": ["Mosaiq Team"],
         "timeline": "December 2024 - July 2025",
         "technologies": ["React", "Express", "Websocket"],
         "previewImage": "/assets/projects/terrazzo.png"
     },
     {
         "name": "Node Server Manager",
-        "link": "nsm.mosaiq.dev",
+        "link": "https://github.com/mosaiq-software/server-manager",
         "description": "A web-based control panel for managing web applications on a distributed server network.",
         "authors": ["Matt Hagger", "Alex Santagata"],
         "timeline": "August 2025 - September 2025",
@@ -52,8 +51,7 @@
     },
     {
         "name": "Bloom",
-        "link": "bloom.mosaiq.dev",
-        "description": "An aim-focused VSRG",
+        "description": "An aim-focused vertical scrolling rhythm game",
         "authors": ["Sam Randa"],
         "timeline": "June 2025",
         "technologies": ["Godot"],
@@ -61,7 +59,7 @@
     },
     {
         "name": "Pixel Diary",
-        "link": "pixeldiary.mosaiq.dev",
+        "link": "https://algames.neocities.org/pixel_diary/",
         "description": "A daily journaling app using color-coded entries to visualize activity over time.",
         "authors": ["Alex Santagata"],
         "timeline": "September 2025 - Present",
