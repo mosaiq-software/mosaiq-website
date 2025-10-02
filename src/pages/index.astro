@@ -31,7 +31,14 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
     </SectionLayout>
     <SectionLayout id="projects">
         <SectionHeaderTitle outlined>Projects</SectionHeaderTitle>
-        {projects.map((project) => <ProjectElement project={project} />)}
+        {
+            projects.map((project) => (
+                <ProjectElement
+                    project={project}
+                    randomizePosition={false}
+                />
+            ))
+        }
         <div class="projects-button-container">
             <a
                 href="/projects"
