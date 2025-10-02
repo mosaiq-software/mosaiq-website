@@ -1,0 +1,116 @@
+
+<div class="contact-container">
+    <div class="upper-contact-container">
+        <div class="contact-box">
+            <a class="outline-square" style='border-color: var(--mosaiq-magenta)' href='https://www.linkedin.com/company/mosaiq-software/' target="_blank"></a>
+            <a class="fill-square" style='background: var(--mosaiq-blue)' href='https://www.linkedin.com/company/mosaiq-software/' target="_blank"></a>
+            <div class="contact">
+                <h2>LinkedIn</h2>
+                <p>mosaiq-software</p>
+            </div>
+        </div>
+        <div class="contact-box">
+            <a class="outline-square" style='border-color: var(--mosaiq-navy)' href='mailto:hello@mosaiq.dev' target="_blank"></a>
+            <a class="fill-square" style='background: var(--mosaiq-pink)' href='mailto:hello@mosaiq.dev' target="_blank"></a>
+            <div class="contact">
+                <h2>Email</h2>
+                <p>hello@mosaiq.dev</p>
+            </div>
+        </div>
+    </div>
+    <div class="lower-contact-container">
+        <div class="contact-box">
+            <a class="outline-square" style='border-color: var(--mosaiq-magenta)' href='https://github.com/mosaiq-software' target="_blank"></a>
+            <a class="fill-square" style='background: var(--mosaiq-blue)' href='https://github.com/mosaiq-software' target="_blank"></a>
+            <div class="contact">
+                <h2>GitHub</h2>
+                <p>mosaiq-software</p>
+            </div>
+        </div>
+        <div class="contact-box">
+            <a class="outline-square" style='border-color: var(--mosaiq-navy)' href='/about'></a>
+            <a class="fill-square" style='background: var(--mosaiq-pink)' href='/about'></a>
+            <div class="contact">
+                <h2>Members</h2>
+                <p>Meet the team</p>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    @keyframes rotate {
+        0% {transform: rotate(0deg)}
+        100% {transform: rotate(360deg)}
+    }
+
+    .contact-container {
+        margin: auto;
+        max-width: 1100px;
+        padding: calc((sqrt(2) * 0.8 - 1) * clamp(calc(375px / sqrt(2)), 25dvw, 500px) / 2) 0;
+    }
+
+    .upper-contact-container, .lower-contact-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .upper-contact-container {
+        flex-direction: row-reverse;
+    }
+
+    .contact-box {
+        position: relative;
+        --side: clamp(calc(375px / sqrt(2)), 25dvw, 500px);
+        width: var(--side);
+        height: var(--side);
+        display: block;
+    }
+
+    .fill-square {
+        position: absolute;
+        width: 70%;
+        height: 70%;
+        left: 15%;
+        top: 15%;
+        transform: rotate(60deg);
+    }
+
+    .contact-box:nth-child(2) .fill-square, .contact-box:nth-child(3) .fill-square {
+        transform: rotate(-15deg);
+    } 
+
+    .outline-square {
+        animation: rotate 60s linear infinite;
+        border: 5px solid red;
+        position: absolute;
+        width: 70%;
+        height: 70%;
+        left: 15%;
+        top: 15%;
+    }
+
+    .contact-box:nth-child(2) .outline-square, .contact-box:nth-child(3) .outline-square {
+        animation-direction: reverse;
+        animation-delay: -7.5s;
+    } 
+
+    .contact {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+        position: relative;
+        pointer-events: none;
+    }
+
+    .contact * {
+        color: var(--color-background);
+    }
+</style>
+
