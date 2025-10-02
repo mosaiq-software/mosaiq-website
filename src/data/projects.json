@@ -51,7 +51,7 @@
     },
     {
         "name": "Bloom",
-        "description": "An aim-focused VSRG",
+        "description": "An aim-focused vertical scrolling rhythm game",
         "authors": ["Sam Randa"],
         "timeline": "June 2025",
         "technologies": ["Godot"],
