@@ -16,8 +16,16 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
 <BaseLayout title="Mosaiq Software">
     <SectionLayout id="hero">
         <div id="hero-text">
-            <FilterText> Software development for the inner child </FilterText>
-            <p data-text="Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.">Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
+            <div id="hero-title">
+                <FilterText>
+                    <SectionHeaderTitle>Software development for the inner child</SectionHeaderTitle>
+                </FilterText>
+            </div>
+            <div id="hero-description">
+                <FilterText>
+                    <p>Mosaiq Software is a non-profit software development group based out of Worcester, Massachusetts making stupidly cool things on the web.</p>
+                </FilterText>
+            </div>
             <button
                 class="outline-button"
                 id="see-our-work"
@@ -30,7 +38,7 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
         </div>
     </SectionLayout>
     <SectionLayout id="projects">
-        <SectionHeaderTitle outlined>Projects</SectionHeaderTitle>
+        <SectionHeaderTitle>Projects</SectionHeaderTitle>
         {
             projects.map((project) => (
                 <ProjectElement
@@ -47,55 +55,51 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
                 >See All Projects</a
             >
         </div>
-        <Square
-            width={10}
-            size={800}
-            color="var(--mosaiq-pink)"
-            className="square1"
-            top="30%"
-            left="-225px"
-            rotation="55deg"
-        />
-        <Square
-            width={10}
-            size={400}
-            color="var(--mosaiq-blue)"
-            className="square1"
-            top="60%"
-            left="60%"
-            rotation="-10deg"
-        />
-        <Square
-            width={10}
-            size={400}
-            color="var(--mosaiq-navy)"
-            className="square1"
-            top="30%"
-            right="-500px"
-            rotation="15deg"
-        />
-        <Square
-            width={10}
-            size={300}
-            color="var(--mosaiq-magenta)"
-            className="square1"
-            top="85%"
-            left="25%"
-            rotation="45deg"
-        />
+        <div class="square-container">
+            <Square
+                width={10}
+                size={800}
+                color="var(--mosaiq-pink)"
+                className="square1"
+                top="30%"
+                left="-225px"
+                rotation="55deg"
+            />
+            <Square
+                width={10}
+                size={400}
+                color="var(--mosaiq-blue)"
+                className="square1"
+                top="60%"
+                left="60%"
+                rotation="-10deg"
+            />
+            <Square
+                width={10}
+                size={400}
+                color="var(--mosaiq-navy)"
+                className="square1"
+                top="30%"
+                right="-500px"
+                rotation="15deg"
+            />
+            <Square
+                width={10}
+                size={300}
+                color="var(--mosaiq-magenta)"
+                className="square1"
+                top="85%"
+                left="25%"
+                rotation="45deg"
+            />
+        </div>
     </SectionLayout>
     <SectionLayout id="contact">
         <SectionHeaderTitle>Contact</SectionHeaderTitle>
         <ContactInfo />
     </SectionLayout>
 </BaseLayout>
-<script>
-    import { smoother } from '../scripts/context';
 
-    document.getElementById('see-our-work')!.onclick = () => {
-        smoother.scrollTo(document.getElementById('projects')!, true);
-    };
-</script>
 <style>
     #hero-text {
         display: flex;
@@ -105,15 +109,39 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
 
         p {
             z-index: 2;
-            max-width: 60ch;
+            max-width: 40ch;
             font-size: var(--font-size-lg);
-            paint-order: stroke fill;
-            -webkit-text-stroke: 0.33em var(--color-background);
         }
     }
+
     #hero-logo {
         position: absolute;
         right: 10%;
+        width: 50%;
+        aspect-ratio: 1 / 1;
+    }
+
+    .square-container {
+        position: absolute;
+        inset: 0;
+        overflow-x: hidden;
+    }
+
+    @media screen and (max-width: 450px) {
+        #hero-logo {
+            width: min(80%, 40vh);
+            margin-top: 0;
+            right: 15%;
+        }
+
+        #hero-text {
+            height: 70vh;
+            gap: 2rem;
+        }
+
+        #hero-description {
+            margin-top: auto;
+        }
     }
 
     #projects {
