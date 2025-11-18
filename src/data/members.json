@@ -58,18 +58,21 @@
         "name": "Aaron Abramson",
         "role": "Software Engineer",
         "img": "/assets/headshots/aaronabramson.png",
-        "since": "2025-10-25"
+        "since": "2025-10-25",
+        "website": "https://github.com/asabramson"
     },
     {
         "name": "Ethan Shanbaum",
         "role": "Software Engineer",
         "img": "/assets/headshots/ethanshanbaum.png",
-        "since": "2025-11-09"
+        "since": "2025-11-09",
+        "website": "https://www.linkedin.com/in/ethan-shanbaum/"
     },
     {
         "name": "Sam Nguyen",
         "role": "Software Engineer",
         "img": "/assets/headshots/samnguyen.png",
-        "since": "2025-11-12"
+        "since": "2025-11-12",
+        "website": "https://samnguyen.dev/"
     }
 ]
