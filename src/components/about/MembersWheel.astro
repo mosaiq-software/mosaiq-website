@@ -21,7 +21,10 @@ const getImageBoxShadow = () => {
 };
 ---
 
-<div class="members" id="members">
+<div
+    class="members"
+    id="members"
+>
     <SectionHeaderTitle>Who?</SectionHeaderTitle>
     <div class="headshot-wheel">
         <div class="circle"></div>
@@ -85,6 +88,21 @@ const getImageBoxShadow = () => {
         });
     }
 
+    function setHeadshotVisibilities(rotation: number) {
+        // show/hide headshots based on rotation
+        headshotWrappers.forEach((wrapper) => {
+            const startVisibility = parseFloat(wrapper.dataset.startVisibility!);
+            const endVisibility = parseFloat(wrapper.dataset.endVisibility!);
+            if (rotation >= startVisibility && rotation <= endVisibility) {
+                wrapper.style.opacity = '1';
+                wrapper.style.pointerEvents = 'auto';
+            } else {
+                wrapper.style.opacity = '0';
+                wrapper.style.pointerEvents = 'none';
+            }
+        });
+    }
+
     const headshotWrappers = document.querySelectorAll('.headshot-wrapper') as NodeListOf<HTMLDivElement>;
     const headshotWheel = document.querySelector('.headshot-wheel') as HTMLDivElement;
 
@@ -104,11 +122,12 @@ const getImageBoxShadow = () => {
     // spread the headshots evenly around the circle
     const degreesPerHeadshot = 30;
     const totalScrollDegrees = degreesPerHeadshot * (headshotWrappers.length - 1);
-    const degreesOffset = 270 - degreesPerHeadshot * headshotWrappers.length;
+    const initialOffsetDeg = 270 - totalScrollDegrees;
 
     headshotWrappers.forEach((wrapper, index) => {
         // position the headshot around the circle
-        const angleDeg = degreesPerHeadshot * (index + 1) + degreesOffset;
+        const cumulativeDegrees = degreesPerHeadshot * index;
+        const angleDeg = cumulativeDegrees + initialOffsetDeg;
         const angle = (angleDeg * Math.PI) / 180;
         const x = wheelCenter.x + radius * Math.cos(angle) - wrapper.clientWidth / 2;
         const y = wheelCenter.y + radius * Math.sin(angle) - wrapper.clientHeight / 2;
@@ -117,7 +136,15 @@ const getImageBoxShadow = () => {
         // rotate the headshot to face outward
         const rotation = (angle * 180) / Math.PI + 90;
         wrapper.style.transform += ` rotate(${rotation}deg)`;
+
+        // How far the wheel needs to be scrolled before this headshot is visible
+        const startVisibilityRangeDeg = totalScrollDegrees - cumulativeDegrees - 120;
+        const endVisibilityRangeDeg = totalScrollDegrees - cumulativeDegrees + 120;
+        wrapper.dataset.startVisibility = `${startVisibilityRangeDeg}`;
+        wrapper.dataset.endVisibility = `${endVisibilityRangeDeg}`;
     });
+
+    setHeadshotVisibilities(0);
 
     ScrollTrigger.create({
         trigger: '.members',
@@ -132,6 +159,8 @@ const getImageBoxShadow = () => {
             const progress = self.progress; // 0 to 1
             const rotation = totalScrollDegrees * progress;
             headshotWheel.style.transform = `rotate(${rotation}deg)`;
+
+            setHeadshotVisibilities(rotation);
         },
     });
 </script>
