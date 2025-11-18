@@ -53,5 +53,23 @@
         "img": "/assets/headshots/robinhusman.jpg",
         "since": "2025-09-23",
         "website": "https://robinhusman.xyz/"
+    },
+    {
+        "name": "Aaron Abramson",
+        "role": "Software Engineer",
+        "img": "/assets/headshots/aaronabramson.png",
+        "since": "2025-10-25"
+    },
+    {
+        "name": "Ethan Shanbaum",
+        "role": "Software Engineer",
+        "img": "/assets/headshots/ethanshanbaum.png",
+        "since": "2025-11-09"
+    },
+    {
+        "name": "Sam Nguyen",
+        "role": "Software Engineer",
+        "img": "/assets/headshots/samnguyen.png",
+        "since": "2025-11-12"
     }
 ]
