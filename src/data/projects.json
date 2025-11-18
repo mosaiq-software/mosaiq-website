@@ -14,7 +14,7 @@
         "name": "Minefolio",
         "link": "minefol.io",
         "description": "A portfolio creation and showcase platform for Minecraft builds and building communities.",
-        "authors": ["Matt Hagger", "Javier Moncada", "Thinh Pham"],
+        "authors": ["Matt Hagger", "Javier Moncada", "Thinh Pham", "Ethan Shanbaum"],
         "timeline": "July 2025 - Present",
         "technologies": ["React", "Express"],
         "previewImage": "/assets/projects/minefolio.png",
