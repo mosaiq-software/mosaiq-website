@@ -2,55 +2,55 @@
     {
         "name": "Matt Hagger",
         "role": "Founder",
-        "img": "/assets/headshots/matt.jpg",
+        "img": "/assets/headshots/matthagger.jpg",
         "since": "2024-10-05",
         "website": "https://matthagger.me"
     },
     {
         "name": "Javier Moncada",
         "role": "Software Engineer",
-        "img": "/assets/headshots/javier.jpg",
+        "img": "/assets/headshots/javiermoncada.jpg",
         "since": "2024-10-07",
         "website": "https://javierm.me/"
     },
     {
         "name": "Thinh Pham",
         "role": "Software Engineer",
-        "img": "/assets/headshots/thinh.jpg",
+        "img": "/assets/headshots/thinhpham.jpg",
         "since": "2024-10-08"
     },
     {
         "name": "Zach Szeto",
         "role": "Software Engineer",
-        "img": "/assets/headshots/zach.jpg",
+        "img": "/assets/headshots/zachszeto.jpg",
         "since": "2024-11-08",
         "website": "https://www.linkedin.com/in/zacharyszeto/"
     },
     {
         "name": "Sam Randa",
         "role": "Web Platform Engineer",
-        "img": "/assets/headshots/sam.jpg",
+        "img": "/assets/headshots/samranda.jpg",
         "since": "2025-03-19",
         "website": "https://samranda.com/"
     },
     {
         "name": "Zoe Fisk",
         "role": "Software Engineer",
-        "img": "/assets/headshots/zoe.jpg",
+        "img": "/assets/headshots/zoefisk.jpg",
         "since": "2025-03-21",
         "website": "https://www.linkedin.com/in/zjfisk/"
     },
     {
         "name": "Alex Santagata",
         "role": "Software Engineer",
-        "img": "/assets/headshots/alex.jpg",
+        "img": "/assets/headshots/alexsantagata.jpg",
         "since": "2025-06-06",
         "website": "https://alexsantagata.dev/"
     },
     {
         "name": "Robin Husman",
         "role": "Software Engineer",
-        "img": "/assets/headshots/robin.jpg",
+        "img": "/assets/headshots/robinhusman.jpg",
         "since": "2025-09-23",
         "website": "https://robinhusman.xyz/"
     }
