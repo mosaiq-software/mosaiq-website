@@ -28,7 +28,6 @@
         "timeline": "August 2025 - Present",
         "technologies": ["React Native", "Expo", "Websocket", "Express"],
         "previewImage": "/assets/projects/timelier.png",
-        "homepage": true,
         "left": 20
     },
     {
@@ -63,7 +62,17 @@
         "description": "A daily journaling app using color-coded entries to visualize activity over time.",
         "authors": ["Alex Santagata"],
         "timeline": "September 2025 - Present",
-        "technologies": ["Something?"],
+        "technologies": ["Canvas API"],
         "previewImage": "/assets/projects/pixeldiary.png"
+    },
+    {
+        "name": "Mint",
+        "link": "https://mint.photo",
+        "description": "A fully featured digital compositor with support for transforms, selections, shapes, text, zooming, and keyboard-driven workflows.",
+        "authors": ["Sam Randa", "Alex Santagata"],
+        "timeline": "October 2025 - November 2025",
+        "technologies": ["Svelte", "Canvas API"],
+        "previewImage": "/assets/projects/mint.png",
+        "homepage": true
     }
 ]
