@@ -8,7 +8,7 @@
     },
     {
         "name": "Javier Moncada",
-        "role": "Software Engineer",
+        "role": "Lead Software Engineer",
         "img": "/assets/headshots/javiermoncada.jpg",
         "since": "2024-10-07",
         "website": "https://javierm.me/"
@@ -20,15 +20,8 @@
         "since": "2024-10-08"
     },
     {
-        "name": "Zach Szeto",
-        "role": "Software Engineer",
-        "img": "/assets/headshots/zachszeto.jpg",
-        "since": "2024-11-08",
-        "website": "https://www.linkedin.com/in/zacharyszeto/"
-    },
-    {
         "name": "Sam Randa",
-        "role": "Web Platform Engineer",
+        "role": "Senior Software Engineer",
         "img": "/assets/headshots/samranda.jpg",
         "since": "2025-03-19",
         "website": "https://samranda.com/"
@@ -42,7 +35,7 @@
     },
     {
         "name": "Alex Santagata",
-        "role": "Software Engineer",
+        "role": "Senior Software Engineer",
         "img": "/assets/headshots/alexsantagata.jpg",
         "since": "2025-06-06",
         "website": "https://alexsantagata.dev/"
@@ -56,7 +49,7 @@
     },
     {
         "name": "Aaron Abramson",
-        "role": "Research Scientist",
+        "role": "Research Director",
         "img": "/assets/headshots/aaronabramson.png",
         "since": "2025-10-25",
         "website": "https://github.com/asabramson"
