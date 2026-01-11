@@ -41,7 +41,7 @@
     },
     {
         "name": "Node Server Manager",
-        "link": "https://github.com/mosaiq-software/server-manager",
+        "link": "github.com/mosaiq-software/server-manager",
         "description": "A web-based control panel for managing web applications on a distributed server network.",
         "authors": ["Matt Hagger", "Alex Santagata"],
         "timeline": "August 2025 - September 2025",
@@ -58,7 +58,7 @@
     },
     {
         "name": "Pixel Diary",
-        "link": "https://algames.neocities.org/pixel_diary/",
+        "link": "algames.neocities.org/pixel_diary/",
         "description": "A daily journaling app using color-coded entries to visualize activity over time.",
         "authors": ["Alex Santagata"],
         "timeline": "September 2025 - Present",
@@ -67,7 +67,7 @@
     },
     {
         "name": "Mint",
-        "link": "https://mint.photo",
+        "link": "mint.photo",
         "description": "A fully featured digital compositor with support for transforms, selections, shapes, text, zooming, and keyboard-driven workflows.",
         "authors": ["Sam Randa", "Alex Santagata"],
         "timeline": "October 2025 - November 2025",
