@@ -67,5 +67,12 @@
         "img": "/assets/headshots/samnguyen.png",
         "since": "2025-11-12",
         "website": "https://samnguyen.dev/"
+    },
+    {
+        "name": "Ivy Bixler",
+        "role": "Software Engineer",
+        "img": "/assets/headshots/ivybixler.jpg",
+        "since": "2025-11-15",
+        "website": "https://github.com/ibixler"
     }
 ]
