@@ -17,6 +17,9 @@ export async function getStaticPaths() {
 }
 
 const { job } = Astro.props;
+
+// Helper to convert \n to actual newlines
+const processText = (text: string) => text.replace(/\\n/g, '\n');
 ---
 
 <BaseLayout title={`${job.title} - Mosaiq Software`}>
@@ -61,37 +64,36 @@ const { job } = Astro.props;
                     align="left"
                     animated={true}
                 >
-                    <p class="short-description">{job.shortDescription}</p>
+                    <p class="short-description preserve-breaks">{processText(job.shortDescription)}</p>
                 </TextBubble>
             </div>
 
             <div class="job-content">
                 <section class="description-section">
                     <h2>About the Role</h2>
-                    <p>{job.description}</p>
+                    <p class="preserve-breaks">{processText(job.description)}</p>
                 </section>
 
                 <section class="requirements-section">
                     <h2>Requirements</h2>
                     <ul>
-                        {job.requirements.map((req) => <li>{req}</li>)}
+                        {job.requirements.map((req) => <li class="preserve-breaks">{processText(req)}</li>)}
                     </ul>
                 </section>
 
                 <section class="nice-to-have-section">
                     <h2>Nice to Have</h2>
                     <ul>
-                        {job.niceToHave.map((item) => <li>{item}</li>)}
+                        {job.niceToHave.map((item) => <li class="preserve-breaks">{processText(item)}</li>)}
                     </ul>
                 </section>
 
                 <section class="important-notes">
                     <h3>Important Notes</h3>
-                    <p>Mosaiq is a nonprofit, member-run organization. This is not a full-time job or a paid position. Instead, it's a flexible side commitment where you can gain real project experience, collaborate with talented people, and build meaningful software.</p>
                     <ul>
-                        <li>There is no compensation. Any revenue Mosaiq generates is fully reinvested into operations or directed toward charitable initiatives.</li>
-                        <li>This is a part-time, flexible opportunity. Members balance Mosaiq with classes, work, and other obligations.</li>
-                        <li>We cannot sponsor work visas or provide employment authorization at this time.</li>
+                        <li>Mosaiq is an unpaid, student-led organization. This is not an internship, and we are unable to sponsor work visas.</li>
+                        <li>While Mosaiq is flexible and understands academic and personal commitments, members are expected to take their involvement seriously and manage their time responsibly.</li>
+                        <li>Mosaiq is built by people who genuinely enjoy building software. If you’re here purely to pad a resume, this likely won’t be a good fit. If you love creating and learning with others who care deeply about the craft, you’ll thrive here.</li>
                     </ul>
                 </section>
 
@@ -183,6 +185,10 @@ const { job } = Astro.props;
         font-size: var(--font-size-md);
         line-height: 1.6;
         color: var(--color-text-secondary);
+    }
+
+    .preserve-breaks {
+        white-space: pre-line;
     }
 
     ul {

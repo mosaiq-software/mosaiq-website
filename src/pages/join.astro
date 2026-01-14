@@ -54,7 +54,7 @@ const jobs = _jobs as JobListing[];
 
         <div class="jobs-section">
             <h2>Open Positions</h2>
-            <div class="jobs-grid">
+            <div class="jobs-list">
                 {jobs.map((job) => <JobCard job={job} />)}
             </div>
         </div>
@@ -120,9 +120,9 @@ const jobs = _jobs as JobListing[];
         -webkit-text-stroke: 0.33em var(--color-background);
     }
 
-    .jobs-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    .jobs-list {
+        display: flex;
+        flex-direction: column;
         gap: var(--spacing-lg);
         padding: 0 var(--spacing-md);
     }
