@@ -5,7 +5,24 @@
         "shortDescription": "Build end-to-end web applications using modern technologies and frameworks.",
         "description": "As a Fullstack Software Engineer at Mosaiq, you'll work on diverse projects from concept to deployment. You'll collaborate with designers and other engineers to create polished, user-friendly web applications. This role offers hands-on experience with the full software development lifecycle and the opportunity to work with cutting-edge technologies.",
         "requirements": ["18+ years of age", "Strong foundation in HTML, CSS, and JavaScript", "Experience with at least one modern frontend framework (React, Vue, Svelte, etc.)", "Basic understanding of backend development (Node.js, Express, APIs)", "Familiarity with version control (Git)", "Self-motivated with strong problem-solving skills", "Ability to work collaboratively in a remote environment"],
-        "niceToHave": ["Experience with TypeScript", "Knowledge of database design (SQL or NoSQL)", "Understanding of RESTful API design", "Experience with deployment and DevOps (Docker, CI/CD)", "Contributions to open-source projects", "UI/UX design sensibility"]
+        "niceToHave": ["Experience with TypeScript", "Knowledge of database design (SQL or NoSQL)", "Understanding of RESTful API design", "Experience with deployment and DevOps (Docker, CI/CD)", "Contributions to open-source projects", "UI/UX design sensibility"],
+        "applicationQuestions": [
+            {
+                "id": "tech-stack",
+                "question": "What's your favorite tech stack and why?",
+                "answerType": "long"
+            },
+            {
+                "id": "project-proud-of",
+                "question": "Tell us about a project you're most proud of",
+                "answerType": "long"
+            },
+            {
+                "id": "learning-interest",
+                "question": "What technology are you most excited to learn?",
+                "answerType": "short"
+            }
+        ]
     },
     {
         "id": "ui-designer",
@@ -13,7 +30,24 @@
         "shortDescription": "Create beautiful, intuitive interfaces that delight users and bring our projects to life.",
         "description": "As a UI Designer at Mosaiq, you'll be responsible for crafting the visual language of our projects. You'll work closely with engineers to translate ideas into polished, user-friendly interfaces. From wireframes to final designs, you'll shape the look and feel of everything we build. This role is perfect for someone who loves pixels, color theory, and making digital experiences feel just right.",
         "requirements": ["18+ years of age", "Strong portfolio demonstrating UI design work", "Proficiency with design tools (Figma, Sketch, Adobe XD, etc.)", "Understanding of design principles (typography, color, layout, hierarchy)", "Basic knowledge of HTML/CSS", "Ability to create responsive designs for multiple screen sizes", "Strong communication skills to collaborate with engineers"],
-        "niceToHave": ["Experience designing for web applications", "Knowledge of design systems and component libraries", "Understanding of accessibility standards (WCAG)", "Motion design or animation skills", "Experience with prototyping tools", "Front-end development experience", "Illustration or graphic design skills"]
+        "niceToHave": ["Experience designing for web applications", "Knowledge of design systems and component libraries", "Understanding of accessibility standards (WCAG)", "Motion design or animation skills", "Experience with prototyping tools", "Front-end development experience", "Illustration or graphic design skills"],
+        "applicationQuestions": [
+            {
+                "id": "design-process",
+                "question": "Walk us through your design process",
+                "answerType": "long"
+            },
+            {
+                "id": "portfolio-link",
+                "question": "Link to your portfolio or best design work",
+                "answerType": "short"
+            },
+            {
+                "id": "design-inspiration",
+                "question": "What design trends or styles inspire you most?",
+                "answerType": "short"
+            }
+        ]
     },
     {
         "id": "research-scientist",
@@ -21,6 +55,23 @@
         "shortDescription": "Explore emerging technologies and innovative solutions to push the boundaries of what we build.",
         "description": "As a Research Scientist at Mosaiq, you'll investigate cutting-edge technologies, conduct experiments, and prototype novel solutions to challenging problems. You'll have the freedom to explore new ideas, test hypotheses, and bring research-backed insights to our projects. This role is ideal for someone who loves diving deep into technical problems, staying on the bleeding edge of technology, and turning research into practical applications.",
         "requirements": ["18+ years of age", "Strong analytical and problem-solving skills", "Experience with research methodologies and experimentation", "Proficiency in at least one programming language (Python, JavaScript, etc.)", "Ability to read and understand technical papers and documentation", "Strong written and verbal communication skills", "Self-directed with the ability to manage independent research projects"],
-        "niceToHave": ["Background in computer science, data science, or related field", "Experience with machine learning or AI", "Knowledge of statistical analysis and data visualization", "Familiarity with academic research and publication", "Experience with prototyping and proof-of-concept development", "Understanding of emerging web technologies (WebAssembly, WebGPU, etc.)", "Contributions to research communities or open-source projects"]
+        "niceToHave": ["Background in computer science, data science, or related field", "Experience with machine learning or AI", "Knowledge of statistical analysis and data visualization", "Familiarity with academic research and publication", "Experience with prototyping and proof-of-concept development", "Understanding of emerging web technologies (WebAssembly, WebGPU, etc.)", "Contributions to research communities or open-source projects"],
+        "applicationQuestions": [
+            {
+                "id": "research-interest",
+                "question": "What area of technology research interests you most?",
+                "answerType": "long"
+            },
+            {
+                "id": "recent-paper",
+                "question": "Tell us about a recent technical paper or technology that excited you",
+                "answerType": "long"
+            },
+            {
+                "id": "experimental-approach",
+                "question": "How do you approach testing new ideas or hypotheses?",
+                "answerType": "short"
+            }
+        ]
     }
 ]

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionLayout from '../../layouts/SectionLayout.astro';
 import Icon from '../../components/Icon.astro';
 import Square from '../../components/Square.astro';
+import JobApplication from '../../components/join/JobApplication.astro';
 import _jobs from '../../data/jobs.json' assert { type: 'json' };
 import type { JobListing } from '../../scripts/types';
 
@@ -83,25 +84,7 @@ const { job } = Astro.props;
                     </ul>
                 </section>
 
-                <section class="apply-section">
-                    <h2>Ready to Apply?</h2>
-                    <p>
-                        Skip the generic application form. Shoot us an email at{' '}
-                        <a
-                            href="mailto:join@mosaiq.dev"
-                            target="_blank"
-                            >join@mosaiq.dev</a
-                        >{' '}
-                        with your resume or portfolio. Tell us about yourself, what excites you about this role, and what you'd like to build with us!
-                    </p>
-                    <a
-                        href="mailto:join@mosaiq.dev"
-                        target="_blank"
-                        class="outline-button button-like apply-button"
-                    >
-                        Apply Now
-                    </a>
-                </section>
+                <JobApplication job={job} />
             </div>
         </div>
     </SectionLayout>
@@ -110,10 +93,12 @@ const { job } = Astro.props;
 <style>
     .job-detail-container {
         max-width: 900px;
+        width: 100%;
         margin: 0 auto;
         padding: var(--spacing-xl) var(--spacing-md);
         z-index: 10;
         position: relative;
+        box-sizing: border-box;
     }
 
     .back-link {
@@ -134,18 +119,24 @@ const { job } = Astro.props;
         margin-bottom: var(--spacing-xl);
         padding-bottom: var(--spacing-xl);
         border-bottom: 2px solid var(--color-surface);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     .job-header h1 {
         font-size: 3rem;
         margin-bottom: var(--spacing-md);
         line-height: 1.2;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     .short-description {
         font-size: var(--font-size-lg);
         color: var(--color-text-secondary);
         line-height: 1.6;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     .job-content {
@@ -160,6 +151,9 @@ const { job } = Astro.props;
         border: 1px solid var(--color-text);
         border-radius: 8px;
         padding: var(--spacing-lg);
+        box-sizing: border-box;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     section h2 {
@@ -236,6 +230,10 @@ const { job } = Astro.props;
     }
 
     @media (max-width: 768px) {
+        .job-detail-container {
+            padding: var(--spacing-md);
+        }
+
         .job-header h1 {
             font-size: 2rem;
         }
@@ -250,6 +248,47 @@ const { job } = Astro.props;
 
         section h2 {
             font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 375px) {
+        .job-detail-container {
+            padding: var(--spacing-sm);
+        }
+
+        .job-header {
+            padding-bottom: var(--spacing-md);
+        }
+
+        .job-header h1 {
+            font-size: 1.5rem;
+            word-break: break-word;
+        }
+
+        .short-description {
+            font-size: var(--font-size-sm);
+        }
+
+        section {
+            padding: var(--spacing-sm);
+            border-radius: 4px;
+        }
+
+        section h2 {
+            font-size: 1.25rem;
+        }
+
+        section h3 {
+            font-size: 1rem;
+        }
+
+        section p,
+        li {
+            font-size: var(--font-size-sm);
+        }
+
+        .back-link {
+            font-size: var(--font-size-sm);
         }
     }
 </style>

@@ -24,4 +24,10 @@ export interface JobListing {
     description: string;
     requirements: string[];
     niceToHave: string[];
+    applicationQuestions: ApplicationQuestion[];
+}
+export interface ApplicationQuestion {
+    id: string;
+    question: string;
+    answerType: 'short' | 'long';
 }
