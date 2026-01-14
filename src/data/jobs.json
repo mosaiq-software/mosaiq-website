@@ -4,8 +4,8 @@
         "title": "Senior Full-Stack Software Engineer",
         "shortDescription": "Lead and build real-world software projects end to end while shaping technical direction across Mosaiq.",
         "description": "As a Senior Full-Stack Software Engineer at Mosaiq, you are expected to hit the ground running. This role is for individuals with strong, practical experience in modern web development who genuinely enjoy building software and thinking deeply about systems.\n\nYou will initiate and own projects, propose new ideas, improve existing systems, and set technical standards through example. While mentorship is not your primary job, your experience naturally elevates those around you. You are someone who explores problems proactively, cares about code quality and architecture, and treats Mosaiq like a real engineering environment, not a resume line.\n\nThis role offers significant autonomy, creative freedom, and the chance to build meaningful software with other highly motivated builders.",
-        "requirements": ["Strong practical experience with React, TypeScript, and modern JavaScript", "Solid backend experience with Node.js and Express", "Comfortable designing and building full-stack systems end to end", "Experience working with real-world codebases beyond coursework", "Ability to independently drive projects from idea to execution", "Strong time management and ability to balance Mosaiq with other commitments", "Clear passion for software engineering and building things that matter"],
-        "niceToHave": ["Experience with WebSockets or real-time systems", "Familiarity with Svelte", "Experience with system design and architecture decisions", "Exposure to DevOps or deployment workflows (CI/CD, Docker)", "Experience reviewing code or setting technical direction"],
+        "requirements": ["Strong practical experience with React, TypeScript, and modern JavaScript", "Solid backend experience with Node.js", "Comfortable designing and building full-stack systems end to end", "Experience working with real-world codebases", "Ability to independently drive projects from idea to execution", "Strong time management and ability to balance Mosaiq with other commitments", "Clear passion for software engineering and building things that matter"],
+        "niceToHave": ["Experience with WebSockets or real-time systems", "Familiarity with Svelte, Astro, or other modern frameworks", "Experience with system design and architecture decisions", "Exposure to DevOps or deployment workflows (CI/CD, Docker)", "Experience reviewing code or setting technical direction"],
         "applicationQuestions": [
             {
                 "id": "why-mosaiq",
@@ -20,12 +20,12 @@
             {
                 "id": "engineering-motivation",
                 "question": "What keeps you excited about software engineering outside of classes?",
-                "answerType": "short"
+                "answerType": "long"
             },
             {
                 "id": "impact",
                 "question": "How do you usually look for ways to improve an existing codebase or product?",
-                "answerType": "short"
+                "answerType": "long"
             }
         ]
     },
@@ -33,9 +33,9 @@
         "id": "fullstack-software-engineer",
         "title": "Full-Stack Software Engineer",
         "shortDescription": "Build and ship real software while rapidly growing as an engineer in a professional, collaborative environment.",
-        "description": "As a Full-Stack Software Engineer at Mosaiq, you will work on real software projects alongside experienced peers in an environment that mirrors how modern engineering teams operate.\n\nThis role is ideal for those who already have exposure to web development and are eager to level up quickly. You are not expected to know everything on day one, but you are expected to care deeply, learn fast, and contribute meaningfully. Mosaiq values curiosity, effort, and ownership far more than checklists of technologies.\n\nYou will move between projects based on your interests and learning goals, gaining experience across the full stack while building software that actually gets used.",
+        "description": "As a Full-Stack Software Engineer at Mosaiq, you will work on real software projects alongside experienced peers in an environment that mirrors how modern engineering teams operate.\n\nThis role is ideal for those who already have some exposure to web development and are eager to level up quickly. You are not expected to know everything on day one, but you are expected to care deeply, learn fast, and contribute meaningfully. Mosaiq values curiosity, effort, and ownership far more than checklists of technologies.\n\nYou will have the ability to move between projects based on your interests and learning goals, gaining experience across the full stack while building software that actually gets used.",
         "requirements": ["Prior experience with web development beyond introductory coursework", "Working knowledge of JavaScript and modern frontend development", "Some exposure to React and/or TypeScript", "Basic understanding of backend concepts (APIs, servers, data flow)", "Comfortable using Git and collaborating in shared codebases", "Strong willingness to learn and improve rapidly", "Ability to balance Mosaiq with academics and other commitments"],
-        "niceToHave": ["Experience with Node.js and Express", "Experience with Svelte", "Exposure to WebSockets or real-time features", "Interest in system design and architecture", "Comfort reading and navigating larger codebases"],
+        "niceToHave": ["Experience with Node.js", "Experience with Svelte, Astro, or other modern frameworks", "Exposure to WebSockets or real-time features", "Interest in system design and architecture", "Comfort reading and navigating larger codebases"],
         "applicationQuestions": [
             {
                 "id": "why-build",
@@ -50,12 +50,12 @@
             {
                 "id": "growth-mindset",
                 "question": "What does \"getting better as an engineer\" mean to you right now?",
-                "answerType": "short"
+                "answerType": "long"
             },
             {
                 "id": "commitment",
                 "question": "How do you usually balance demanding commitments when things get busy?",
-                "answerType": "short"
+                "answerType": "long"
             }
         ]
     },
@@ -63,7 +63,7 @@
         "id": "ui-designer",
         "title": "UI / Product Designer",
         "shortDescription": "Design intuitive, thoughtful interfaces and help shape how users experience Mosaiq-built software.",
-        "description": "As a UI / Product Designer at Mosaiq, you will shape how users experience the software we build. This role sits at the intersection of design, usability, and engineering.\n\nYou may focus primarily on design, or you may also choose to contribute technically, this role is highly flexible by nature. Designers at Mosaiq are not siloed; you will work closely with engineers, influence product decisions, and see your designs implemented in real applications.\n\nThis role is for people who care deeply about how software feels to use, enjoy thinking through user problems, and want their design work to exist beyond static mockups.",
+        "description": "As a UI / Product Designer at Mosaiq, you will shape how users experience the software we build. This role sits at the intersection of design, usability, and engineering.\n\nYou may focus primarily on design or you may also choose to contribute technically, this role is highly flexible by nature. Designers at Mosaiq are not siloed; you will work closely with engineers, influence product decisions, and see your designs implemented in real applications.\n\nThis role is for people who care deeply about how software feels to use, enjoy thinking through user problems, and want their design work to exist beyond static mockups.",
         "requirements": ["Demonstrated interest or experience in UI, UX, or product design", "Ability to communicate design decisions clearly", "Experience with design tools such as Figma or equivalent", "Understanding of core design principles (layout, hierarchy, usability)", "Strong collaboration skills with engineers", "Interest in how design translates into real software"],
         "niceToHave": ["Basic HTML/CSS or frontend experience", "Experience designing web applications", "Understanding of accessibility considerations", "Experience prototyping interactive flows", "Interest in bridging design and implementation"],
         "applicationQuestions": [
@@ -74,18 +74,18 @@
             },
             {
                 "id": "design-example",
-                "question": "Share a design you are proud of and explain the thinking behind it.",
+                "question": "Share the story of a design you are proud of and explain the thinking behind it.",
                 "answerType": "long"
             },
             {
                 "id": "collaboration",
                 "question": "How do you like to work with engineers?",
-                "answerType": "short"
+                "answerType": "long"
             },
             {
                 "id": "future-growth",
                 "question": "What skills are you hoping to grow through Mosaiq?",
-                "answerType": "short"
+                "answerType": "long"
             }
         ]
     },
@@ -110,12 +110,12 @@
             {
                 "id": "research-style",
                 "question": "How do you usually approach something you don’t fully understand yet?",
-                "answerType": "short"
+                "answerType": "long"
             },
             {
                 "id": "motivation",
                 "question": "What motivates you to dig deeper into a topic?",
-                "answerType": "short"
+                "answerType": "long"
             }
         ]
     }
