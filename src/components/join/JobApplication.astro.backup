@@ -1,0 +1,524 @@
+---
+import type { JobListing } from '../../scripts/types';
+
+interface Props {
+    job: JobListing;
+}
+
+const { job } = Astro.props;
+const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
+---
+
+<section class="application-section">
+    <h2>Apply for this Position</h2>
+    <p class="application-intro">We're excited that you're interested in joining Mosaiq! Please fill out the application form below. We'll review your submission and get back to you within a week!</p>
+
+    <form
+        class="application-form"
+        id="application-form"
+    >
+        <!-- Base Questions -->
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-input"
+                placeholder="Jason Funderberker"
+                data-base-field="name"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Personal Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-input"
+                placeholder="drcucumber@gmail.com"
+                data-base-field="email"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="how-found">How did you find out about Mosaiq?</label>
+            <select
+                id="how-found"
+                name="how-found"
+                class="form-input"
+                data-base-field="howFound"
+            >
+                <option value="">Select an option...</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="github">GitHub</option>
+                <option value="friend">From a friend</option>
+                <option value="school">School/University</option>
+                <option value="event">Event or meetup</option>
+                <option value="poster">Poster or flyer</option>
+                <option value="search">Online search</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="resume">Resume/CV</label>
+            <input
+                type="file"
+                id="resume"
+                name="resume"
+                class="form-input file-input"
+                accept=".pdf,.doc,.docx"
+            />
+            <span class="file-hint">PDF, DOC, or DOCX (max 10MB)</span>
+        </div>
+
+        <div class="form-group">
+            <label for="github">GitHub</label>
+            <input
+                type="url"
+                id="github"
+                name="github"
+                class="form-input"
+                placeholder="https://github.com/username"
+                data-link-field="github"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="portfolio">Portfolio</label>
+            <input
+                type="url"
+                id="portfolio"
+                name="portfolio"
+                class="form-input"
+                placeholder="https://yourportfolio.com"
+                data-link-field="portfolio"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="linkedin">LinkedIn</label>
+            <input
+                type="url"
+                id="linkedin"
+                name="linkedin"
+                class="form-input"
+                placeholder="https://linkedin.com/in/username"
+                data-link-field="linkedin"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="other">Other Link</label>
+            <input
+                type="url"
+                id="other"
+                name="other"
+                class="form-input"
+                placeholder="https://"
+                data-link-field="other"
+            />
+        </div>
+
+        <!-- Dynamic Questions from JSON -->
+        {
+            job.applicationQuestions.map((question) => (
+                <div class="form-group">
+                    <label for={question.id}>{question.question}</label>
+                    {question.answerType === 'short' ? (
+                        <input
+                            type="text"
+                            id={question.id}
+                            name={question.id}
+                            class="form-input"
+                            data-question-id={question.id}
+                        />
+                    ) : (
+                        <textarea
+                            id={question.id}
+                            name={question.id}
+                            class="form-input"
+                            rows={6}
+                            data-question-id={question.id}
+                        />
+                    )}
+                </div>
+            ))
+        }
+
+        <button
+            type="submit"
+            class="submit-button"
+        >
+            Submit Application
+        </button>
+    </form>
+</section>
+
+<script define:vars={{ jobId: job.id, applicationPortalUrl }}>
+    const formState = {};
+    const SHARED_STORAGE_KEY = 'mosaiq-application-shared';
+    const JOB_STORAGE_KEY = `mosaiq-application-${jobId}`;
+    let isSubmitting = false;
+
+    function loadSavedData() {
+        try {
+            const sharedData = localStorage.getItem(SHARED_STORAGE_KEY);
+            const jobData = localStorage.getItem(JOB_STORAGE_KEY);
+
+            return {
+                ...((sharedData && JSON.parse(sharedData)) || {}),
+                ...((jobData && JSON.parse(jobData)) || {}),
+            };
+        } catch (e) {
+            console.error('Error loading saved application data:', e);
+            return {};
+        }
+    }
+
+    function saveToStorage() {
+        try {
+            const sharedFields = {
+                name: formState.name,
+                email: formState.email,
+                howFound: formState.howFound,
+                github: formState.github,
+                portfolio: formState.portfolio,
+                linkedin: formState.linkedin,
+                other: formState.other,
+            };
+
+            const jobSpecificFields = { ...formState };
+            delete jobSpecificFields.name;
+            delete jobSpecificFields.email;
+            delete jobSpecificFields.howFound;
+            delete jobSpecificFields.github;
+            delete jobSpecificFields.portfolio;
+            delete jobSpecificFields.linkedin;
+            delete jobSpecificFields.other;
+
+            localStorage.setItem(SHARED_STORAGE_KEY, JSON.stringify(sharedFields));
+            localStorage.setItem(JOB_STORAGE_KEY, JSON.stringify(jobSpecificFields));
+        } catch (e) {
+            console.error('Error saving application data:', e);
+        }
+    }
+
+    function initializeForm() {
+        const savedData = loadSavedData();
+        Object.assign(formState, savedData);
+
+        const baseFields = document.querySelectorAll('[data-base-field]');
+        baseFields.forEach((field) => {
+            const fieldName = field.dataset.baseField;
+            if (savedData[fieldName]) {
+                field.value = savedData[fieldName];
+                formState[fieldName] = savedData[fieldName];
+            }
+        });
+
+        const linkFields = document.querySelectorAll('[data-link-field]');
+        linkFields.forEach((field) => {
+            const fieldName = field.dataset.linkField;
+            if (savedData[fieldName]) {
+                field.value = savedData[fieldName];
+                formState[fieldName] = savedData[fieldName];
+            }
+        });
+
+        const questionFields = document.querySelectorAll('[data-question-id]');
+        questionFields.forEach((field) => {
+            const questionId = field.dataset.questionId;
+            if (savedData[questionId]) {
+                field.value = savedData[questionId];
+                formState[questionId] = savedData[questionId];
+            }
+        });
+    }
+
+    function handleInput(event) {
+        const field = event.target;
+        const fieldName = field.dataset.baseField || field.dataset.questionId || field.dataset.linkField;
+
+        if (fieldName) {
+            formState[fieldName] = field.value;
+        }
+    }
+
+    function handleBlur(event) {
+        const field = event.target;
+        const fieldName = field.dataset.baseField || field.dataset.questionId || field.dataset.linkField;
+
+        if (fieldName) {
+            formState[fieldName] = field.value;
+            saveToStorage();
+        }
+    }
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        if (isSubmitting) return;
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        isSubmitting = true;
+        const originalButtonText = submitButton.textContent;
+        submitButton.textContent = 'Submitting...';
+        submitButton.disabled = true;
+
+        try {
+            const files = [];
+            const resumeFile = formData.get('resume');
+
+            if (resumeFile && resumeFile.size > 0) {
+                console.log('Uploading resume...');
+
+                const base64 = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result.split(',')[1]);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(resumeFile);
+                });
+
+                const filePayload = {
+                    blob: base64,
+                    mimeType: resumeFile.type,
+                    fileName: resumeFile.name,
+                };
+
+                const fileResponse = await fetch(`${applicationPortalUrl}/file`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(filePayload),
+                });
+
+                if (!fileResponse.ok) {
+                    throw new Error(`Resume upload failed: ${fileResponse.statusText}`);
+                }
+
+                const fileResult = await fileResponse.json();
+                console.log('Resume uploaded successfully:', fileResult);
+                files.push(fileResult.fileId);
+            }
+
+            const name = data.name;
+            const email = data.email;
+
+            const links = [];
+            if (data.github) links.push(data.github);
+            if (data.portfolio) links.push(data.portfolio);
+            if (data.linkedin) links.push(data.linkedin);
+            if (data.other) links.push(data.other);
+
+            const clarityId = localStorage.getItem('userId');
+            if (clarityId) {
+                const clarityLink = `https://clarity.microsoft.com/projects/view/tjg2imov26/dashboard?CustomUserId=is%3B${clarityId}&date=Last%2090%20days`;
+                links.push(clarityLink);
+            }
+
+            const fields = {};
+            for (const [key, value] of Object.entries(data)) {
+                if (key !== 'name' && key !== 'email' && key !== 'resume' && key !== 'github' && key !== 'portfolio' && key !== 'linkedin' && key !== 'other') {
+                    fields[key] = value;
+                }
+            }
+
+            const applicationPayload = {
+                name,
+                email,
+                jobPostId: jobId,
+                fields,
+                links,
+                files,
+            };
+
+            console.log('Submitting application:', applicationPayload);
+
+            const applicationResponse = await fetch(`${applicationPortalUrl}/application`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(applicationPayload),
+            });
+
+            if (!applicationResponse.ok) {
+                throw new Error(`Application submission failed: ${applicationResponse.statusText}`);
+            }
+
+            const applicationResult = await applicationResponse.json();
+            console.log('Application submitted successfully:', applicationResult);
+
+            localStorage.removeItem(JOB_STORAGE_KEY);
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert(`Failed to submit application: ${error.message}\n\nYour data has been saved locally. Please try again later.`);
+        } finally {
+            isSubmitting = false;
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        }
+    }
+
+    function init() {
+        initializeForm();
+
+        const form = document.getElementById('application-form');
+        const inputs = form.querySelectorAll('input:not([type="file"]), textarea, select');
+
+        inputs.forEach((input) => {
+            input.addEventListener('input', handleInput);
+            input.addEventListener('blur', handleBlur);
+        });
+
+        form.addEventListener('submit', handleSubmit);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+</script>
+
+<style>
+    .application-section {
+        max-width: 800px;
+        margin: 4rem auto;
+        padding: var(--spacing-xl);
+        background-color: var(--color-background-transparent);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--color-text);
+        border-radius: 8px;
+        z-index: 10;
+        position: relative;
+    }
+
+    .application-section h2 {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-md);
+        paint-order: stroke fill;
+        -webkit-text-stroke: 0.33em var(--color-background);
+    }
+
+    .application-intro {
+        font-size: var(--font-size-md);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .application-form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    label {
+        font-family: 'Clash Display', sans-serif;
+        font-weight: 600;
+        font-size: var(--font-size-md);
+        color: var(--color-text);
+    }
+
+    .form-input {
+        padding: var(--spacing-md);
+        border: 1px solid var(--color-text);
+        border-radius: 8px;
+        font-family: 'Clash Grotesk', sans-serif;
+        font-size: var(--font-size-md);
+        background-color: var(--color-background);
+        color: var(--color-text);
+        transition: border-color 0.2s ease;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--mosaiq-magenta);
+    }
+
+    textarea.form-input {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .file-input {
+        cursor: pointer;
+    }
+
+    .file-hint {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+    }
+
+    .submit-button {
+        padding: var(--spacing-md) var(--spacing-xl);
+        background-color: var(--mosaiq-magenta);
+        color: var(--color-background);
+        border: none;
+        border-radius: var(--border-radius-full);
+        font-family: 'Clash Display', sans-serif;
+        font-size: var(--font-size-md);
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
+        align-self: flex-start;
+    }
+
+    .submit-button:hover {
+        background-color: var(--mosaiq-pink);
+        transform: translateY(-2px);
+    }
+
+    .submit-button:active {
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        .application-section {
+            padding: var(--spacing-md);
+            margin: 2rem var(--spacing-md);
+        }
+
+        .application-section h2 {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 375px) {
+        .application-section {
+            padding: var(--spacing-sm);
+            margin: 1rem var(--spacing-sm);
+            border-radius: 4px;
+        }
+
+        .application-section h2 {
+            font-size: 1.25rem;
+        }
+
+        label {
+            font-size: var(--font-size-sm);
+        }
+
+        .form-input {
+            padding: var(--spacing-sm);
+            font-size: var(--font-size-sm);
+        }
+
+        .submit-button {
+            width: 100%;
+            align-self: stretch;
+        }
+    }
+</style>
