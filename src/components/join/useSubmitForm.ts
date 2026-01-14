@@ -71,6 +71,15 @@ export function useSubmitForm(props: UseSubmitFormProps) {
             setError(null);
 
             try {
+                // Validate email format
+                if (!sharedData.email) {
+                    throw new Error('Email is required');
+                }
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(sharedData.email)) {
+                    throw new Error('Please enter a valid email address');
+                }
+
                 // Upload resume if provided
                 const files: string[] = [];
                 if (resumeFile && resumeFile.size > 0) {
