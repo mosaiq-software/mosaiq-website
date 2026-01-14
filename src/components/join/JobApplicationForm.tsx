@@ -6,6 +6,7 @@ import { TextInput } from './TextInput';
 import { SelectInput } from './SelectInput';
 import { TextAreaInput } from './TextAreaInput';
 import { FileInput } from './FileInput';
+import { LinkList } from './LinkList';
 import type { JobFormFields, SharedFormFields } from './types';
 
 interface JobApplicationFormProps {
@@ -64,7 +65,7 @@ export function JobApplicationForm(props: JobApplicationFormProps) {
     );
 
     return (
-        <div>
+        <div className="job-application-form">
             {/* Base Fields */}
             <TextInput
                 id="name"
@@ -110,44 +111,10 @@ export function JobApplicationForm(props: JobApplicationFormProps) {
             />
 
             {/* Link Fields */}
-            <TextInput
-                id="github"
-                name="github"
-                label="GitHub"
-                type="url"
-                placeholder="https://github.com/username"
-                value={sharedData.github || ''}
-                onChange={(value) => updateSharedField('github', value)}
-            />
-
-            <TextInput
-                id="portfolio"
-                name="portfolio"
-                label="Portfolio"
-                type="url"
-                placeholder="https://yourportfolio.com"
-                value={sharedData.portfolio || ''}
-                onChange={(value) => updateSharedField('portfolio', value)}
-            />
-
-            <TextInput
-                id="linkedin"
-                name="linkedin"
-                label="LinkedIn"
-                type="url"
-                placeholder="https://linkedin.com/in/username"
-                value={sharedData.linkedin || ''}
-                onChange={(value) => updateSharedField('linkedin', value)}
-            />
-
-            <TextInput
-                id="other"
-                name="other"
-                label="Other Link"
-                type="url"
-                placeholder="https://"
-                value={sharedData.other || ''}
-                onChange={(value) => updateSharedField('other', value)}
+            <LinkList
+                label="Links (GitHub, Portfolio, LinkedIn, etc.)"
+                onChange={setLinks}
+                initialLinks={links}
             />
 
             {/* Dynamic Questions */}
