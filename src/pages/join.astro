@@ -1,157 +1,147 @@
 ---
-import TextBubble from '../components/about/TextBubble.astro';
-import TextBubbleWrap from '../components/about/TextBubbleWrap.astro';
-import Icon from '../components/Icon.astro';
 import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import Square from '../components/Square.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
+import JobCard from '../components/join/JobCard.astro';
+import TextBubble from '../components/about/TextBubble.astro';
+import TextBubbleWrap from '../components/about/TextBubbleWrap.astro';
+import _jobs from '../data/jobs.json' assert { type: 'json' };
+import type { JobListing } from '../scripts/types';
+
+const jobs = _jobs as JobListing[];
 ---
 
-<BaseLayout title="Mosaiq Software">
+<BaseLayout title="Mosaiq Software - Join Us">
     <SectionLayout id="join">
-        <SectionHeaderTitle>Join</SectionHeaderTitle>
+        <SectionHeaderTitle>Join Mosaiq</SectionHeaderTitle>
         <Square
             width={10}
-            size={'20vw'}
-            color="var(--mosaiq-navy)"
-            top="400px"
-            right="10%"
-            rotation="10deg"
-        />
-        <Square
-            width={10}
-            size={'45vw'}
-            color="var(--mosaiq-magenta)"
-            top="500px"
-            left="20%"
-            rotation="40deg"
+            size={'30vw'}
+            color="var(--mosaiq-blue)"
+            top="200px"
+            right="5%"
+            rotation="15deg"
         />
         <Square
             width={10}
             size={'25vw'}
-            color="var(--mosaiq-blue)"
-            top="-50px"
-            left="50%"
-            rotation="20deg"
+            color="var(--mosaiq-magenta)"
+            top="600px"
+            left="10%"
+            rotation="45deg"
         />
+        <Square
+            width={10}
+            size={'35vw'}
+            color="var(--mosaiq-pink)"
+            top="100px"
+            left="60%"
+            rotation="25deg"
+        />
+
         <TextBubbleWrap>
             <TextBubble amount="10%">
-                <h2>Do you find yourself chronically building something?<br />So do we.</h2>
-                <p>Whether you&rsquo;re hunting for your next big project or just want something fun to tinker with on weekends, Mosaiq has a spot for you. We welcome coders, designers, dreamers, and anyone who loves to create.</p>
+                <h1>Build something awesome with us</h1>
             </TextBubble>
-            <TextBubble amount="25%">
-                <h4>What we look for</h4>
-                <p class="subheading">Required</p>
-                <p>&bull; 18+ years of life experience</p>
-                <p>&bull; A brain full of ideas (good, bad, or gloriously weird)</p>
-                <p>&bull; Curiosity and a hunger to learn new skills</p>
-                <p>&bull; The itch to build things just because you can</p>
-            </TextBubble>
-            <TextBubble amount="30%">
-                <p class="subheading">Nice to have</p>
-                <p>&bull; Any web dev experience (HTML, CSS, JavaScript, TypeScript, React, etc.)</p>
-                <p>&bull; Any experience with software or game development</p>
-                <p>&bull; An eye for design, graphics, or UX</p>
+            <TextBubble amount="15%">
+                <p class="lead">Mosaiq is a nonprofit software collective where passionate builders come together to create delightful web experiences. We turn wild ideas into real projects, gain hands-on experience, and have fun doing it.</p>
             </TextBubble>
             <TextBubble amount="20%">
-                <p class="subheading">Why join?</p>
-                <p>Because you&rsquo;ll get real project experience: the kind you can put on a resume, brag about in interviews, or just show off to your friends. No corporate fluff. Just the joy of building something awesome and the skills you&rsquo;ll pick up along the way.</p>
+                <p class="lead">Whether you're hunting for your next big project or just want something fun to tinker with on weekends, Mosaiq has a spot for you. We welcome developers, designers, dreamers, and anyone who loves to create.</p>
             </TextBubble>
-            <TextBubble amount="35%">
-                <h4>How to join</h4>
+        </TextBubbleWrap>
+
+        <div class="jobs-section">
+            <h2>Open Positions</h2>
+            <div class="jobs-list">
+                {jobs.map((job) => <JobCard job={job} />)}
+            </div>
+        </div>
+
+        <TextBubbleWrap>
+            <TextBubble amount="20%">
+                <h3>Not seeing a fit?</h3>
+            </TextBubble>
+            <TextBubble amount="20%">
                 <p>
-                    Skip the generic application form. Shoot us an email at <a
+                    We're always open to meeting talented people. If you're passionate about building software and want to be part of our community, reach out to us at{' '}
+                    <a
                         href="mailto:join@mosaiq.dev"
                         target="_blank"
                         >join@mosaiq.dev</a
-                    > with your resume or portfolio to get started!
+                    >
                 </p>
-                <a
-                    href="mailto:join@mosaiq.dev"
-                    target="_blank"
-                    class="outline-button button-like"
-                    >join@mosaiq.dev</a
-                >
             </TextBubble>
-        </TextBubbleWrap>
-        <TextBubbleWrap>
-            <TextBubble amount="20%">
-                <div class="spread">
-                    <div class="spread-icon">
-                        <Icon name={'chevron-down'} />
-                    </div>
-                    <h3>Smallprint</h3>
-                </div>
-            </TextBubble>
-            <div class="smallprint">
-                <TextBubble amount="20%">
-                    <p>Mosaiq is a nonprofit, member-run organization. This is not a full-time job or a paid position. Instead, it&rsquo;s a side commitment where you can gain real project experience, collaborate with others, and build meaningful software.</p>
-                </TextBubble>
-                <TextBubble amount="20%">
-                    <p class="subheading">A few important notes:</p>
-                    <p>&bull; There is no compensation. Any revenue Mosaiq generates is fully reinvested into operations or directed toward charitable initiatives such as scholarships.</p>
-                    <p>&bull; While this is a part-time, flexible opportunity, members are expected to balance Mosaiq with classes, work, and other obligations.</p>
-                    <p>&bull; We cannot sponsor work visas or provide employment authorization at this time.</p>
-                </TextBubble>
-                <TextBubble amount="20%">
-                    <p class="subheading">What we&rsquo;re really looking for in candidates:</p>
-                    <p>&bull; A genuine interest in building, learning, and experimenting with software.</p>
-                    <p>&bull; Reliability. People who follow through and contribute consistently.</p>
-                    <p>&bull; Collaboration skills. An openness to feedback, willingness to help teammates, and a drive to build together.</p>
-                    <p>&bull; Creativity and curiosity. Whether you&rsquo;re coding, designing, or brainstorming, we want members who bring energy and ideas.</p>
-                </TextBubble>
-                <TextBubble amount="20%">
-                    <p>In short: if you&rsquo;re looking for a paycheck, Mosaiq isn&rsquo;t for you. If you&rsquo;re looking for experience, community, and the chance to make a real impact through code, you&rsquo;ll fit right in.</p>
-                </TextBubble>
-            </div>
         </TextBubbleWrap>
     </SectionLayout>
 </BaseLayout>
-<script>
-    import { gsap } from 'gsap';
-
-    document.querySelector('.spread')!.addEventListener('click', () => {
-        const smallprints = document.querySelectorAll('.smallprint');
-        smallprints.forEach((el) => {
-            if (el.classList.contains('expanded')) {
-                gsap.to(el, { height: 0, duration: 0.5, ease: 'power2.inOut' });
-                el.classList.remove('expanded');
-            } else {
-                const fullHeight = el.scrollHeight;
-                gsap.to(el, { height: fullHeight, duration: 0.5, ease: 'power2.inOut' });
-                el.classList.add('expanded');
-            }
-        });
-        gsap.to('.spread-icon', { rotate: smallprints[0].classList.contains('expanded') ? 180 : 0, duration: 0.5, ease: 'power2.inOut' });
-    });
-</script>
 <style>
-    p {
-        font-size: var(--font-size-md);
+    h1 {
+        font-size: 3rem;
+        margin-bottom: var(--spacing-lg);
+        line-height: 1.2;
+    }
+
+    .lead {
+        font-size: var(--font-size-lg);
+        line-height: 1.6;
         max-width: 80ch;
     }
 
-    .subheading {
-        color: var(--color-text-secondary);
-        font-weight: bold;
-        font-size: var(--font-size-sm);
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    p {
+        font-size: var(--font-size-md);
+        line-height: 1.6;
+        max-width: 80ch;
     }
 
     a {
         color: var(--mosaiq-magenta);
+        text-decoration: underline;
     }
 
-    .spread {
+    .jobs-section {
+        max-width: 1200px;
+        margin: 4rem auto;
+        z-index: 10;
+        position: relative;
+    }
+
+    .jobs-section h2 {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-xl);
+        text-align: center;
+        paint-order: stroke fill;
+        -webkit-text-stroke: 0.33em var(--color-background);
+    }
+
+    .jobs-list {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        cursor: pointer;
+        flex-direction: column;
+        gap: var(--spacing-lg);
+        padding: 0 var(--spacing-md);
     }
 
-    .smallprint {
-        overflow: hidden;
-        width: 100%;
-        height: 0;
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2rem;
+        }
+
+        .lead {
+            font-size: var(--font-size-md);
+        }
+
+        .jobs-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .jobs-section h2 {
+            font-size: 1.5rem;
+        }
     }
 </style>

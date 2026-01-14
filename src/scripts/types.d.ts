@@ -17,3 +17,17 @@ export interface TeamMember {
     since: string;
     website?: string;
 }
+export interface JobListing {
+    id: string;
+    title: string;
+    shortDescription: string;
+    description: string;
+    requirements: string[];
+    niceToHave: string[];
+    applicationQuestions: ApplicationQuestion[];
+}
+export interface ApplicationQuestion {
+    id: string;
+    question: string;
+    answerType: 'short' | 'long';
+}

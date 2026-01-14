@@ -1,0 +1,86 @@
+---
+import type { JobListing } from '../../scripts/types';
+import Icon from '../Icon.astro';
+import HoverLift from '../HoverLift.astro';
+
+interface Props {
+    job: JobListing;
+}
+
+const { job } = Astro.props;
+---
+
+<HoverLift
+    as="a"
+    href={`/join/${job.id}`}
+    class="job-card"
+>
+    <div class="job-header">
+        <h3>{job.title}</h3>
+        <Icon
+            name={'chevron-right'}
+            size={'md'}
+        />
+    </div>
+    <p class="description">{job.shortDescription}</p>
+    <div class="job-footer">
+        <span class="view-link">View Details</span>
+    </div>
+</HoverLift>
+
+<style>
+    .job-card {
+        border: 1px solid var(--color-text);
+        border-radius: 8px;
+        padding: var(--spacing-lg);
+        background-color: var(--color-background);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .job-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--spacing-md);
+    }
+
+    h3 {
+        margin: 0;
+        font-size: var(--font-size-xl);
+    }
+
+    .description {
+        font-size: var(--font-size-md);
+        color: var(--color-text-secondary);
+        line-height: 1.5;
+        flex-grow: 1;
+        max-width: 70%;
+    }
+
+    .job-footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .view-link {
+        font-family: 'Clash Display', sans-serif;
+        font-size: var(--font-size-sm);
+        color: var(--mosaiq-magenta);
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .job-card {
+            padding: var(--spacing-md);
+        }
+
+        h3 {
+            font-size: var(--font-size-lg);
+        }
+    }
+</style>

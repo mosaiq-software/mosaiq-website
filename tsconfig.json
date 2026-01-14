@@ -9,15 +9,16 @@
         },
         "strict": true,
         "moduleResolution": "bundler",
-        "jsx": "react",
+        "jsx": "react-jsx",
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": false,
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "jsxImportSource": "preact"
     },
-    "include": ["./src/*"],
+    "include": ["./src/**/*"],
     "exclude": ["node_modules"]
 }
