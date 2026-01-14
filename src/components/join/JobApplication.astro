@@ -74,6 +74,54 @@ const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
             <span class="file-hint">PDF, DOC, or DOCX (max 10MB)</span>
         </div>
 
+        <div class="form-group">
+            <label for="github">GitHub</label>
+            <input
+                type="url"
+                id="github"
+                name="github"
+                class="form-input"
+                placeholder="https://github.com/username"
+                data-link-field="github"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="portfolio">Portfolio</label>
+            <input
+                type="url"
+                id="portfolio"
+                name="portfolio"
+                class="form-input"
+                placeholder="https://yourportfolio.com"
+                data-link-field="portfolio"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="linkedin">LinkedIn</label>
+            <input
+                type="url"
+                id="linkedin"
+                name="linkedin"
+                class="form-input"
+                placeholder="https://linkedin.com/in/username"
+                data-link-field="linkedin"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="other">Other Link</label>
+            <input
+                type="url"
+                id="other"
+                name="other"
+                class="form-input"
+                placeholder="https://"
+                data-link-field="other"
+            />
+        </div>
+
         <!-- Dynamic Questions from JSON -->
         {
             job.applicationQuestions.map((question) => (
@@ -146,12 +194,20 @@ const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
                 name: formState.name,
                 email: formState.email,
                 howFound: formState.howFound,
+                github: formState.github,
+                portfolio: formState.portfolio,
+                linkedin: formState.linkedin,
+                other: formState.other,
             };
 
             const jobSpecificFields = { ...formState };
             delete jobSpecificFields.name;
             delete jobSpecificFields.email;
             delete jobSpecificFields.howFound;
+            delete jobSpecificFields.github;
+            delete jobSpecificFields.portfolio;
+            delete jobSpecificFields.linkedin;
+            delete jobSpecificFields.other;
 
             localStorage.setItem(SHARED_STORAGE_KEY, JSON.stringify(sharedFields));
             localStorage.setItem(JOB_STORAGE_KEY, JSON.stringify(jobSpecificFields));
@@ -177,6 +233,15 @@ const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
             }
         });
 
+        const linkFields = document.querySelectorAll('[data-link-field]');
+        linkFields.forEach((field) => {
+            const fieldName = field.dataset.linkField;
+            if (savedData[fieldName]) {
+                field.value = savedData[fieldName];
+                formState[fieldName] = savedData[fieldName];
+            }
+        });
+
         const questionFields = document.querySelectorAll('[data-question-id]');
         questionFields.forEach((field) => {
             const questionId = field.dataset.questionId;
@@ -193,7 +258,7 @@ const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
      */
     function handleInput(event) {
         const field = event.target;
-        const fieldName = field.dataset.baseField || field.dataset.questionId;
+        const fieldName = field.dataset.baseField || field.dataset.questionId || field.dataset.linkField;
 
         if (fieldName) {
             formState[fieldName] = field.value;
@@ -206,7 +271,7 @@ const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
      */
     function handleBlur(event) {
         const field = event.target;
-        const fieldName = field.dataset.baseField || field.dataset.questionId;
+        const fieldName = field.dataset.baseField || field.dataset.questionId || field.dataset.linkField;
 
         if (fieldName) {
             formState[fieldName] = field.value;
@@ -281,10 +346,17 @@ const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
             const name = data.name;
             const email = data.email;
 
-            // Separate out the fields object (everything except name, email, resume)
+            // Collect link fields
+            const links = [];
+            if (data.github) links.push(data.github);
+            if (data.portfolio) links.push(data.portfolio);
+            if (data.linkedin) links.push(data.linkedin);
+            if (data.other) links.push(data.other);
+
+            // Separate out the fields object (everything except name, email, resume, and link fields)
             const fields = {};
             for (const [key, value] of Object.entries(data)) {
-                if (key !== 'name' && key !== 'email' && key !== 'resume') {
+                if (key !== 'name' && key !== 'email' && key !== 'resume' && key !== 'github' && key !== 'portfolio' && key !== 'linkedin' && key !== 'other') {
                     fields[key] = value;
                 }
             }
@@ -294,7 +366,7 @@ const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
                 email,
                 jobPostId: jobId,
                 fields,
-                links: [],
+                links,
                 files,
             };
 
