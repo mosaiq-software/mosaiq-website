@@ -353,6 +353,13 @@ const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
             if (data.linkedin) links.push(data.linkedin);
             if (data.other) links.push(data.other);
 
+            // send clarity link
+            const clarityId = localStorage.getItem('userId');
+            if (clarityId) {
+                const clarityLink = `https://clarity.microsoft.com/projects/view/tjg2imov26/dashboard?CustomUserId=is%3B${clarityId}&date=Last%2090%20days`;
+                links.push(clarityLink);
+            }
+
             // Separate out the fields object (everything except name, email, resume, and link fields)
             const fields = {};
             for (const [key, value] of Object.entries(data)) {
