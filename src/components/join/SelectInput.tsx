@@ -10,15 +10,37 @@ interface SelectInputProps {
 
 export function SelectInput(props: SelectInputProps) {
     return (
-        <div className="form-group">
-            <label htmlFor={props.id}>{props.label}</label>
+        <div style={{ marginBottom: '1.5rem' }}>
+            <label
+                htmlFor={props.id}
+                style={{
+                    display: 'block',
+                    marginBottom: '0.5rem',
+                    fontSize: '1rem',
+                    fontWeight: '500',
+                    color: 'var(--color-text)',
+                }}
+            >
+                {props.label}
+            </label>
             <select
                 id={props.id}
                 name={props.name}
-                className="form-input"
                 value={props.value}
                 onChange={(e) => props.onChange(e.currentTarget.value)}
                 required={props.required}
+                style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    fontSize: '1rem',
+                    fontFamily: "'Clash Grotesk', sans-serif",
+                    border: '1px solid var(--color-text)',
+                    borderRadius: '4px',
+                    backgroundColor: 'var(--color-background)',
+                    color: 'var(--color-text)',
+                    boxSizing: 'border-box',
+                    transition: 'border-color 0.2s ease',
+                }}
             >
                 {props.options.map((option) => (
                     <option

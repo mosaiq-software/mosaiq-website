@@ -33,6 +33,7 @@ export function JobApplicationForm(props: JobApplicationFormProps) {
     const [jobData, setJobData] = useState<Partial<JobFormFields>>(() => storage.loadJobData());
     const [resumeFile, setResumeFile] = useState<File | null>(null);
     const [links, setLinks] = useState<string[]>([]);
+    const [isHovered, setIsHovered] = useState(false);
 
     const updateSharedField = useCallback(<K extends keyof SharedFormFields>(field: K, value: SharedFormFields[K]) => {
         setSharedData((prev) => ({ ...prev, [field]: value }));
@@ -65,7 +66,7 @@ export function JobApplicationForm(props: JobApplicationFormProps) {
     );
 
     return (
-        <div className="job-application-form">
+        <div>
             {/* Base Fields */}
             <TextInput
                 id="name"
@@ -141,9 +142,25 @@ export function JobApplicationForm(props: JobApplicationFormProps) {
             )}
 
             <button
-                class="submit-button"
                 disabled={isSubmitting}
                 onClick={onSubmit}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                style={{
+                    width: '100%',
+                    padding: '1rem',
+                    fontSize: '1.125rem',
+                    fontWeight: '600',
+                    border: '2px solid var(--mosaiq-magenta)',
+                    borderRadius: '4px',
+                    backgroundColor: isSubmitting ? 'var(--color-surface)' : isHovered ? 'var(--mosaiq-magenta)' : 'transparent',
+                    color: isSubmitting ? 'var(--color-text-secondary)' : isHovered ? 'var(--color-background)' : 'var(--mosaiq-magenta)',
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    marginTop: '1rem',
+                    transform: isHovered && !isSubmitting ? 'translateY(-4px)' : 'translateY(0)',
+                    boxShadow: isHovered && !isSubmitting ? '0 8px 16px rgba(147, 46, 118, 0.3)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
+                }}
             >
                 {isSubmitting ? 'Submitting...' : 'Submit Application'}
             </button>

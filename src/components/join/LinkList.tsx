@@ -35,17 +35,38 @@ export function LinkList({ label, onChange, initialLinks = [] }: LinkListProps) 
     };
 
     return (
-        <div className="form-group">
-            <label>{label}</label>
-            <div className="link-list">
+        <div style={{ marginBottom: '1.5rem' }}>
+            <label
+                style={{
+                    display: 'block',
+                    marginBottom: '0.5rem',
+                    fontSize: '1rem',
+                    fontWeight: '500',
+                    color: 'var(--color-text)',
+                }}
+            >
+                {label}
+            </label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 {links.map((link, index) => (
                     <input
                         key={index}
                         type="url"
-                        className="form-input"
                         placeholder="https://"
                         value={link}
                         onInput={(e) => handleLinkChange(index, e.currentTarget.value)}
+                        style={{
+                            width: '100%',
+                            padding: '0.75rem',
+                            fontSize: '1rem',
+                            fontFamily: "'Clash Grotesk', sans-serif",
+                            border: '1px solid var(--color-text)',
+                            borderRadius: '4px',
+                            backgroundColor: 'var(--color-background)',
+                            color: 'var(--color-text)',
+                            boxSizing: 'border-box',
+                            transition: 'border-color 0.2s ease',
+                        }}
                     />
                 ))}
             </div>
