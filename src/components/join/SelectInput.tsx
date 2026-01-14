@@ -1,3 +1,5 @@
+import { Label } from './Label';
+
 interface SelectInputProps {
     id: string;
     name: string;
@@ -11,18 +13,7 @@ interface SelectInputProps {
 export function SelectInput(props: SelectInputProps) {
     return (
         <div style={{ marginBottom: '1.5rem' }}>
-            <label
-                htmlFor={props.id}
-                style={{
-                    display: 'block',
-                    marginBottom: '0.5rem',
-                    fontSize: '1rem',
-                    fontWeight: '500',
-                    color: 'var(--color-text)',
-                }}
-            >
-                {props.label}
-            </label>
+            <Label htmlFor={props.id}>{props.label}</Label>
             <select
                 id={props.id}
                 name={props.name}

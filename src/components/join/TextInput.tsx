@@ -1,3 +1,5 @@
+import { Label } from './Label';
+
 interface TextInputProps {
     id: string;
     name: string;
@@ -12,18 +14,7 @@ interface TextInputProps {
 export function TextInput(props: TextInputProps) {
     return (
         <div style={{ marginBottom: '1.5rem' }}>
-            <label
-                htmlFor={props.id}
-                style={{
-                    display: 'block',
-                    marginBottom: '0.5rem',
-                    fontSize: '1rem',
-                    fontWeight: '500',
-                    color: 'var(--color-text)',
-                }}
-            >
-                {props.label}
-            </label>
+            <Label htmlFor={props.id}>{props.label}</Label>
             <input
                 type={props.type || 'text'}
                 id={props.id}

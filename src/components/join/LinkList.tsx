@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
+import { Label } from './Label';
 
 interface LinkListProps {
     label: string;
@@ -36,17 +37,7 @@ export function LinkList({ label, onChange, initialLinks = [] }: LinkListProps) 
 
     return (
         <div style={{ marginBottom: '1.5rem' }}>
-            <label
-                style={{
-                    display: 'block',
-                    marginBottom: '0.5rem',
-                    fontSize: '1rem',
-                    fontWeight: '500',
-                    color: 'var(--color-text)',
-                }}
-            >
-                {label}
-            </label>
+            <Label>{label}</Label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 {links.map((link, index) => (
                     <input
