@@ -1,0 +1,37 @@
+---
+interface Props {
+    shadowColor?: string;
+    liftAmount?: string;
+    shadowSize?: string;
+    as?: string;
+    class?: string;
+    [key: string]: any;
+}
+
+const { shadowColor = 'var(--mosaiq-magenta)', liftAmount = '-4px', shadowSize = '8px', as = 'div', class: className = '', style = '', ...rest } = Astro.props;
+
+const Tag = as as any;
+
+const inlineStyle = `--shadowColor: ${shadowColor}; --liftAmount: ${liftAmount}; --shadowSize: ${shadowSize}; ${style}`;
+---
+
+<Tag
+    class={`hover-lift ${className}`}
+    style={inlineStyle}
+    {...rest}
+>
+    <slot />
+</Tag>
+
+<style is:global>
+    .hover-lift {
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(var(--liftAmount));
+        box-shadow: var(--shadowSize) var(--shadowSize) 0px var(--shadowColor);
+    }
+</style>

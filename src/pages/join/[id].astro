@@ -1,0 +1,312 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLayout from '../../layouts/SectionLayout.astro';
+import Icon from '../../components/Icon.astro';
+import Square from '../../components/Square.astro';
+import JobApplication from '../../components/join/JobApplication.astro';
+import TextBubble from '../../components/about/TextBubble.astro';
+import _jobs from '../../data/jobs.json' assert { type: 'json' };
+import type { JobListing } from '../../scripts/types';
+
+export async function getStaticPaths() {
+    const jobs = _jobs as JobListing[];
+    return jobs.map((job) => ({
+        params: { id: job.id },
+        props: { job },
+    }));
+}
+
+const { job } = Astro.props;
+
+// Helper to convert \n to actual newlines
+const processText = (text: string) => text.replace(/\\n/g, '\n');
+---
+
+<BaseLayout title={`${job.title} - Mosaiq Software`}>
+    <SectionLayout id="job-detail">
+        <Square
+            width={10}
+            size={'35vw'}
+            color="var(--mosaiq-blue)"
+            top="300px"
+            right="10%"
+            rotation="20deg"
+        />
+        <Square
+            width={10}
+            size={'25vw'}
+            color="var(--mosaiq-magenta)"
+            top="700px"
+            left="5%"
+            rotation="35deg"
+        />
+
+        <div class="job-detail-container">
+            <a
+                href="/join"
+                class="back-link"
+            >
+                <Icon
+                    name={'arrow-left'}
+                    size={'sm'}
+                />
+                <span>Back to all positions</span>
+            </a>
+
+            <div class="job-header">
+                <TextBubble
+                    align="left"
+                    animated={true}
+                >
+                    <h1>{job.title}</h1>
+                </TextBubble>
+                <TextBubble
+                    align="left"
+                    animated={true}
+                >
+                    <p class="short-description preserve-breaks">{processText(job.shortDescription)}</p>
+                </TextBubble>
+            </div>
+
+            <div class="job-content">
+                <section class="description-section">
+                    <h2>About the Role</h2>
+                    <p class="preserve-breaks">{processText(job.description)}</p>
+                </section>
+
+                <section class="requirements-section">
+                    <h2>Requirements</h2>
+                    <ul>
+                        {job.requirements.map((req) => <li class="preserve-breaks">{processText(req)}</li>)}
+                    </ul>
+                </section>
+
+                <section class="nice-to-have-section">
+                    <h2>Nice to Have</h2>
+                    <ul>
+                        {job.niceToHave.map((item) => <li class="preserve-breaks">{processText(item)}</li>)}
+                    </ul>
+                </section>
+
+                <section class="important-notes">
+                    <h3>Important Notes</h3>
+                    <ul>
+                        <li>Mosaiq is an unpaid, nonprofit organization. We are unable to sponsor work visas.</li>
+                        <li>While Mosaiq is flexible and understands academic and personal commitments, members are expected to take their involvement seriously and manage their time responsibly.</li>
+                        <li>Mosaiq is built by people who genuinely enjoy building software. If you’re here purely to pad a resume, this likely won’t be a good fit. If you love creating and learning with others who care deeply about the craft, you’ll thrive here.</li>
+                    </ul>
+                </section>
+
+                <JobApplication job={job} />
+            </div>
+        </div>
+    </SectionLayout>
+</BaseLayout>
+
+<style>
+    .job-detail-container {
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto;
+        padding: var(--spacing-xl) var(--spacing-md);
+        z-index: 10;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        margin-bottom: var(--spacing-xl);
+        transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+        color: var(--color-text);
+    }
+
+    .job-header {
+        margin-bottom: var(--spacing-xl);
+        padding-bottom: var(--spacing-xl);
+        border-bottom: 2px solid var(--color-surface);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .job-header h1 {
+        font-size: 3rem;
+        margin-bottom: var(--spacing-md);
+        line-height: 1.2;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .short-description {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .job-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xl);
+    }
+
+    section {
+        background-color: var(--color-background-transparent);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--color-text);
+        border-radius: 8px;
+        padding: var(--spacing-lg);
+        box-sizing: border-box;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    section h2 {
+        font-size: 1.75rem;
+        margin-bottom: var(--spacing-md);
+        color: var(--color-text);
+    }
+
+    section h3 {
+        font-size: 1.25rem;
+        margin-bottom: var(--spacing-md);
+        color: var(--color-text);
+    }
+
+    section p {
+        font-size: var(--font-size-md);
+        line-height: 1.6;
+        color: var(--color-text-secondary);
+    }
+
+    .preserve-breaks {
+        white-space: pre-line;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        font-size: var(--font-size-md);
+        line-height: 1.6;
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-sm);
+        padding-left: var(--spacing-lg);
+        position: relative;
+        font-family: 'Clash Grotesk', sans-serif;
+    }
+
+    li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--mosaiq-magenta);
+        font-weight: bold;
+    }
+
+    .important-notes {
+        background-color: #fff9e6;
+        border-color: var(--mosaiq-pink);
+    }
+
+    .important-notes h3 {
+        color: var(--mosaiq-pink);
+    }
+
+    .apply-section {
+        background: linear-gradient(135deg, rgba(147, 46, 118, 0.1), rgba(35, 132, 202, 0.1));
+        border-color: var(--mosaiq-magenta);
+        text-align: center;
+    }
+
+    .apply-section a:not(.apply-button) {
+        color: var(--mosaiq-magenta);
+        text-decoration: underline;
+    }
+
+    .apply-button {
+        margin-top: var(--spacing-md);
+        display: inline-block;
+        border-color: var(--mosaiq-magenta);
+        color: var(--mosaiq-magenta);
+    }
+
+    .apply-button:hover {
+        background-color: var(--mosaiq-magenta);
+        color: var(--color-background);
+    }
+
+    @media (max-width: 768px) {
+        .job-detail-container {
+            padding: var(--spacing-md);
+        }
+
+        .job-header h1 {
+            font-size: 2rem;
+        }
+
+        .short-description {
+            font-size: var(--font-size-md);
+        }
+
+        section {
+            padding: var(--spacing-md);
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 375px) {
+        .job-detail-container {
+            padding: var(--spacing-sm);
+        }
+
+        .job-header {
+            padding-bottom: var(--spacing-md);
+        }
+
+        .job-header h1 {
+            font-size: 1.5rem;
+            word-break: break-word;
+        }
+
+        .short-description {
+            font-size: var(--font-size-sm);
+        }
+
+        section {
+            padding: var(--spacing-sm);
+            border-radius: 4px;
+        }
+
+        section h2 {
+            font-size: 1.25rem;
+        }
+
+        section h3 {
+            font-size: 1rem;
+        }
+
+        section p,
+        li {
+            font-size: var(--font-size-sm);
+        }
+
+        .back-link {
+            font-size: var(--font-size-sm);
+        }
+    }
+</style>

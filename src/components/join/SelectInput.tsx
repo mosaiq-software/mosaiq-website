@@ -1,0 +1,47 @@
+import { Label } from './Label';
+
+interface SelectInputProps {
+    id: string;
+    name: string;
+    label: string;
+    value: string;
+    onChange: (value: string) => void;
+    options: { value: string; label: string }[];
+    required?: boolean;
+}
+
+export function SelectInput(props: SelectInputProps) {
+    return (
+        <div style={{ marginBottom: '1.5rem' }}>
+            <Label htmlFor={props.id}>{props.label}</Label>
+            <select
+                id={props.id}
+                name={props.name}
+                value={props.value}
+                onChange={(e) => props.onChange(e.currentTarget.value)}
+                required={props.required}
+                style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    fontSize: '1rem',
+                    fontFamily: "'Clash Grotesk', sans-serif",
+                    border: '1px solid var(--color-text)',
+                    borderRadius: '4px',
+                    backgroundColor: 'var(--color-background)',
+                    color: 'var(--color-text)',
+                    boxSizing: 'border-box',
+                    transition: 'border-color 0.2s ease',
+                }}
+            >
+                {props.options.map((option) => (
+                    <option
+                        key={option.value}
+                        value={option.value}
+                    >
+                        {option.label}
+                    </option>
+                ))}
+            </select>
+        </div>
+    );
+}
