@@ -42,6 +42,20 @@ export function JobApplicationForm(props: JobApplicationFormProps) {
         setHasAlreadyApplied(storage.hasApplied());
     }, [storage]);
 
+    // Save shared data to localStorage whenever it changes
+    useEffect(() => {
+        if (Object.keys(sharedData).length > 0) {
+            storage.saveToSharedStorage(sharedData);
+        }
+    }, [sharedData, storage]);
+
+    // Save job-specific data to localStorage whenever it changes
+    useEffect(() => {
+        if (Object.keys(jobData).length > 0) {
+            storage.saveToJobStorage(jobData);
+        }
+    }, [jobData, storage]);
+
     const updateSharedField = useCallback(<K extends keyof SharedFormFields>(field: K, value: SharedFormFields[K]) => {
         setSharedData((prev) => ({ ...prev, [field]: value }));
     }, []);

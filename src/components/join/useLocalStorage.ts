@@ -38,7 +38,7 @@ export function useLocalStorage(jobId: string) {
     }, []);
 
     const saveToJobStorage = useCallback(
-        (formState: JobFormFields) => {
+        (formState: Partial<JobFormFields>) => {
             try {
                 localStorage.setItem(JOB_STORAGE_KEY, JSON.stringify(formState));
             } catch (e) {
@@ -48,7 +48,7 @@ export function useLocalStorage(jobId: string) {
         [JOB_STORAGE_KEY]
     );
 
-    const saveToSharedStorage = useCallback((formState: SharedFormFields) => {
+    const saveToSharedStorage = useCallback((formState: Partial<SharedFormFields>) => {
         try {
             localStorage.setItem(SHARED_STORAGE_KEY, JSON.stringify(formState));
         } catch (e) {
