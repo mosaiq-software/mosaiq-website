@@ -2,6 +2,7 @@ import { useCallback } from 'preact/hooks';
 import type { SharedFormFields, JobFormFields } from './types';
 
 const SHARED_STORAGE_KEY = 'mosaiq-application-shared';
+const APPLIED_JOBS_KEY = 'mosaiq-applied-jobs';
 
 export function useLocalStorage(jobId: string) {
     const JOB_STORAGE_KEY = `mosaiq-application-${jobId}`;
@@ -63,5 +64,31 @@ export function useLocalStorage(jobId: string) {
         }
     }, [JOB_STORAGE_KEY]);
 
-    return { loadJobData, loadSharedData, saveToJobStorage, saveToSharedStorage, clearJobStorage };
+    const hasApplied = useCallback((): boolean => {
+        try {
+            const appliedJobs = localStorage.getItem(APPLIED_JOBS_KEY);
+            if (appliedJobs) {
+                const jobsArray = JSON.parse(appliedJobs) as string[];
+                return jobsArray.includes(jobId);
+            }
+        } catch (e) {
+            console.error('Error checking applied status:', e);
+        }
+        return false;
+    }, [jobId]);
+
+    const markAsApplied = useCallback(() => {
+        try {
+            const appliedJobs = localStorage.getItem(APPLIED_JOBS_KEY);
+            const jobsArray = appliedJobs ? (JSON.parse(appliedJobs) as string[]) : [];
+            if (!jobsArray.includes(jobId)) {
+                jobsArray.push(jobId);
+                localStorage.setItem(APPLIED_JOBS_KEY, JSON.stringify(jobsArray));
+            }
+        } catch (e) {
+            console.error('Error marking as applied:', e);
+        }
+    }, [jobId]);
+
+    return { loadJobData, loadSharedData, saveToJobStorage, saveToSharedStorage, clearJobStorage, hasApplied, markAsApplied };
 }
