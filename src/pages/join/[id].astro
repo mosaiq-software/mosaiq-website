@@ -4,6 +4,7 @@ import SectionLayout from '../../layouts/SectionLayout.astro';
 import Icon from '../../components/Icon.astro';
 import Square from '../../components/Square.astro';
 import JobApplication from '../../components/join/JobApplication.astro';
+import TextBubble from '../../components/about/TextBubble.astro';
 import _jobs from '../../data/jobs.json' assert { type: 'json' };
 import type { JobListing } from '../../scripts/types';
 
@@ -50,8 +51,18 @@ const { job } = Astro.props;
             </a>
 
             <div class="job-header">
-                <h1>{job.title}</h1>
-                <p class="short-description">{job.shortDescription}</p>
+                <TextBubble
+                    align="left"
+                    animated={true}
+                >
+                    <h1>{job.title}</h1>
+                </TextBubble>
+                <TextBubble
+                    align="left"
+                    animated={true}
+                >
+                    <p class="short-description">{job.shortDescription}</p>
+                </TextBubble>
             </div>
 
             <div class="job-content">
@@ -187,6 +198,7 @@ const { job } = Astro.props;
         margin-bottom: var(--spacing-sm);
         padding-left: var(--spacing-lg);
         position: relative;
+        font-family: 'Clash Grotesk', sans-serif;
     }
 
     li::before {
