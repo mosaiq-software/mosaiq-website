@@ -81,7 +81,7 @@ export function FileInput(props: FileInputProps) {
                     style={{
                         width: '48px',
                         height: '48px',
-                        stroke: isDragging ? 'var(--mosaiq-magenta)' : 'var(--color-text)',
+                        color: isDragging ? 'var(--mosaiq-magenta)' : 'var(--color-text)',
                     }}
                     aria-hidden="true"
                     class="icon"
