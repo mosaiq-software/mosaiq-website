@@ -17,3 +17,11 @@ export interface TeamMember {
     since: string;
     website?: string;
 }
+export interface JobListing {
+    id: string;
+    title: string;
+    shortDescription: string;
+    description: string;
+    requirements: string[];
+    niceToHave: string[];
+}

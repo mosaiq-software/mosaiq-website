@@ -1,0 +1,255 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLayout from '../../layouts/SectionLayout.astro';
+import Icon from '../../components/Icon.astro';
+import Square from '../../components/Square.astro';
+import _jobs from '../../data/jobs.json' assert { type: 'json' };
+import type { JobListing } from '../../scripts/types';
+
+export async function getStaticPaths() {
+    const jobs = _jobs as JobListing[];
+    return jobs.map((job) => ({
+        params: { id: job.id },
+        props: { job },
+    }));
+}
+
+const { job } = Astro.props;
+---
+
+<BaseLayout title={`${job.title} - Mosaiq Software`}>
+    <SectionLayout id="job-detail">
+        <Square
+            width={10}
+            size={'35vw'}
+            color="var(--mosaiq-blue)"
+            top="300px"
+            right="10%"
+            rotation="20deg"
+        />
+        <Square
+            width={10}
+            size={'25vw'}
+            color="var(--mosaiq-magenta)"
+            top="700px"
+            left="5%"
+            rotation="35deg"
+        />
+
+        <div class="job-detail-container">
+            <a
+                href="/join"
+                class="back-link"
+            >
+                <Icon
+                    name={'arrow-left'}
+                    size={'sm'}
+                />
+                <span>Back to all positions</span>
+            </a>
+
+            <div class="job-header">
+                <h1>{job.title}</h1>
+                <p class="short-description">{job.shortDescription}</p>
+            </div>
+
+            <div class="job-content">
+                <section class="description-section">
+                    <h2>About the Role</h2>
+                    <p>{job.description}</p>
+                </section>
+
+                <section class="requirements-section">
+                    <h2>Requirements</h2>
+                    <ul>
+                        {job.requirements.map((req) => <li>{req}</li>)}
+                    </ul>
+                </section>
+
+                <section class="nice-to-have-section">
+                    <h2>Nice to Have</h2>
+                    <ul>
+                        {job.niceToHave.map((item) => <li>{item}</li>)}
+                    </ul>
+                </section>
+
+                <section class="important-notes">
+                    <h3>Important Notes</h3>
+                    <p>Mosaiq is a nonprofit, member-run organization. This is not a full-time job or a paid position. Instead, it's a flexible side commitment where you can gain real project experience, collaborate with talented people, and build meaningful software.</p>
+                    <ul>
+                        <li>There is no compensation. Any revenue Mosaiq generates is fully reinvested into operations or directed toward charitable initiatives.</li>
+                        <li>This is a part-time, flexible opportunity. Members balance Mosaiq with classes, work, and other obligations.</li>
+                        <li>We cannot sponsor work visas or provide employment authorization at this time.</li>
+                    </ul>
+                </section>
+
+                <section class="apply-section">
+                    <h2>Ready to Apply?</h2>
+                    <p>
+                        Skip the generic application form. Shoot us an email at{' '}
+                        <a
+                            href="mailto:join@mosaiq.dev"
+                            target="_blank"
+                            >join@mosaiq.dev</a
+                        >{' '}
+                        with your resume or portfolio. Tell us about yourself, what excites you about this role, and what you'd like to build with us!
+                    </p>
+                    <a
+                        href="mailto:join@mosaiq.dev"
+                        target="_blank"
+                        class="outline-button button-like apply-button"
+                    >
+                        Apply Now
+                    </a>
+                </section>
+            </div>
+        </div>
+    </SectionLayout>
+</BaseLayout>
+
+<style>
+    .job-detail-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: var(--spacing-xl) var(--spacing-md);
+        z-index: 10;
+        position: relative;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        margin-bottom: var(--spacing-xl);
+        transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+        color: var(--color-text);
+    }
+
+    .job-header {
+        margin-bottom: var(--spacing-xl);
+        padding-bottom: var(--spacing-xl);
+        border-bottom: 2px solid var(--color-surface);
+    }
+
+    .job-header h1 {
+        font-size: 3rem;
+        margin-bottom: var(--spacing-md);
+        line-height: 1.2;
+    }
+
+    .short-description {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+    }
+
+    .job-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xl);
+    }
+
+    section {
+        background-color: var(--color-background-transparent);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--color-text);
+        border-radius: 8px;
+        padding: var(--spacing-lg);
+    }
+
+    section h2 {
+        font-size: 1.75rem;
+        margin-bottom: var(--spacing-md);
+        color: var(--color-text);
+    }
+
+    section h3 {
+        font-size: 1.25rem;
+        margin-bottom: var(--spacing-md);
+        color: var(--color-text);
+    }
+
+    section p {
+        font-size: var(--font-size-md);
+        line-height: 1.6;
+        color: var(--color-text-secondary);
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        font-size: var(--font-size-md);
+        line-height: 1.6;
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-sm);
+        padding-left: var(--spacing-lg);
+        position: relative;
+    }
+
+    li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--mosaiq-magenta);
+        font-weight: bold;
+    }
+
+    .important-notes {
+        background-color: #fff9e6;
+        border-color: var(--mosaiq-pink);
+    }
+
+    .important-notes h3 {
+        color: var(--mosaiq-pink);
+    }
+
+    .apply-section {
+        background: linear-gradient(135deg, rgba(147, 46, 118, 0.1), rgba(35, 132, 202, 0.1));
+        border-color: var(--mosaiq-magenta);
+        text-align: center;
+    }
+
+    .apply-section a:not(.apply-button) {
+        color: var(--mosaiq-magenta);
+        text-decoration: underline;
+    }
+
+    .apply-button {
+        margin-top: var(--spacing-md);
+        display: inline-block;
+        border-color: var(--mosaiq-magenta);
+        color: var(--mosaiq-magenta);
+    }
+
+    .apply-button:hover {
+        background-color: var(--mosaiq-magenta);
+        color: var(--color-background);
+    }
+
+    @media (max-width: 768px) {
+        .job-header h1 {
+            font-size: 2rem;
+        }
+
+        .short-description {
+            font-size: var(--font-size-md);
+        }
+
+        section {
+            padding: var(--spacing-md);
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
