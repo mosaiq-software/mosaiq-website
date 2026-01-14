@@ -119,6 +119,15 @@ export function JobApplicationForm(props: JobApplicationFormProps) {
                         }}
                     >
                         We've received your application for <strong>{props.job.title}</strong>. Our team will review it and get back to you soon.
+                        <br />
+                        <br />
+                        In the meantime, if you have any questions, feel free to reach out to us at{' '}
+                        <a
+                            href="mailto:hello@mosaiq.dev"
+                            target="_blank"
+                        >
+                            hello@mosaiq.dev
+                        </a>
                     </p>
                 </div>
             ) : (
