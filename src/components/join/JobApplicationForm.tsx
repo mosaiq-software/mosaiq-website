@@ -139,6 +139,7 @@ export function JobApplicationForm(props: JobApplicationFormProps) {
                         <a
                             href="mailto:hello@mosaiq.dev"
                             target="_blank"
+                            data-clarity-click="JobApplicationForm-AlreadyApplied-ContactEmail"
                         >
                             hello@mosaiq.dev
                         </a>
@@ -240,6 +241,7 @@ export function JobApplicationForm(props: JobApplicationFormProps) {
                             transform: isHovered && !isSubmitting ? 'translateY(-4px)' : 'translateY(0)',
                             boxShadow: isHovered && !isSubmitting ? '0 8px 16px rgba(147, 46, 118, 0.3)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
                         }}
+                        data-clarity-click="JobApplicationForm-SubmitButton"
                     >
                         {isSubmitting ? 'Submitting...' : 'Submit Application'}
                     </button>

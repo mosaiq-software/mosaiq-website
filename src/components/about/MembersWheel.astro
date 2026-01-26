@@ -42,6 +42,7 @@ const getImageBoxShadow = () => {
                             class="headshot"
                             draggable="false"
                             style={`box-shadow: ${getImageBoxShadow()}`}
+                            data-clarity-click={`Member-${member.name}-Profile MemberHeadshot`}
                         />
                     </Floaty>
                     <div class="headshot-text">
@@ -54,6 +55,7 @@ const getImageBoxShadow = () => {
                                 rel="noopener noreferrer"
                                 class="website-link"
                                 aria-label={`Visit ${member.name}'s website`}
+                                data-clarity-click={`Member-${member.name}-Website MemberWebsite`}
                             >
                                 <Icon
                                     name={'external-link'}

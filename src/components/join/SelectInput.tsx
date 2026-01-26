@@ -32,6 +32,7 @@ export function SelectInput(props: SelectInputProps) {
                     boxSizing: 'border-box',
                     transition: 'border-color 0.2s ease',
                 }}
+                data-clarity-click={`SelectInput-${props.id}`}
             >
                 {props.options.map((option) => (
                     <option

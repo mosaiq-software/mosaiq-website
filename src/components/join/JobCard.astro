@@ -14,6 +14,7 @@ const { job } = Astro.props;
     as="a"
     href={`/join/${job.id}`}
     class="job-card"
+    data-clarity-click={`JobCard-${job.id} JobCardViewDetails`}
 >
     <div class="job-header">
         <h3>{job.title}</h3>

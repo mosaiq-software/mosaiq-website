@@ -62,13 +62,13 @@ const jobs = _jobs as JobListing[];
         <TextBubbleWrap>
             <TextBubble amount="20%">
                 <h3>Not seeing a fit?</h3>
-            </TextBubble>
-            <TextBubble amount="20%">
                 <p>
                     We're always open to meeting talented people. If you're passionate about building software and want to be part of our community, reach out to us at{' '}
                     <a
+                        id="no-fit-mail"
                         href="mailto:join@mosaiq.dev"
                         target="_blank"
+                        data-clarity-click="Join-NoFitEmail"
                         >join@mosaiq.dev</a
                     >
                 </p>
@@ -76,6 +76,7 @@ const jobs = _jobs as JobListing[];
         </TextBubbleWrap>
     </SectionLayout>
 </BaseLayout>
+
 <style>
     h1 {
         font-size: 3rem;

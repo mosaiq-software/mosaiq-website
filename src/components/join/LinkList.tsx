@@ -58,6 +58,7 @@ export function LinkList({ label, onChange, initialLinks = [] }: LinkListProps) 
                             boxSizing: 'border-box',
                             transition: 'border-color 0.2s ease',
                         }}
+                        data-clarity-click={`LinkList-LinkInput-${index}`}
                     />
                 ))}
             </div>

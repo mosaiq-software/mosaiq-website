@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SectionLayout from '../../../layouts/SectionLayout.astro';
+import Icon from '../../../components/Icon.astro';
+import Square from '../../../components/Square.astro';
+import TextBubble from '../../../components/about/TextBubble.astro';
+import _jobs from '../../../data/jobs.json' assert { type: 'json' };
+import type { JobListing } from '../../../scripts/types';
+import { JobApplicationForm } from '../../../components/join/JobApplicationForm';
+
+export async function getStaticPaths() {
+    const jobs = _jobs as JobListing[];
+    return jobs.map((job) => ({
+        params: { id: job.id },
+        props: { job },
+    }));
+}
+
+const { job } = Astro.props;
+const applicationPortalUrl = import.meta.env.APPLICATION_PORTAL_URL || '';
+---
+
+<BaseLayout title={`Apply - ${job.title} - Mosaiq Software`}>
+    <SectionLayout id="job-apply">
+        <Square
+            width={10}
+            size={'35vw'}
+            color="var(--mosaiq-blue)"
+            top="300px"
+            right="10%"
+            rotation="20deg"
+        />
+        <Square
+            width={10}
+            size={'25vw'}
+            color="var(--mosaiq-magenta)"
+            top="700px"
+            left="5%"
+            rotation="35deg"
+        />
+
+        <div class="apply-container">
+            <div class="nav-links">
+                <a
+                    href={`/join/${job.id}`}
+                    class="back-link"
+                    data-clarity-click="JobApplication-BackToDetails"
+                >
+                    <Icon
+                        name={'arrow-left'}
+                        size={'sm'}
+                    />
+                    <span>Back to role details</span>
+                </a>
+            </div>
+
+            <div class="apply-header">
+                <TextBubble
+                    align="left"
+                    animated={true}
+                >
+                    <h1>Apply for {job.title}</h1>
+                </TextBubble>
+                <TextBubble
+                    align="left"
+                    animated={true}
+                >
+                    <p class="subtitle">Tell us a bit about yourself and what excites you about this role.</p>
+                </TextBubble>
+            </div>
+
+            <JobApplicationForm
+                client:load
+                job={job}
+                applicationPortalUrl={applicationPortalUrl}
+            />
+        </div>
+    </SectionLayout>
+</BaseLayout>
+
+<style>
+    .apply-container {
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto;
+        padding: var(--spacing-xl) var(--spacing-md);
+        z-index: 10;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+        color: var(--color-text);
+    }
+
+    .back-link.secondary {
+        font-size: var(--font-size-sm);
+    }
+
+    .apply-header {
+        margin-bottom: var(--spacing-xl);
+        padding-bottom: var(--spacing-lg);
+        border-bottom: 2px solid var(--color-surface);
+    }
+
+    .apply-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-md);
+        line-height: 1.2;
+    }
+
+    .subtitle {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .apply-container {
+            padding: var(--spacing-md);
+        }
+
+        .apply-header h1 {
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            font-size: var(--font-size-md);
+        }
+    }
+
+    @media (max-width: 375px) {
+        .apply-container {
+            padding: var(--spacing-sm);
+        }
+
+        .apply-header h1 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
