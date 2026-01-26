@@ -8,7 +8,7 @@ import SectionHeaderTitle from '../components/SectionHeaderTitle.astro';
 import SectionLayout from '../layouts/SectionLayout.astro';
 import ContactInfo from '../components/ContactInfo.astro';
 import _projects from '../data/projects.json' assert { type: 'json' };
-import { Project } from '../scripts/types';
+import { type Project } from '../scripts/types';
 
 const projects = _projects.filter((project) => project.homepage) as Project[];
 ---
@@ -30,6 +30,7 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
                 href="#projects"
                 class="outline-button"
                 style="z-index: 2;"
+                data-clarity-click="Hero-SeeOurWork"
                 >See Our Work</a
             >
         </div>
@@ -52,6 +53,7 @@ const projects = _projects.filter((project) => project.homepage) as Project[];
                 href="/projects"
                 class="outline-button"
                 style="margin: 0 auto;"
+                data-clarity-click="Home-SeeAllProjects"
                 >See All Projects</a
             >
         </div>

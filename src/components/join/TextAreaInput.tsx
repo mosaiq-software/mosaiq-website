@@ -34,6 +34,7 @@ export function TextAreaInput(props: TextAreaInputProps) {
                     resize: 'vertical',
                     transition: 'border-color 0.2s ease',
                 }}
+                data-clarity-click={`TextAreaInput-${props.id}`}
             />
         </div>
     );

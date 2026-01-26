@@ -1,17 +1,40 @@
-
 <div class="contact-container">
     <div class="upper-contact-container">
         <div class="contact-box">
-            <a class="outline-square" style='border-color: var(--mosaiq-magenta)' href='https://www.linkedin.com/company/mosaiq-software/' target="_blank"></a>
-            <a class="fill-square" style='background: var(--mosaiq-blue)' href='https://www.linkedin.com/company/mosaiq-software/' target="_blank"></a>
+            <a
+                class="outline-square"
+                style="border-color: var(--mosaiq-magenta)"
+                href="https://www.linkedin.com/company/mosaiq-software/"
+                target="_blank"
+                data-clarity-click="Contact-LinkedIn"
+            ></a>
+            <a
+                class="fill-square"
+                style="background: var(--mosaiq-blue)"
+                href="https://www.linkedin.com/company/mosaiq-software/"
+                target="_blank"
+                data-clarity-click="Contact-LinkedIn"
+            ></a>
             <div class="contact">
                 <h2>LinkedIn</h2>
                 <p>mosaiq-software</p>
             </div>
         </div>
         <div class="contact-box">
-            <a class="outline-square" style='border-color: var(--mosaiq-navy)' href='mailto:hello@mosaiq.dev' target="_blank"></a>
-            <a class="fill-square" style='background: var(--mosaiq-pink)' href='mailto:hello@mosaiq.dev' target="_blank"></a>
+            <a
+                class="outline-square"
+                style="border-color: var(--mosaiq-navy)"
+                href="mailto:hello@mosaiq.dev"
+                target="_blank"
+                data-clarity-click="Contact-Email"
+            ></a>
+            <a
+                class="fill-square"
+                style="background: var(--mosaiq-pink)"
+                href="mailto:hello@mosaiq.dev"
+                target="_blank"
+                data-clarity-click="Contact-Email"
+            ></a>
             <div class="contact">
                 <h2>Email</h2>
                 <p>hello@mosaiq.dev</p>
@@ -20,16 +43,38 @@
     </div>
     <div class="lower-contact-container">
         <div class="contact-box">
-            <a class="outline-square" style='border-color: var(--mosaiq-magenta)' href='https://github.com/mosaiq-software' target="_blank"></a>
-            <a class="fill-square" style='background: var(--mosaiq-blue)' href='https://github.com/mosaiq-software' target="_blank"></a>
+            <a
+                class="outline-square"
+                style="border-color: var(--mosaiq-magenta)"
+                href="https://github.com/mosaiq-software"
+                target="_blank"
+                data-clarity-click="Contact-GitHub"
+            ></a>
+            <a
+                class="fill-square"
+                style="background: var(--mosaiq-blue)"
+                href="https://github.com/mosaiq-software"
+                target="_blank"
+                data-clarity-click="Contact-GitHub"
+            ></a>
             <div class="contact">
                 <h2>GitHub</h2>
                 <p>mosaiq-software</p>
             </div>
         </div>
         <div class="contact-box">
-            <a class="outline-square" style='border-color: var(--mosaiq-navy)' href='/about'></a>
-            <a class="fill-square" style='background: var(--mosaiq-pink)' href='/about'></a>
+            <a
+                class="outline-square"
+                style="border-color: var(--mosaiq-navy)"
+                href="/about"
+                data-clarity-click="Contact-Members"
+            ></a>
+            <a
+                class="fill-square"
+                style="background: var(--mosaiq-pink)"
+                href="/about"
+                data-clarity-click="Contact-Members"
+            ></a>
             <div class="contact">
                 <h2>Members</h2>
                 <p>Meet the team</p>
@@ -39,8 +84,12 @@
 </div>
 <style>
     @keyframes rotate {
-        0% {transform: rotate(0deg)}
-        100% {transform: rotate(360deg)}
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
     .contact-container {
@@ -49,7 +98,8 @@
         padding: calc((sqrt(2) * 0.8 - 1) * clamp(calc(375px / sqrt(2)), 25dvw, 500px) / 2) 0;
     }
 
-    .upper-contact-container, .lower-contact-container {
+    .upper-contact-container,
+    .lower-contact-container {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -77,9 +127,10 @@
         transform: rotate(60deg);
     }
 
-    .contact-box:nth-child(2) .fill-square, .contact-box:nth-child(3) .fill-square {
+    .contact-box:nth-child(2) .fill-square,
+    .contact-box:nth-child(3) .fill-square {
         transform: rotate(-15deg);
-    } 
+    }
 
     .outline-square {
         animation: rotate 60s linear infinite;
@@ -91,10 +142,11 @@
         top: 15%;
     }
 
-    .contact-box:nth-child(2) .outline-square, .contact-box:nth-child(3) .outline-square {
+    .contact-box:nth-child(2) .outline-square,
+    .contact-box:nth-child(3) .outline-square {
         animation-direction: reverse;
         animation-delay: -7.5s;
-    } 
+    }
 
     .contact {
         width: 100%;
@@ -113,4 +165,3 @@
         color: var(--color-background);
     }
 </style>
-

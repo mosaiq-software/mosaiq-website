@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionLayout from '../../layouts/SectionLayout.astro';
 import Icon from '../../components/Icon.astro';
 import Square from '../../components/Square.astro';
-import JobApplication from '../../components/join/JobApplication.astro';
 import TextBubble from '../../components/about/TextBubble.astro';
 import _jobs from '../../data/jobs.json' assert { type: 'json' };
 import type { JobListing } from '../../scripts/types';
@@ -97,7 +96,17 @@ const processText = (text: string) => text.replace(/\\n/g, '\n');
                     </ul>
                 </section>
 
-                <JobApplication job={job} />
+                <section class="apply-section">
+                    <h2>Ready to apply?</h2>
+                    <p>Submit your application in just a few minutes. We’ll review it and get back to you within a week.</p>
+                    <a
+                        class="outline-button apply-button"
+                        href={`/join/${job.id}/apply`}
+                        data-clarity-click={`JobDetail-ApplyFor-${job.id} JobDetail-ApplyForRole`}
+                    >
+                        Apply for this role
+                    </a>
+                </section>
             </div>
         </div>
     </SectionLayout>
