@@ -75,6 +75,7 @@ export function FileInput(props: FileInputProps) {
                     gap: '0.75rem',
                     boxSizing: 'border-box',
                 }}
+                data-clarity-click={`FileInput-${props.id}`}
             >
                 <i
                     data-feather={'upload'}

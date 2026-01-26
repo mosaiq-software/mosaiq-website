@@ -44,6 +44,7 @@ export function TextInput(props: TextInputProps) {
                     boxSizing: 'border-box',
                     transition: 'border-color 0.2s ease',
                 }}
+                data-clarity-click={`TextInput-${props.id}`}
             />
             {showError && (
                 <span

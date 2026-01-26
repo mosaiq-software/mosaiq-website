@@ -7,47 +7,76 @@ const year = new Date().getFullYear();
 <footer>
     <div class="column footer-links">
         <h2 class="bkg-text">Organization</h2>
-        <a href="/about">About</a>
-        <a href="/join">Join</a>
+        <a
+            href="/about"
+            data-clarity-click="Footer-About"
+            >About</a
+        >
+        <a
+            href="/join"
+            data-clarity-click="Footer-Join"
+            >Join</a
+        >
         <br />
         <h2 class="bkg-text">Elsewhere</h2>
         <a
             href="https://github.com/mosaiq-software"
             target="_blank"
+            data-clarity-click="Footer-GitHub"
             >GitHub</a
         >
         <a
             href="https://www.linkedin.com/company/mosaiq-software"
             target="_blank"
+            data-clarity-click="Footer-LinkedIn"
             >LinkedIn</a
         >
     </div>
     <div class="column">
-        <a href="/">
+        <a
+            href="/"
+            data-clarity-click="Footer-Home"
+        >
             <SimpleMosaiqLogo />
         </a>
         <a
             href="/"
             style="text-decoration: none;"
+            data-clarity-click="Footer-Home"
         >
             <h2 class="white-text">Mosaiq Software</h2>
         </a>
         <p class="white-text">&copy; {year} Mosaiq Software</p>
     </div>
     <div class="column footer-links">
-        <h2 class="bkg-text">Resources</h2>
-        <a href="/brand">Brand Assets</a>
-        <a href="/projects">Projects</a>
+        <h2
+            class="bkg-text"
+            data-clarity-click="Footer-Resources"
+        >
+            Resources
+        </h2>
+        <a
+            href="/brand"
+            data-clarity-click="Footer-BrandAssets"
+            >Brand Assets</a
+        >
+        <a
+            href="/projects"
+            data-clarity-click="Footer-Projects"
+            >Projects</a
+        >
         <br />
         <h2 class="bkg-text">Website Design</h2>
         <a
             href="https://matthagger.me/"
             target="_blank"
+            data-clarity-click="Footer-Credits Footer-Credits-MattHagger"
             >Matt Hagger</a
         >
         <a
             href="https://samranda.com"
             target="_blank"
+            data-clarity-click="Footer-Credits Footer-Credits-SamRanda"
             >Sam Randa</a
         >
     </div>
