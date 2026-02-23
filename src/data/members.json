@@ -81,5 +81,12 @@
         "img": "/assets/headshots/dylanphillips.jpeg",
         "since": "2026-02-19",
         "website": "https://dylanphillips.vercel.app"
+    },
+    {
+        "name": "Julia Albrecht",
+        "role": "Software Engineer",
+        "img":  "/assets/headshots/juliaalbrecht.jpg",
+        "since": "2026-02-07",
+        "website": "https://www.linkedin.com/in/julia-k-albrecht/"
     }
 ]
