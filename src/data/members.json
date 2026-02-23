@@ -74,5 +74,12 @@
         "img": "/assets/headshots/ivybixler.jpg",
         "since": "2025-11-15",
         "website": "https://github.com/ibixler"
+    },
+    {
+        "name": "Dylan Phillips",
+        "role": "Full-Stack Software Engineer",
+        "img": "/assets/headshots/dylanphillips.jpeg",
+        "since": "2026-02-19",
+        "website": "https://dylanphillips.vercel.app"
     }
 ]
